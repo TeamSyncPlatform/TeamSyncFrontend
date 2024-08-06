@@ -6,5 +6,13 @@ import { Component } from '@angular/core';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+  role: string = 'USER';
 
+  // constructor(private authService: AuthService) {
+  // }
+  // ngOnInit(): void {
+  //   this.authService.userState.subscribe((result) => {
+  //     this.role = result;
+  //   })
+  // }
 }
