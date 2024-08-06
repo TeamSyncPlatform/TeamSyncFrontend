@@ -1,1 +1,21 @@
-<p>admin-navbar works!</p>
+<div id="navbar">
+  <img class="logo" src="/logo.png" alt=" ">
+  <div id="nav">
+    <div class="nav-option" [class.selected]="isSelected('home')">
+      Home
+    </div>
+    <div class="nav-option" [class.selected]="isSelected('statistics')">
+      Statistics
+    </div>
+  </div>
+  <!--  <span class="title">TeamSync</span>-->
+  <div class="push"></div>
+  <div id="right-section">
+    <button mat-icon-button id="notification-icon-box">
+      <mat-icon matBadge="{{unreadNotifications}}" matBadgeSize="small" class="notification-icon" (click)="openNotificationsPage()" [ngStyle]="{'color':'#ababab'}">notifications</mat-icon>
+    </button>
+    <button mat-icon-button id="account-icon-box">
+      <mat-icon class="account-icon" (click)="openAccountPage()">account_circle</mat-icon>
+    </button>
+  </div>
+</div>

@@ -37,6 +37,11 @@
   color: #191919;
 }
 
+.selected{
+  box-shadow: 0 -2px 0 0 #379ada inset;
+  color: #191919;
+}
+
 .push{
   flex:1;
 }

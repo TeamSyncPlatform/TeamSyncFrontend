@@ -1,1 +1,2 @@
-<p>navbar works!</p>
+<app-user-navbar *ngIf="role === 'USER'"></app-user-navbar>
+<app-admin-navbar *ngIf="role === 'ADMIN'"></app-admin-navbar>
