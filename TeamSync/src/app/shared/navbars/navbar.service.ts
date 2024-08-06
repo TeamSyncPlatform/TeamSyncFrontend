@@ -1,17 +1,27 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject} from "rxjs";
-import {ActivatedRoute, Router} from "@angular/router";
+import { BehaviorSubject } from 'rxjs';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NavbarService {
 
-  currentPath$ = new BehaviorSubject("");
+  private currentPath$ = new BehaviorSubject<string>("");
   currentPathState = this.currentPath$.asObservable();
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
-    this.currentPath$.next(this.getFirstPathSegment(this.router.url));
+  constructor(private router: Router) {
+    this.updateCurrentPath(this.router.url);
+
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.updateCurrentPath(event.urlAfterRedirects);
+      }
+    });
+  }
+
+  private updateCurrentPath(url: string) {
+    this.currentPath$.next(this.getFirstPathSegment(url));
   }
 
   private getFirstPathSegment(url: string): string {

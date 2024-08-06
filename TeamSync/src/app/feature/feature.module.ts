@@ -7,12 +7,14 @@ import {MatIcon} from "@angular/material/icon";
 import {RouterLink} from "@angular/router";
 import {MatBadge} from "@angular/material/badge";
 import {SharedModule} from "../shared/shared.module";
+import { AnalyticsPageComponent } from './analytics-page/analytics-page.component';
 
 
 
 @NgModule({
   declarations: [
-    HomePageComponent
+    HomePageComponent,
+    AnalyticsPageComponent
   ],
   imports: [
     CommonModule,

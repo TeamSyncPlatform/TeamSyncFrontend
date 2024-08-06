@@ -1,11 +1,11 @@
 <div id="navbar">
   <img class="logo" src="/logo.png" alt=" ">
   <div id="nav">
-    <div class="nav-option" [class.selected]="isSelected('home')">
+    <div class="nav-option" [class.selected]="isSelected('home')" [routerLink]="['/home']">
       Home
     </div>
-    <div class="nav-option" [class.selected]="isSelected('statistics')">
-      Statistics
+    <div class="nav-option" [class.selected]="isSelected('analytics')" [routerLink]="['/analytics']">
+      Analytics
     </div>
   </div>
   <!--  <span class="title">TeamSync</span>-->
