@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -7,6 +7,31 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import {CoreModule} from "./core/core.module";
 import {FeatureModule} from "./feature/feature.module";
 import {SharedModule} from "./shared/shared.module";
+import {AuthConfig, OAuthModule, OAuthStorage} from "angular-oauth2-oidc";
+import {HttpClientModule} from "@angular/common/http";
+import {StatehandlerService, StatehandlerServiceImpl} from "./core/zitadel/statehandler.service";
+import {
+  StatehandlerProcessorService,
+  StatehandlerProcessorServiceImpl
+} from "./core/zitadel/statehandler-processor.service";
+import {StorageService} from "./core/zitadel/storage.service";
+
+const authConfig: AuthConfig = {
+  scope: 'openid profile email offline_access',
+  responseType: 'code',
+  oidc: true,
+  clientId: '279398622066442246@p2-app',
+  issuer: 'https://zitadel.tiacgroup.com', // eg. https://acme-jdo9fs.zitadel.cloud
+  redirectUri: 'http://localhost:4200/auth/callback',
+  postLogoutRedirectUri: 'http://localhost:4200/signedout',
+  requireHttps: false, // required for running locally
+};
+
+const stateHandlerFn = (stateHandler: StatehandlerService) => {
+  return () => {
+    return stateHandler.initStateHandler();
+  };
+};
 
 @NgModule({
   declarations: [
@@ -17,11 +42,41 @@ import {SharedModule} from "./shared/shared.module";
     AppRoutingModule,
     CoreModule,
     FeatureModule,
-    SharedModule
+    SharedModule,
+
+    HttpClientModule,
+    OAuthModule.forRoot({
+      resourceServer: {
+        allowedUrls: ['http://localhost:18090/api/v1/*'],
+        sendAccessToken: true,
+      },
+    }),
   ],
   providers: [
     provideClientHydration(),
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    {
+      provide: APP_INITIALIZER,
+      useFactory: stateHandlerFn,
+      multi: true,
+      deps: [StatehandlerService],
+    },
+    {
+      provide: AuthConfig,
+      useValue: authConfig,
+    },
+    {
+      provide: StatehandlerProcessorService,
+      useClass: StatehandlerProcessorServiceImpl,
+    },
+    {
+      provide: StatehandlerService,
+      useClass: StatehandlerServiceImpl,
+    },
+    // {
+    //   provide: OAuthStorage,
+    //   useClass: StorageService,
+    // }
   ],
   bootstrap: [AppComponent]
 })
