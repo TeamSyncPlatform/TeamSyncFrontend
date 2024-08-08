@@ -8,13 +8,16 @@ import {RouterLink} from "@angular/router";
 import {MatBadge} from "@angular/material/badge";
 import {SharedModule} from "../shared/shared.module";
 import { AnalyticsPageComponent } from './analytics-page/analytics-page.component';
+import { SideNavComponent } from './side-nav/side-nav.component';
+import {MatTreeModule} from '@angular/material/tree';
 
 
 
 @NgModule({
   declarations: [
     HomePageComponent,
-    AnalyticsPageComponent
+    AnalyticsPageComponent,
+    SideNavComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +28,8 @@ import { AnalyticsPageComponent } from './analytics-page/analytics-page.componen
     MatBadge,
     MatFabButton,
     MatIconButton,
-    SharedModule
+    SharedModule,
+    MatTreeModule
   ]
 })
 export class FeatureModule { }

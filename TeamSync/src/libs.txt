@@ -1,1 +1,2 @@
 ng add @angular/material
+npm install angular-oauth2-oidc
