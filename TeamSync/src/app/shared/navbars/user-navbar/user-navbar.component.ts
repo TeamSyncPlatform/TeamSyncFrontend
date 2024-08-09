@@ -38,4 +38,8 @@ export class UserNavbarComponent implements OnInit{
     this.authenticationService.signout();
     console.log("Successfully logged out")
   }
+
+  openSettingsPage() {
+
+  }
 }
