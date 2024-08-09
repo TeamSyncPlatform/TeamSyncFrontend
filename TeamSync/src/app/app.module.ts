@@ -20,7 +20,7 @@ const authConfig: AuthConfig = {
   scope: 'openid profile email offline_access',
   responseType: 'code',
   oidc: true,
-  clientId: '279398622066442246@p2-app',
+  clientId: '279559308100829190@p2-app',
   issuer: 'https://zitadel.tiacgroup.com', // eg. https://acme-jdo9fs.zitadel.cloud
   redirectUri: 'http://localhost:4200/auth/callback',
   postLogoutRedirectUri: 'http://localhost:4200/signedout',
@@ -47,7 +47,7 @@ const stateHandlerFn = (stateHandler: StatehandlerService) => {
     HttpClientModule,
     OAuthModule.forRoot({
       resourceServer: {
-        allowedUrls: ['http://localhost:18090/api/v1/*'],
+        allowedUrls: ['https://zitadel.tiacgroup.com/admin/v1', 'https://zitadel.tiacgroup.com/management/v1', 'https://zitadel.tiacgroup.com/auth/v1'],
         sendAccessToken: true,
       },
     }),
