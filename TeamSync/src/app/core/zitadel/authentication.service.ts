@@ -4,6 +4,8 @@ import { BehaviorSubject, from, Observable } from 'rxjs';
 
 import { StatehandlerService } from './statehandler.service';
 import {map} from "rxjs/operators";
+import {UserService} from "../../shared/users/user.service";
+import {User} from "../../shared/users/models/user.model";
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +18,7 @@ export class AuthenticationService {
     private oauthService: OAuthService,
     private authConfig: AuthConfig,
     private statehandler: StatehandlerService,
+    private userService: UserService
   ) {}
 
   public get authenticated(): boolean {
@@ -29,6 +32,7 @@ export class AuthenticationService {
   getUserRole(): Observable<string | null> {
     return this.getOIDCUser().pipe(
       map((data: any) => {
+        console.log(data);
         const roles = data.info['urn:zitadel:iam:org:project:roles'];
         if (roles) {
           return Object.keys(roles)[0];
@@ -55,9 +59,21 @@ export class AuthenticationService {
       const newState = setState ? await this.statehandler.createState().toPromise() : undefined;
       this.oauthService.initCodeFlow(newState);
     }
-    this._authenticationChanged.next(this.authenticated);
+      this._authenticationChanged.next(this.authenticated);
 
+    this.login();
     return this.authenticated;
+  }
+
+  public login(){
+    this.userService.handleLogin().subscribe({
+      next: (user: User) => {
+        console.log("Handled login: ", user);
+      },
+      error: (_) => {
+        console.log("Error!");
+      }
+    })
   }
 
   public signout(): void {

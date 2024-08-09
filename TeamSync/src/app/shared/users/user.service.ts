@@ -14,4 +14,8 @@ export class UserService {
   getAll(): Observable<User[]> {
     return this.httpClient.get<User[]>(environment.apiHost + 'users')
   }
+
+  handleLogin(): Observable<User>{
+    return this.httpClient.put<User>(environment.apiHost + 'users/login', {});
+  }
 }
