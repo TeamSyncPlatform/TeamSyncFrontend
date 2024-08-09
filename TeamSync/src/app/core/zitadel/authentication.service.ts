@@ -65,4 +65,8 @@ export class AuthenticationService {
     this._authenticated = false;
     this._authenticationChanged.next(false);
   }
+
+  getAccessToken(): string | null {
+    return window.localStorage.getItem('zitadel:access_token');
+  }
 }

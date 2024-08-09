@@ -8,13 +8,14 @@ import {CoreModule} from "./core/core.module";
 import {FeatureModule} from "./feature/feature.module";
 import {SharedModule} from "./shared/shared.module";
 import {AuthConfig, OAuthModule, OAuthStorage} from "angular-oauth2-oidc";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {StatehandlerService, StatehandlerServiceImpl} from "./core/zitadel/statehandler.service";
 import {
   StatehandlerProcessorService,
   StatehandlerProcessorServiceImpl
 } from "./core/zitadel/statehandler-processor.service";
 import {StorageService} from "./core/zitadel/storage.service";
+import {Interceptor} from "./core/zitadel/interceptor";
 
 const authConfig: AuthConfig = {
   scope: 'openid profile email offline_access',
@@ -72,6 +73,11 @@ const stateHandlerFn = (stateHandler: StatehandlerService) => {
     {
       provide: StatehandlerService,
       useClass: StatehandlerServiceImpl,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: Interceptor,
+      multi: true,
     },
     // {
     //   provide: OAuthStorage,
