@@ -37,31 +37,20 @@ interface ExampleFlatNode {
   styleUrl: './side-nav.component.css'
 })
 export class SideNavComponent {
-  private _transformer = (node: FoodNode, level: number) => {
-    return {
-      expandable: !!node.children && node.children.length > 0,
-      name: node.name,
-      level: level,
-    };
-  };
+  isDropdownOpen = false;
+  items = [
+    { name: 'General', icon: 'fa fa-comments' },
+    { name: 'Announcements', icon: 'fa fa-bullhorn' },
+    { name: 'Development', icon: 'fa fa-code' },
+    // Add more items as needed
+  ];
 
-  treeControl = new FlatTreeControl<ExampleFlatNode>(
-    node => node.level,
-    node => node.expandable,
-  );
-
-  treeFlattener = new MatTreeFlattener(
-    this._transformer,
-    node => node.level,
-    node => node.expandable,
-    node => node.children,
-  );
-
-  dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-
-  constructor() {
-    this.dataSource.data = TREE_DATA;
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
   }
 
-  hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
+  selectItem(item: any) {
+    console.log('Selected item:', item);
+    this.isDropdownOpen = false;
+  }
 }
