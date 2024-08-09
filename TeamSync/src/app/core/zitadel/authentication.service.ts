@@ -3,6 +3,7 @@ import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
 import { BehaviorSubject, from, Observable } from 'rxjs';
 
 import { StatehandlerService } from './statehandler.service';
+import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +24,18 @@ export class AuthenticationService {
 
   public get authenticationChanged(): Observable<boolean> {
     return this._authenticationChanged;
+  }
+
+  getUserRole(): Observable<string | null> {
+    return this.getOIDCUser().pipe(
+      map((data: any) => {
+        const roles = data.info['urn:zitadel:iam:org:project:roles'];
+        if (roles) {
+          return Object.keys(roles)[0];
+        }
+        return null;
+      })
+    );
   }
 
   public getOIDCUser(): Observable<any> {
