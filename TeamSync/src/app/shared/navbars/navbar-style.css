@@ -69,3 +69,26 @@
   border-radius: 0.5em;
   background-color: #ffffff;
 }
+
+
+/*::ng-deep .cdk-overlay-container {*/
+/*  margin-top: 1rem;*/
+/*}*/
+
+::ng-deep .cdk-overlay-container .account-menu {
+  margin-top: 1rem;
+  background: #e3e3e3;
+}
+
+::ng-deep .cdk-overlay-container:after {
+  content:"";
+  position: absolute;
+  right: 43px;
+  top: 75px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 20px solid #e3e3e3;
+  z-index:-9999;
+}

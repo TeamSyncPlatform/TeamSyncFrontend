@@ -21,14 +21,18 @@ const routes: Routes = [
     component: AnalyticsPageComponent,
     path:"analytics"
   },
-  {
-    path: 'user',
-    component: UserComponent,
-    canActivate: [AuthGuard],
-  },
+  // {
+  //   path: 'user',
+  //   component: UserComponent,
+  //   canActivate: [AuthGuard],
+  // },
   {
     path: 'auth/callback',
-    redirectTo: 'user'
+    redirectTo: 'home'
+  },
+  {
+    path: 'signedout',
+    redirectTo: 'home'
   },
   {
     path: 'signedout',

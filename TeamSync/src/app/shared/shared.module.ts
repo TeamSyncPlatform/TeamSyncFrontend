@@ -5,8 +5,9 @@ import { AdminNavbarComponent } from './navbars/admin-navbar/admin-navbar.compon
 import { UserNavbarComponent } from './navbars/user-navbar/user-navbar.component';
 import {MatBadge} from "@angular/material/badge";
 import {MatIcon} from "@angular/material/icon";
-import {MatIconButton} from "@angular/material/button";
+import {MatButton, MatIconButton} from "@angular/material/button";
 import {RouterLink} from "@angular/router";
+import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 
 
 
@@ -24,7 +25,11 @@ import {RouterLink} from "@angular/router";
     MatBadge,
     MatIcon,
     MatIconButton,
-    RouterLink
+    RouterLink,
+    MatButton,
+    MatMenu,
+    MatMenuItem,
+    MatMenuTrigger
   ]
 })
 export class SharedModule { }
