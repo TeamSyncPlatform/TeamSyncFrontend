@@ -26,8 +26,8 @@
       Company group
     </button>
     <ul *ngIf="isDropdownOpen" class="dropdown-menu">
-      <li *ngFor="let item of items" (click)="selectItem(item)">
-        <span class="channel"><mat-icon class="tag-icon">tag</mat-icon>{{item.name}}</span>
+      <li *ngFor="let channel of channels" (click)="selectChannel(channel)">
+        <span class="channel"><mat-icon class="tag-icon">tag</mat-icon>{{channel.name}}</span>
       </li>
     </ul>
   </div>

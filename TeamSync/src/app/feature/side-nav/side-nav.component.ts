@@ -1,8 +1,9 @@
-import {Component, signal} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {FlatTreeControl} from "@angular/cdk/tree";
 import {MatTreeFlatDataSource, MatTreeFlattener, MatTreeModule} from "@angular/material/tree";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
+import {Channel} from "../models/channel.model";
 
 /**
  * Food data with nested structure.
@@ -38,19 +39,23 @@ interface ExampleFlatNode {
 })
 export class SideNavComponent {
   isDropdownOpen = false;
-  items = [
-    { name: 'General', icon: 'fa fa-comments' },
-    { name: 'Announcements', icon: 'fa fa-bullhorn' },
-    { name: 'Development', icon: 'fa fa-code' },
-    // Add more items as needed
+
+  channels: Channel[] = [
+    { id: 1, name: 'General', group: { id: 1}, posts: [] },
+    { id: 2, name: 'Announcements', group: { id: 1}, posts: [] },
+    { id: 3, name: 'Development', group: { id: 1}, posts: [] },
+    // Add more channels as needed
   ];
+
+  @Output()
+  channelClicked: EventEmitter<Channel> = new EventEmitter<Channel>();
 
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 
-  selectItem(item: any) {
-    console.log('Selected item:', item);
-    this.isDropdownOpen = false;
+  selectChannel(channel: Channel) {
+    console.log('Selected channel:', channel);
+    this.channelClicked.emit(channel);
   }
 }
