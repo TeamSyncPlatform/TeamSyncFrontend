@@ -14,8 +14,19 @@
     <button mat-icon-button id="notification-icon-box">
       <mat-icon matBadge="{{unreadNotifications}}" matBadgeSize="small" class="notification-icon" (click)="openNotificationsPage()" [ngStyle]="{'color':'#ababab'}">notifications</mat-icon>
     </button>
-    <button mat-icon-button id="account-icon-box">
-      <mat-icon class="account-icon" (click)="openAccountPage()">account_circle</mat-icon>
+    <button mat-icon-button id="account-icon-box" [matMenuTriggerFor]="menu">
+      <mat-icon class="account-icon">account_circle</mat-icon>
     </button>
+    <mat-menu class="account-menu" #menu="matMenu">
+      <div class="menu-info">
+        <span>{{loggedUser.firstName}} {{loggedUser.lastName}}</span>
+        <span class="email-info">{{loggedUser.email}}</span>
+      </div>
+      <hr class="menu-line">
+      <span class="menu-option" (click)="openAccountPage()"><mat-icon class="menu-icon">person</mat-icon>Profile</span>
+      <span class="menu-option" (click)="openSettingsPage()"><mat-icon class="menu-icon">settings</mat-icon>Settings</span>
+      <hr class="menu-line">
+      <span class="menu-option" (click)="logout()"><mat-icon class="menu-icon">logout</mat-icon>Logout</span>
+    </mat-menu>
   </div>
 </div>

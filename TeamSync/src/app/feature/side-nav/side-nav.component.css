@@ -1,0 +1,18 @@
+#side-nav{
+  height: 100%;
+  background-color: #fafafa;
+  padding: 1em;
+}
+
+.group{
+  border: none;
+}
+
+.channel{
+  color: #404040;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
