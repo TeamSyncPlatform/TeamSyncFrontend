@@ -17,6 +17,10 @@ export class GroupService {
     return this.httpClient.get<Group[]>(environment.apiHost + 'groups')
   }
 
+  getGroupChannels(id: number): Observable<Channel[]> {
+    return this.httpClient.get<Channel[]>(environment.apiHost + 'groups/' + id + '/channels')
+  }
+
   get(id: String): Observable<Group> {
     return this.httpClient.get<Group>(environment.apiHost + 'groups/' + id);
   }
@@ -51,5 +55,4 @@ export class GroupService {
     // Return the dummy groups wrapped in an Observable
     return of(dummyGroups);
   }
-
 }

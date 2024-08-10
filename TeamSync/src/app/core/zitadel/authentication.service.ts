@@ -49,7 +49,6 @@ export class AuthenticationService {
   getUserId(): Observable<string | null> {
     return this.getOIDCUser().pipe(
       map((data: any) => {
-        console.log(data);
         return data.info?.sub || null;
       })
     );

@@ -10,6 +10,10 @@ import {SharedModule} from "../shared/shared.module";
 import { AnalyticsPageComponent } from './analytics-page/analytics-page.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import {MatTreeModule} from '@angular/material/tree';
+import {MatFormField} from "@angular/material/form-field";
+import {MatInput} from "@angular/material/input";
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 
 
@@ -29,7 +33,11 @@ import {MatTreeModule} from '@angular/material/tree';
     MatFabButton,
     MatIconButton,
     SharedModule,
-    MatTreeModule
+    MatTreeModule,
+    MatFormFieldModule,
+    MatInput,
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class FeatureModule { }

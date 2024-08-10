@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {User} from "./models/user.model";
 import {environment} from "../../core/env/env";
+import {Group} from "../../feature/models/group.model";
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +26,10 @@ export class UserService {
 
   handleLogin(): Observable<User>{
     return this.httpClient.put<User>(environment.apiHost + 'users/login', {});
+  }
+
+  searchGroups(userId: string | null, searchValue: string): Observable<Group[]> {
+    const url = `${environment.apiHost}users/${userId}/groups/search`;
+    return this.httpClient.put<Group[]>(url, { searchValue });
   }
 }
