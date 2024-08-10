@@ -16,19 +16,18 @@
 <!--</div>-->
 
 <div id="side-nav">
-  <div class="dropdown">
-    <button (click)="toggleDropdown()" class="dropdown-button">
-      @if (isDropdownOpen){
-        <mat-icon>arrow_drop_down</mat-icon>
-      } @else {
-        <mat-icon>arrow_right</mat-icon>
-      }
-      Company group
+  <div *ngFor="let group of groups" class="group">
+    <button (click)="toggleDropdown(group.id)" class="group-button">
+      <mat-icon>
+        {{ dropdowns.get(group.id) ? 'arrow_drop_down' : 'arrow_right' }}
+      </mat-icon>
+      {{ group.name }}
     </button>
-    <ul *ngIf="isDropdownOpen" class="dropdown-menu">
-      <li *ngFor="let channel of channels" (click)="selectChannel(channel)">
-        <span class="channel"><mat-icon class="tag-icon">tag</mat-icon>{{channel.name}}</span>
+    <ul *ngIf="dropdowns.get(group.id)" class="dropdown-menu">
+      <li *ngFor="let channel of group.channels" (click)="selectChannel(channel)">
+        <span class="channel"><mat-icon class="tag-icon">tag</mat-icon>{{ channel.name }}</span>
       </li>
     </ul>
   </div>
 </div>
+

@@ -6,13 +6,13 @@
   border-right: 2px solid #e3e3e3;
 }
 
-.dropdown {
+.group {
   position: relative;
   display: inline-block;
   width: 100%;
 }
 
-.dropdown-button {
+.group-button {
   background-color: rgba(47, 49, 54, 0);
   width: 100%;
   color: #191919;
@@ -27,7 +27,7 @@
   align-items: center;
 }
 
-.dropdown-button:hover {
+.group-button:hover {
   /*background-color: #efefef;*/
   color: #379ADAFF;
 }
