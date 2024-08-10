@@ -19,8 +19,8 @@
     </button>
     <mat-menu class="account-menu" #menu="matMenu">
       <div class="menu-info">
-        <span>Annete Black</span>
-        <span class="email-info">annete.black&#64;gmail.com</span>
+        <span>{{loggedUser.firstName}} {{loggedUser.lastName}}</span>
+        <span class="email-info">{{loggedUser.email}}</span>
       </div>
       <hr class="menu-line">
       <span class="menu-option" (click)="openAccountPage()"><mat-icon class="menu-icon">person</mat-icon>Profile</span>

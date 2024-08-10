@@ -46,6 +46,15 @@ export class AuthenticationService {
     return from(this.oauthService.loadUserProfile());
   }
 
+  getUserId(): Observable<string | null> {
+    return this.getOIDCUser().pipe(
+      map((data: any) => {
+        console.log(data);
+        return data.info?.sub || null;
+      })
+    );
+  }
+
   public async authenticate(setState: boolean = true): Promise<boolean> {
     this.oauthService.configure(this.authConfig);
     this.oauthService.setupAutomaticSilentRefresh();

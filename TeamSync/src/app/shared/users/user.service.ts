@@ -15,6 +15,14 @@ export class UserService {
     return this.httpClient.get<User[]>(environment.apiHost + 'users')
   }
 
+  get(id: String): Observable<User> {
+    return this.httpClient.get<User>(environment.apiHost + 'users/' + id);
+  }
+
+  getByExternalId(id: string): Observable<User> {
+    return this.httpClient.get<User>(environment.apiHost + 'users/external-id/' + id)
+  }
+
   handleLogin(): Observable<User>{
     return this.httpClient.put<User>(environment.apiHost + 'users/login', {});
   }

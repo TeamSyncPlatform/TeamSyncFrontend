@@ -1,7 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {NavbarService} from "../navbar.service";
 import {AuthenticationService} from "../../../core/zitadel/authentication.service";
+import {UserService} from "../../users/user.service";
+import {User} from "../../users/models/user.model";
 
 @Component({
   selector: 'app-user-navbar',
@@ -10,6 +12,9 @@ import {AuthenticationService} from "../../../core/zitadel/authentication.servic
 })
 export class UserNavbarComponent implements OnInit{
   private currentPath: String = '';
+
+  @Input()
+  loggedUser!: User;
 
   constructor(private navbarService: NavbarService, private authenticationService: AuthenticationService) {}
 
