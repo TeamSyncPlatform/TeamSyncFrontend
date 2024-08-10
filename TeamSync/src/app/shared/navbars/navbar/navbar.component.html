@@ -1,2 +1,2 @@
-<app-user-navbar *ngIf="role === 'USER'"></app-user-navbar>
-<app-admin-navbar *ngIf="role === 'ADMIN'"></app-admin-navbar>
+<app-user-navbar *ngIf="role === 'user'" [loggedUser]="loggedUser" ></app-user-navbar>
+<app-admin-navbar *ngIf="role === 'admin'" [loggedUser]="loggedUser"></app-admin-navbar>

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {UserService} from "../../shared/users/user.service";
+import {User} from "../../shared/users/models/user.model";
 import {Channel} from "../models/channel.model";
 
 @Component({
@@ -11,5 +13,20 @@ export class HomePageComponent {
 
   onChannelClicked(channel: Channel) {
     this.activeChannel = channel
+  }
+
+  constructor(private userService: UserService) {
+  }
+
+  onTestClick() {
+    this.userService.getAll().subscribe({
+      next: (users: User[]) => {
+        console.log(users);
+      },
+      error: (_) => {
+        console.log("Error!");
+      }
+    });
+
   }
 }

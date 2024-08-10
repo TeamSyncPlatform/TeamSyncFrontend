@@ -1,5 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {NavbarService} from "../navbar.service";
+import {AuthenticationService} from "../../../core/zitadel/authentication.service";
+import {User} from "../../users/models/user.model";
 
 @Component({
   selector: 'app-admin-navbar',
@@ -9,7 +11,9 @@ import {NavbarService} from "../navbar.service";
 export class AdminNavbarComponent implements OnInit{
   private currentPath: String = '';
 
-  constructor(private navbarService: NavbarService) {}
+  @Input()
+  loggedUser!: User;
+  constructor(private navbarService: NavbarService, private authenticationService:AuthenticationService) {}
 
   ngOnInit() {
     this.navbarService.currentPathState.subscribe((result) => {
@@ -29,6 +33,15 @@ export class AdminNavbarComponent implements OnInit{
   }
 
   openNotificationsPage() {
+
+  }
+
+  logout() {
+    this.authenticationService.signout();
+    console.log("Successfully logged out")
+  }
+
+  openSettingsPage() {
 
   }
 }
