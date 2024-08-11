@@ -1,0 +1,11 @@
+<mat-dialog-content>
+  <p class="title">Create group</p>
+  <mat-form-field appearance="outline">
+    <mat-label>Group name</mat-label>
+    <input matInput [(ngModel)]="groupName" />
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancelClick()">Cancel</button>
+  <button mat-flat-button (click)="onCreateClick()" [disabled]="!groupName">Create</button>
+</mat-dialog-actions>

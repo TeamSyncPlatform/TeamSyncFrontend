@@ -6,6 +6,13 @@
   border-right: 2px solid #e3e3e3;
 }
 
+.top-section{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
 #groups-list{
   display: flex;
   flex-direction: column;
@@ -18,11 +25,20 @@
   width: 100%;
 }
 
+.group-top-section{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 2px;
+}
+
 .group-button {
   background-color: rgba(47, 49, 54, 0);
   width: 100%;
-  color: #191919;
-  padding: 10px;
+  color: #404040;
+  padding: 5px 5px 5px 0;
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -47,18 +63,6 @@
   padding: 0 0 0 1em;
 }
 
-/*.dropdown-menu li {*/
-/*  padding: 10px;*/
-/*  display: flex;*/
-/*  align-items: center;*/
-/*  cursor: pointer;*/
-/*  color: #494949;*/
-/*}*/
-
-/*.dropdown-menu li:hover {*/
-/*  background-color: #40444b;*/
-/*  color: #ffffff;*/
-/*}*/
 
 .channel{
   color: #404040;
@@ -93,5 +97,7 @@
 
 .selected-group{
   color: #005cbb;
+  background-color: #efefef;
+  border-radius: 10px;
 }
 

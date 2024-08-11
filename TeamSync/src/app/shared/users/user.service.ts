@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {User} from "./models/user.model";
 import {environment} from "../../core/env/env";
-import {Group} from "../../feature/models/group.model";
+import {Group} from "../../feature/models/group/group.model";
 
 @Injectable({
   providedIn: 'root'

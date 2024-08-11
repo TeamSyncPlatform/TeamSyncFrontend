@@ -1,9 +1,9 @@
-import { Component, EventEmitter, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ChangeDetectionStrategy, signal, inject} from '@angular/core';
 import {FlatTreeControl} from "@angular/cdk/tree";
 import {MatTreeFlatDataSource, MatTreeFlattener, MatTreeModule} from "@angular/material/tree";
 import {MatButtonModule} from "@angular/material/button";
 import {Channel} from "../models/channel.model";
-import {Group} from "../models/group.model";
+import {Group} from "../models/group/group.model";
 import {GroupService} from "../services/group.service";
 
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -13,6 +13,8 @@ import {FormBuilder, FormControl} from "@angular/forms";
 import {UserService} from "../../shared/users/user.service";
 import {AuthenticationService} from "../../core/zitadel/authentication.service";
 import {User} from "../../shared/users/models/user.model";
+import {MatDialog} from "@angular/material/dialog";
+import {CreateGroupDialogComponent} from "../dialogs/create-group-dialog/create-group-dialog.component";
 
 
 @Component({
@@ -89,6 +91,19 @@ export class SideNavComponent implements OnInit {
       error: (_) => {
         console.log('Error!');
       },
+    });
+  }
+
+
+  readonly dialog = inject(MatDialog);
+  openCreateGroupDialog() {
+    const dialogRef = this.dialog.open(CreateGroupDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('The dialog was closed with result:', result);
+        this.searchGroups();
+      }
     });
   }
 }

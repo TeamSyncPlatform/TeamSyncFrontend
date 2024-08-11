@@ -1,5 +1,11 @@
 <div id="side-nav">
-  <h3>Groups</h3>
+  <div class="top-section">
+    <h3>Groups</h3>
+    <button mat-icon-button class="add-group-button" (click)="openCreateGroupDialog()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
 
   <mat-form-field id="search-bar" appearance="outline">
     <mat-label>Search Groups</mat-label>
@@ -9,12 +15,18 @@
 
   <div id="groups-list">
     <div *ngFor="let group of groups" class="group">
-      <button (click)="toggleDropdown(group.id)" class="group-button" [ngClass]="{'selected-group': selectedChannel.group.id === group.id}">
-        <mat-icon>
-          {{ dropdowns.get(group.id) ? 'arrow_drop_down' : 'arrow_right' }}
-        </mat-icon>
-        {{ group.name }}
-      </button>
+      <div class="group-top-section">
+        <button (click)="toggleDropdown(group.id)" class="group-button" [ngClass]="{'selected-group': selectedChannel.group.id === group.id}">
+          <mat-icon>
+            {{ dropdowns.get(group.id) ? 'arrow_drop_down' : 'arrow_right' }}
+          </mat-icon>
+          {{ group.name }}
+        </button>
+        <button mat-icon-button class="add-group-button">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+
       <ul *ngIf="dropdowns.get(group.id)" class="dropdown-menu">
         <li *ngFor="let channel of channels.get(group.id)" (click)="selectChannel(channel)">
           <span class="channel" [ngClass]="{'selected-channel': selectedChannel.id === channel.id}"><mat-icon class="tag-icon">tag</mat-icon>{{ channel.name }}</span>
