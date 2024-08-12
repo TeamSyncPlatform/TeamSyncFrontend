@@ -34,4 +34,8 @@ export class GroupService {
     return this.httpClient.get<Boolean>(environment.apiHost + 'groups/unique/' + groupName);
   }
 
+  remove(id: number): Observable<Group>  {
+    return this.httpClient.delete<Group>(environment.apiHost + 'groups/' + id);
+  }
+
 }

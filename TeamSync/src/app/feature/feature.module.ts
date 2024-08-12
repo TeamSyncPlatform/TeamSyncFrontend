@@ -18,6 +18,7 @@ import { CreateGroupDialogComponent } from './dialogs/create-group-dialog/create
 import {MatDialogActions, MatDialogClose, MatDialogContent} from "@angular/material/dialog";
 import { CreateChannelDialogComponent } from './dialogs/create-channel-dialog/create-channel-dialog.component';
 import { RemoveChannelDialogComponent } from './dialogs/remove-channel-dialog/remove-channel-dialog.component';
+import { RemoveGroupDialogComponent } from './dialogs/remove-group-dialog/remove-group-dialog.component';
 
 
 
@@ -28,7 +29,8 @@ import { RemoveChannelDialogComponent } from './dialogs/remove-channel-dialog/re
     SideNavComponent,
     CreateGroupDialogComponent,
     CreateChannelDialogComponent,
-    RemoveChannelDialogComponent
+    RemoveChannelDialogComponent,
+    RemoveGroupDialogComponent
   ],
   imports: [
     CommonModule,

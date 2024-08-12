@@ -13,9 +13,6 @@ import {Channel} from "../../models/channel/channel.model";
 export class RemoveChannelDialogComponent {
   channel: Channel;
 
-  channelForm!: FormGroup;
-  nameError: string | null = null;
-
   constructor(
     private channelService: ChannelService,
     private dialogRef: MatDialogRef<RemoveChannelDialogComponent>,
@@ -39,6 +36,4 @@ export class RemoveChannelDialogComponent {
       }
     });
   }
-
-
 }
