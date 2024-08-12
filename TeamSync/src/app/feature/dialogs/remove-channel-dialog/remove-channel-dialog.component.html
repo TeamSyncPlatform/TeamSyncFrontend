@@ -1,0 +1,8 @@
+<mat-dialog-content>
+  <p class="title">Remove Channel</p>
+  <p>Are you sure you want to delete the channel: <b>{{channel.name}}</b></p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No</button>
+  <button mat-flat-button id="yes-button" (click)="onYesClick()">Yes</button>
+</mat-dialog-actions>

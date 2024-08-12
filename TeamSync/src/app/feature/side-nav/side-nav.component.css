@@ -73,6 +73,7 @@
   font-size: 16px;
   justify-content: left;
   cursor: pointer;
+  width: 100%;
 }
 
 .channel:hover{
@@ -101,3 +102,13 @@
   border-radius: 10px;
 }
 
+.channel-box{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.remove-button, .add-button{
+  transform: scale(0.8);
+}

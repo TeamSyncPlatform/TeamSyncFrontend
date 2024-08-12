@@ -16,6 +16,7 @@ import {User} from "../../shared/users/models/user.model";
 import {MatDialog} from "@angular/material/dialog";
 import {CreateGroupDialogComponent} from "../dialogs/create-group-dialog/create-group-dialog.component";
 import {CreateChannelDialogComponent} from "../dialogs/create-channel-dialog/create-channel-dialog.component";
+import {RemoveChannelDialogComponent} from "../dialogs/remove-channel-dialog/remove-channel-dialog.component";
 
 
 @Component({
@@ -127,6 +128,25 @@ export class SideNavComponent implements OnInit {
       if (result) {
         console.log('The dialog was closed with result:', result);
         this.loadChannels(group.id);
+      }
+    });
+  }
+
+  openRemoveGroupDialog(group: Group) {
+
+  }
+
+  openRemoveChannelDialog(channel: Channel) {
+    const dialogRef = this.dialog.open(RemoveChannelDialogComponent, {
+      data: {
+        channel: channel
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('The dialog was closed with result:', result);
+        this.loadChannels(channel.group.id);
       }
     });
   }

@@ -1,4 +1,4 @@
-import {Component, Inject, Input} from '@angular/core';
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {ChannelService} from "../../services/channel.service";
@@ -9,7 +9,7 @@ import {Group} from "../../models/group/group.model";
   templateUrl: './create-channel-dialog.component.html',
   styleUrl: './create-channel-dialog.component.css'
 })
-export class CreateChannelDialogComponent {
+export class CreateChannelDialogComponent implements OnInit{
   group: Group;
 
   channelForm!: FormGroup;
@@ -47,7 +47,7 @@ export class CreateChannelDialogComponent {
           }
         },
         error: (error) => {
-          console.error("Error checking group name:", error);
+          console.error("Error checking channel name:", error);
         }
       });
     } else {
@@ -74,7 +74,7 @@ export class CreateChannelDialogComponent {
           this.dialogRef.close(response);
         },
         error: (error) => {
-          console.error("Error creating group:", error);
+          console.error("Error creating channel:", error);
         }
       });
     }

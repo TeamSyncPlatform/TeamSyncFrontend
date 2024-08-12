@@ -17,6 +17,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { CreateGroupDialogComponent } from './dialogs/create-group-dialog/create-group-dialog.component';
 import {MatDialogActions, MatDialogClose, MatDialogContent} from "@angular/material/dialog";
 import { CreateChannelDialogComponent } from './dialogs/create-channel-dialog/create-channel-dialog.component';
+import { RemoveChannelDialogComponent } from './dialogs/remove-channel-dialog/remove-channel-dialog.component';
 
 
 
@@ -26,7 +27,8 @@ import { CreateChannelDialogComponent } from './dialogs/create-channel-dialog/cr
     AnalyticsPageComponent,
     SideNavComponent,
     CreateGroupDialogComponent,
-    CreateChannelDialogComponent
+    CreateChannelDialogComponent,
+    RemoveChannelDialogComponent
   ],
   imports: [
     CommonModule,

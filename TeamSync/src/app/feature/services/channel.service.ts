@@ -29,4 +29,8 @@ export class ChannelService {
   isNameUnique(channelName: string) : Observable<Boolean>{
     return this.httpClient.get<Boolean>(environment.apiHost + 'channels/unique/' + channelName);
   }
+
+  remove(id: number): Observable<Channel>  {
+    return this.httpClient.delete<Channel>(environment.apiHost + 'channels/' + id);
+  }
 }

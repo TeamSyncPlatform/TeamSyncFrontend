@@ -17,16 +17,4 @@ export class HomePageComponent {
 
   constructor(private userService: UserService) {
   }
-
-  onTestClick() {
-    this.userService.getAll().subscribe({
-      next: (users: User[]) => {
-        console.log(users);
-      },
-      error: (_) => {
-        console.log("Error!");
-      }
-    });
-
-  }
 }
