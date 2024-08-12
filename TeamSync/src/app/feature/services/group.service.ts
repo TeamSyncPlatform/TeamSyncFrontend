@@ -38,4 +38,8 @@ export class GroupService {
     return this.httpClient.delete<Group>(environment.apiHost + 'groups/' + id);
   }
 
+  getMembers(id: number): Observable<User[]> {
+    return this.httpClient.get<User[]>(environment.apiHost + 'groups/' + id + '/members')
+  }
 }
+

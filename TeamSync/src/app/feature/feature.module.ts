@@ -19,6 +19,11 @@ import {MatDialogActions, MatDialogClose, MatDialogContent} from "@angular/mater
 import { CreateChannelDialogComponent } from './dialogs/create-channel-dialog/create-channel-dialog.component';
 import { RemoveChannelDialogComponent } from './dialogs/remove-channel-dialog/remove-channel-dialog.component';
 import { RemoveGroupDialogComponent } from './dialogs/remove-group-dialog/remove-group-dialog.component';
+import { MemberCardComponent } from './members-panel/member-card/member-card.component';
+import { MembersCardsComponent } from './members-panel/members-cards/members-cards.component';
+import { MembersPanelComponent } from './members-panel/members-panel/members-panel.component';
+import { AdminRoleLabelComponent } from './members-panel/role-labels/admin-role-label/admin-role-label.component';
+import { UserRoleLabelComponent } from './members-panel/role-labels/user-role-label/user-role-label.component';
 
 
 
@@ -30,7 +35,12 @@ import { RemoveGroupDialogComponent } from './dialogs/remove-group-dialog/remove
     CreateGroupDialogComponent,
     CreateChannelDialogComponent,
     RemoveChannelDialogComponent,
-    RemoveGroupDialogComponent
+    RemoveGroupDialogComponent,
+    MemberCardComponent,
+    MembersCardsComponent,
+    MembersPanelComponent,
+    AdminRoleLabelComponent,
+    UserRoleLabelComponent
   ],
   imports: [
     CommonModule,

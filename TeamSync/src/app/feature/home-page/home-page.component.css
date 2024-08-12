@@ -7,8 +7,13 @@
 
 .wrapper{
   background-color: #fafafa;
-  padding: 1em 0 1em 0;
+  /*padding: 1em 0 1em 0;*/
   display: flex;
   flex-direction: row;
   flex:1;
+}
+
+#content{
+  flex:1;
+  padding: 0 1em 0 1em;
 }

@@ -1,0 +1,8 @@
+<div id="members-cards">
+
+</div>
+@for (member of members; track member) {
+  <app-member-card [member]="member"></app-member-card>
+} @empty {
+  <li>There are no members.</li>
+}

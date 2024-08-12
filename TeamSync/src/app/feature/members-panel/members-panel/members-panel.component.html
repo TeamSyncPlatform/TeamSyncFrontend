@@ -1,0 +1,9 @@
+<div id="members-panel">
+  <div class="top-section">
+    <h3>Members</h3>
+    <button *ngIf="role === 'admin'" mat-icon-button class="add-button" (click)="openAddMemberDialog()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  <app-members-cards [members]="members"></app-members-cards>
+</div>

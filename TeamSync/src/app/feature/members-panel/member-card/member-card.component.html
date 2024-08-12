@@ -1,0 +1,13 @@
+<div class="member-card">
+  <div class="info">
+    <span>{{member.firstName}} {{member.lastName}}</span>
+    <span class="email-info">{{member.email}}</span>
+  </div>
+  @if (member.role === "admin"){
+    <app-admin-role-label></app-admin-role-label>
+  } @else if (member.role === "user"){
+    <app-user-role-label></app-user-role-label>
+  }
+</div>
+
+<hr class="line">

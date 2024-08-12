@@ -1,0 +1,18 @@
+#members-panel{
+  height: 100%;
+  background-color: rgba(250, 250, 250, 0);
+  padding: 1em;
+  min-width: 15em;
+  border-left: 2px solid #e3e3e3;
+}
+
+.top-section{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.remove-button, .add-button{
+  transform: scale(0.8);
+}
