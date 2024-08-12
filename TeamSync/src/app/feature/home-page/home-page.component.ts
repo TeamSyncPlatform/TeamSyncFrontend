@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {UserService} from "../../shared/users/user.service";
 import {User} from "../../shared/users/models/user.model";
+import {Channel} from "../models/channel/channel.model";
 
 @Component({
   selector: 'app-home-page',
@@ -8,19 +9,12 @@ import {User} from "../../shared/users/models/user.model";
   styleUrl: './home-page.component.css'
 })
 export class HomePageComponent {
+  activeChannel:Channel = {} as Channel;
 
-  constructor(private userService: UserService) {
+  onChannelClicked(channel: Channel) {
+    this.activeChannel = channel
   }
 
-  onTestClick() {
-    this.userService.getAll().subscribe({
-      next: (users: User[]) => {
-        console.log(users);
-      },
-      error: (_) => {
-        console.log("Error!");
-      }
-    });
-
+  constructor(private userService: UserService) {
   }
 }

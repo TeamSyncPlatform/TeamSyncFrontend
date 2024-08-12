@@ -10,6 +10,15 @@ import {SharedModule} from "../shared/shared.module";
 import { AnalyticsPageComponent } from './analytics-page/analytics-page.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import {MatTreeModule} from '@angular/material/tree';
+import {MatFormField} from "@angular/material/form-field";
+import {MatInput} from "@angular/material/input";
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { CreateGroupDialogComponent } from './dialogs/create-group-dialog/create-group-dialog.component';
+import {MatDialogActions, MatDialogClose, MatDialogContent} from "@angular/material/dialog";
+import { CreateChannelDialogComponent } from './dialogs/create-channel-dialog/create-channel-dialog.component';
+import { RemoveChannelDialogComponent } from './dialogs/remove-channel-dialog/remove-channel-dialog.component';
+import { RemoveGroupDialogComponent } from './dialogs/remove-group-dialog/remove-group-dialog.component';
 
 
 
@@ -17,7 +26,11 @@ import {MatTreeModule} from '@angular/material/tree';
   declarations: [
     HomePageComponent,
     AnalyticsPageComponent,
-    SideNavComponent
+    SideNavComponent,
+    CreateGroupDialogComponent,
+    CreateChannelDialogComponent,
+    RemoveChannelDialogComponent,
+    RemoveGroupDialogComponent
   ],
   imports: [
     CommonModule,
@@ -29,7 +42,14 @@ import {MatTreeModule} from '@angular/material/tree';
     MatFabButton,
     MatIconButton,
     SharedModule,
-    MatTreeModule
+    MatTreeModule,
+    MatFormFieldModule,
+    MatInput,
+    ReactiveFormsModule,
+    FormsModule,
+    MatDialogContent,
+    MatDialogActions,
+    MatDialogClose
   ]
 })
 export class FeatureModule { }

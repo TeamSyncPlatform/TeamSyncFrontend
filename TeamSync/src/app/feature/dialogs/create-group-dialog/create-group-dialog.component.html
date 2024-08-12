@@ -1,0 +1,16 @@
+<mat-dialog-content>
+  <p class="title">Create group</p>
+  <form [formGroup]="groupForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Group name</mat-label>
+      <input matInput formControlName="groupName" />
+      <mat-error *ngIf="groupForm.get('groupName')?.hasError('nameTaken')">
+        {{ nameError }}
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancelClick()">Cancel</button>
+  <button mat-flat-button (click)="onCreateClick()" [disabled]="groupForm.invalid">Create</button>
+</mat-dialog-actions>

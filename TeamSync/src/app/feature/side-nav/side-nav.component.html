@@ -1,16 +1,45 @@
 <div id="side-nav">
-  <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-<!--      <button mat-icon-button disabled></button>-->
-      <span class="channel"><mat-icon>tag</mat-icon>{{node.name}}</span>
-    </mat-tree-node>
-    <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-      <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
-        <mat-icon class="mat-icon-rtl-mirror">
-          {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-        </mat-icon>
-      </button>
-      {{node.name}}
-    </mat-tree-node>
-  </mat-tree>
+  <div class="top-section">
+    <h3>Groups</h3>
+    <button *ngIf="role === 'admin'" mat-icon-button class="add-button" (click)="openCreateGroupDialog()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
+
+  <mat-form-field id="search-bar" appearance="outline">
+    <mat-label>Search Groups</mat-label>
+    <input matInput [ngModel]="searchValue" (ngModelChange)="onValueChange($event)" placeholder="Search groups" />
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+
+  <div id="groups-list">
+    <div *ngFor="let group of groups" class="group">
+      <div class="group-top-section">
+        <button (click)="toggleDropdown(group.id)" class="group-button" [ngClass]="{'selected-group': selectedChannel.group.id === group.id}">
+          <mat-icon>
+            {{ dropdowns.get(group.id) ? 'arrow_drop_down' : 'arrow_right' }}
+          </mat-icon>
+          {{ group.name }}
+        </button>
+        <button *ngIf="role === 'admin'" mat-icon-button class="remove-button" (click)="openRemoveGroupDialog(group)">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button *ngIf="role === 'admin'" mat-icon-button class="add-button" (click)="openCreateChannelDialog(group)">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+
+      <ul *ngIf="dropdowns.get(group.id)" class="dropdown-menu">
+        <li *ngFor="let channel of channels.get(group.id)" >
+          <div class="channel-box">
+            <span class="channel" (click)="selectChannel(channel)" [ngClass]="{'selected-channel': selectedChannel.id === channel.id}"><mat-icon class="tag-icon">tag</mat-icon>{{ channel.name }}</span>
+            <button *ngIf="role === 'admin'" mat-icon-button class="remove-button" (click)="openRemoveChannelDialog(channel)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>

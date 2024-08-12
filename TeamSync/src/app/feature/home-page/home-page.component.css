@@ -1,1 +1,14 @@
+.window-box{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 
+.wrapper{
+  background-color: #fafafa;
+  padding: 1em 0 1em 0;
+  display: flex;
+  flex-direction: row;
+  flex:1;
+}
