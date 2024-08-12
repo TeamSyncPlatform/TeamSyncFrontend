@@ -1,7 +1,7 @@
 <div id="side-nav">
   <div class="top-section">
     <h3>Groups</h3>
-    <button mat-icon-button class="add-button" (click)="openCreateGroupDialog()">
+    <button *ngIf="role === 'admin'" mat-icon-button class="add-button" (click)="openCreateGroupDialog()">
       <mat-icon>add</mat-icon>
     </button>
   </div>
@@ -22,7 +22,7 @@
           </mat-icon>
           {{ group.name }}
         </button>
-        <button mat-icon-button class="add-button" (click)="openCreateChannelDialog(group)">
+        <button *ngIf="role === 'admin'" mat-icon-button class="add-button" (click)="openCreateChannelDialog(group)">
           <mat-icon>add</mat-icon>
         </button>
       </div>

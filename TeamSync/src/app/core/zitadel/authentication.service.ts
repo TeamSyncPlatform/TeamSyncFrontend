@@ -14,12 +14,23 @@ export class AuthenticationService {
   private _authenticated: boolean = false;
   private readonly _authenticationChanged: BehaviorSubject<boolean> = new BehaviorSubject(this.authenticated);
 
+  role$ = new BehaviorSubject<string | null>(null);
+  roleState = this.role$.asObservable();
+
   constructor(
     private oauthService: OAuthService,
     private authConfig: AuthConfig,
     private statehandler: StatehandlerService,
     private userService: UserService
-  ) {}
+  ) {
+    this.updateRole;
+  }
+
+  private updateRole() {
+    this.getUserRole().subscribe(role => {
+      this.role$.next(role);
+    });
+  }
 
   public get authenticated(): boolean {
     return this._authenticated;
@@ -70,6 +81,7 @@ export class AuthenticationService {
       this._authenticationChanged.next(this.authenticated);
 
     this.login();
+    this.updateRole();
     return this.authenticated;
   }
 
@@ -88,6 +100,7 @@ export class AuthenticationService {
     this.oauthService.logOut();
     this._authenticated = false;
     this._authenticationChanged.next(false);
+    this.updateRole();
   }
 
   getAccessToken(): string | null {

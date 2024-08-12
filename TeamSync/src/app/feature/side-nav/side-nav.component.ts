@@ -28,6 +28,7 @@ export class SideNavComponent implements OnInit {
   dropdowns: Map<number, boolean> = new Map();
   channels:  Map<number, Channel[]> = new Map();
   selectedChannel: Channel = {"group":{}} as Channel;
+  role: string | null = '';
 
   @Output()
   channelClicked: EventEmitter<Channel> = new EventEmitter<Channel>();
@@ -42,6 +43,13 @@ export class SideNavComponent implements OnInit {
 
   ngOnInit() {
     this.searchGroups();
+    this.getRole();
+  }
+
+  getRole(){
+    this.authenticationService.roleState.subscribe((result) => {
+    this.role = result;
+    });
   }
 
   toggleDropdown(groupId: number) {
