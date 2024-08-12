@@ -30,4 +30,8 @@ export class GroupService {
     return this.httpClient.post<Group>(environment.apiHost + 'groups', createGroupRequest);
   }
 
+  isNameUnique(groupName: string) : Observable<Boolean>{
+    return this.httpClient.get<Boolean>(environment.apiHost + 'groups/unique/' + groupName);
+  }
+
 }
