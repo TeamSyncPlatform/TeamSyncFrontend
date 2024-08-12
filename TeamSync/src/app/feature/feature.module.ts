@@ -16,6 +16,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { CreateGroupDialogComponent } from './dialogs/create-group-dialog/create-group-dialog.component';
 import {MatDialogActions, MatDialogClose, MatDialogContent} from "@angular/material/dialog";
+import { CreateChannelDialogComponent } from './dialogs/create-channel-dialog/create-channel-dialog.component';
 
 
 
@@ -24,7 +25,8 @@ import {MatDialogActions, MatDialogClose, MatDialogContent} from "@angular/mater
     HomePageComponent,
     AnalyticsPageComponent,
     SideNavComponent,
-    CreateGroupDialogComponent
+    CreateGroupDialogComponent,
+    CreateChannelDialogComponent
   ],
   imports: [
     CommonModule,

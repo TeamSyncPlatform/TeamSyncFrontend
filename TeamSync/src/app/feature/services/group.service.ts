@@ -4,7 +4,7 @@ import {Observable, of} from "rxjs";
 import {User} from "../../shared/users/models/user.model";
 import {environment} from "../../core/env/env";
 import {Group} from "../models/group/group.model";
-import {Channel} from "../models/channel.model";
+import {Channel} from "../models/channel/channel.model";
 import {CreateGroupRequest} from "../models/group/create-group-request.model";
 
 @Injectable({
