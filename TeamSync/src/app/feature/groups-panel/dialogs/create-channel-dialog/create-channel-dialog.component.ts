@@ -1,8 +1,9 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {ChannelService} from "../../services/channel.service";
-import {Group} from "../../models/group/group.model";
+import {Group} from "../../../models/group/group.model";
+import {ChannelService} from "../../../services/channel.service";
+
 
 @Component({
   selector: 'app-create-channel-dialog',

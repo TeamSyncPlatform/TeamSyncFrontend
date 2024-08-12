@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialogRef} from "@angular/material/dialog";
-import {GroupService} from "../../services/group.service";
+import {GroupService} from "../../../services/group.service";
 
 @Component({
   selector: 'app-create-group-dialog',

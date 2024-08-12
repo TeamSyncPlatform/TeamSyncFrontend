@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import {UserService} from "../../shared/users/user.service";
-import {User} from "../../shared/users/models/user.model";
-import {Channel} from "../models/channel/channel.model";
+import {UserService} from "../../../shared/users/user.service";
+import {User} from "../../../shared/users/models/user.model";
+import {Channel} from "../../models/channel/channel.model";
 import {group} from "@angular/animations";
 import {channel} from "node:diagnostics_channel";
 
