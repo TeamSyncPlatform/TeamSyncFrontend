@@ -50,6 +50,10 @@ export class GroupService {
     return this.httpClient.delete<void>(environment.apiHost + 'groups/' + groupId + '/members/' + userId, {})
   }
 
+  removeMemberByExternalId(groupId: number, userExternalId: string): Observable<void> {
+    return this.httpClient.delete<void>(environment.apiHost + 'groups/' + groupId + '/members/external/' + userExternalId, {})
+  }
+
   searchGroupMembersForDeletion(groupId: any, searchValue: string): Observable<User[]>  {
     const url = `${environment.apiHost}groups/${groupId}/members/search`;
     return this.httpClient.put<User[]>(url, { searchValue });

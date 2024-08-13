@@ -32,6 +32,7 @@ import { AddMembersDialogComponent } from './members-panel/dialogs/add-members-d
 import {MatCheckbox} from "@angular/material/checkbox";
 import { RemoveMembersDialogComponent } from './members-panel/dialogs/remove-members-dialog/remove-members-dialog.component';
 import { OwnerRoleLabelComponent } from './members-panel/role-labels/owner-role-label/owner-role-label.component';
+import { LeaveGroupDialogComponent } from './members-panel/dialogs/leave-group-dialog/leave-group-dialog.component';
 
 
 
@@ -51,7 +52,8 @@ import { OwnerRoleLabelComponent } from './members-panel/role-labels/owner-role-
     UserRoleLabelComponent,
     AddMembersDialogComponent,
     RemoveMembersDialogComponent,
-    OwnerRoleLabelComponent
+    OwnerRoleLabelComponent,
+    LeaveGroupDialogComponent
   ],
   imports: [
     CommonModule,

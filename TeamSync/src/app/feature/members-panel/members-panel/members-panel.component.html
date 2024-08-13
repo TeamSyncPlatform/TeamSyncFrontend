@@ -1,14 +1,22 @@
-<div id="members-panel">
-  <div class="top-section">
-    <h3>Members</h3>
-    <div class="members-buttons" *ngIf="role === 'admin'">
-      <button mat-icon-button class="remove-button" (click)="openRemoveMembersDialog()">
-        <mat-icon>remove</mat-icon>
-      </button>
-      <button mat-icon-button class="add-button" (click)="openAddMembersDialog()">
-        <mat-icon>add</mat-icon>
-      </button>
+@if (loggedUserIdentification && owner && members && group){
+  <div id="members-panel">
+    <div class="top-section">
+      <h3>Members</h3>
+      <div class="members-buttons" *ngIf="role === 'admin'">
+        <button mat-icon-button class="remove-button" (click)="openRemoveMembersDialog()">
+          <mat-icon>remove</mat-icon>
+        </button>
+        <button mat-icon-button class="add-button" (click)="openAddMembersDialog()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+
     </div>
+    <app-members-cards class="members-list" [group]="group" [members]="members"></app-members-cards>
+    @if (owner.externalIdentification != loggedUserIdentification){
+      <button mat-flat-button class="leave-button" (click)="openLeaveGroupDialog()">
+        Leave group
+      </button>
+    }
   </div>
-  <app-members-cards [group]="group" [members]="members"></app-members-cards>
-</div>
+}

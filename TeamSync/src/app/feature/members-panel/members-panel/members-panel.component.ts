@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, inject, Input, OnInit, Output} from '@angular/core';
 import {AuthenticationService} from "../../../core/zitadel/authentication.service";
 import {User} from "../../../shared/users/models/user.model";
 import {Channel} from "../../models/channel/channel.model";
@@ -10,6 +10,9 @@ import {
 import {AddMembersDialogComponent} from "../dialogs/add-members-dialog/add-members-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {RemoveMembersDialogComponent} from "../dialogs/remove-members-dialog/remove-members-dialog.component";
+import {UserService} from "../../../shared/users/user.service";
+import {RemoveGroupDialogComponent} from "../../groups-panel/dialogs/remove-group-dialog/remove-group-dialog.component";
+import {LeaveGroupDialogComponent} from "../dialogs/leave-group-dialog/leave-group-dialog.component";
 
 @Component({
   selector: 'app-members-panel',
@@ -19,23 +22,51 @@ import {RemoveMembersDialogComponent} from "../dialogs/remove-members-dialog/rem
 export class MembersPanelComponent implements OnInit{
   @Input()
   group!: Group;
+  owner!: User;
+  loggedUserIdentification!: string;
   role: string | null = '';
   members: User[] = [] as User[];
   readonly dialog = inject(MatDialog);
 
   constructor(
     private authenticationService: AuthenticationService,
+    private userService: UserService,
     private groupService: GroupService) {
   }
+
+  @Output()
+  groupLeft: EventEmitter<void> = new EventEmitter<void>();
 
   ngOnInit() {
     this.getRole();
     this.loadMembers();
+    this.getOwner();
+    this.getLoggedUserIdentification();
   }
 
   getRole(){
     this.authenticationService.roleState.subscribe((result) => {
       this.role = result;
+    });
+  }
+
+  getOwner(){
+    this.userService.get(this.group.owner.id).subscribe({
+      next: (owner: User) => {
+        this.owner = owner;
+      },
+      error: (_) => {
+        console.log('Error!');
+      },
+    });
+  }
+
+  getLoggedUserIdentification(){
+    this.authenticationService.getUserId().subscribe({
+      next: (userId: string | null) => {
+        if(!userId) return;
+        this.loggedUserIdentification = userId;
+      }
     });
   }
 
@@ -77,6 +108,22 @@ export class MembersPanelComponent implements OnInit{
       if (result) {
         console.log('The dialog was closed with result:', result);
         this.loadMembers();
+      }
+    });
+  }
+
+  openLeaveGroupDialog() {
+    const dialogRef = this.dialog.open(LeaveGroupDialogComponent, {
+      data: {
+        group: this.group,
+        loggedUserId: this.loggedUserIdentification
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('The dialog was closed with result:', result);
+        this.groupLeft.emit();
       }
     });
   }

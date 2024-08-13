@@ -4,6 +4,8 @@
   padding: 1em;
   min-width: 15em;
   border-left: 2px solid #e3e3e3;
+  display: flex;
+  flex-direction: column;
 }
 
 .top-section{
@@ -15,4 +17,12 @@
 
 .remove-button, .add-button{
   transform: scale(0.8);
+}
+
+.leave-button{
+  background-color: #da7737;
+}
+
+.members-list{
+  flex: 1;
 }

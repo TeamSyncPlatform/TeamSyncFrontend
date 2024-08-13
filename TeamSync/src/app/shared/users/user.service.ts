@@ -16,7 +16,7 @@ export class UserService {
     return this.httpClient.get<User[]>(environment.apiHost + 'users')
   }
 
-  get(id: String): Observable<User> {
+  get(id: number): Observable<User> {
     return this.httpClient.get<User>(environment.apiHost + 'users/' + id);
   }
 
