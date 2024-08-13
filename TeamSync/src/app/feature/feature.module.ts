@@ -28,6 +28,8 @@ import {
   RemoveChannelDialogComponent
 } from "./groups-panel/dialogs/remove-channel-dialog/remove-channel-dialog.component";
 import {RemoveGroupDialogComponent} from "./groups-panel/dialogs/remove-group-dialog/remove-group-dialog.component";
+import { AddMembersDialogComponent } from './members-panel/dialogs/add-members-dialog/add-members-dialog.component';
+import {MatCheckbox} from "@angular/material/checkbox";
 
 
 
@@ -44,7 +46,8 @@ import {RemoveGroupDialogComponent} from "./groups-panel/dialogs/remove-group-di
     MembersCardsComponent,
     MembersPanelComponent,
     AdminRoleLabelComponent,
-    UserRoleLabelComponent
+    UserRoleLabelComponent,
+    AddMembersDialogComponent
   ],
   imports: [
     CommonModule,
@@ -63,7 +66,8 @@ import {RemoveGroupDialogComponent} from "./groups-panel/dialogs/remove-group-di
     FormsModule,
     MatDialogContent,
     MatDialogActions,
-    MatDialogClose
+    MatDialogClose,
+    MatCheckbox
   ]
 })
 export class FeatureModule { }

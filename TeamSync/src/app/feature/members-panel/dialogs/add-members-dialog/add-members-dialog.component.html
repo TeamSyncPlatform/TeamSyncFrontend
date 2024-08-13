@@ -1,0 +1,24 @@
+<mat-dialog-content>
+  <p class="title">Add members</p>
+
+  <mat-form-field id="search-bar" appearance="outline" subscriptSizing="dynamic">
+    <mat-label>Search Users</mat-label>
+    <input matInput [ngModel]="searchValue" (ngModelChange)="onValueChange($event)" placeholder="Search users" />
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+
+  <section class="user-list-section" [formGroup]="usersForm">
+    @for (user of users ; track user){
+      <p><mat-checkbox formControlName="{{user.id}}">{{user.email}}</mat-checkbox></p>
+    }
+  </section>
+
+<!--  <section class="example-section" [formGroup]="usersForm">-->
+<!--    <h4>You chose:</h4>-->
+<!--    {{toppings.value | json}}-->
+<!--  </section>-->
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancelClick()">Cancel</button>
+  <button mat-flat-button id="yes-button" (click)="onConfirmClick()" [disabled]="!anyUserSelected()">Confirm</button>
+</mat-dialog-actions>

@@ -39,7 +39,11 @@ export class GroupService {
   }
 
   getMembers(id: number): Observable<User[]> {
-    return this.httpClient.get<User[]>(environment.apiHost + 'groups/' + id + '/members')
+    return this.httpClient.get<User[]>(environment.apiHost + 'groups/' + id + '/members');
+  }
+
+  addMember(groupId: number, userId: number): Observable<void> {
+   return this.httpClient.put<void>(environment.apiHost + 'groups/' + groupId + '/members/' + userId, {})
   }
 }
 

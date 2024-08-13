@@ -10,4 +10,7 @@ export class MemberCardComponent {
   @Input()
   member!: User;
 
+  constructor() {
+
+  }
 }

@@ -1,9 +1,14 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, inject, Input, OnInit} from '@angular/core';
 import {AuthenticationService} from "../../../core/zitadel/authentication.service";
 import {User} from "../../../shared/users/models/user.model";
 import {Channel} from "../../models/channel/channel.model";
 import {Group} from "../../models/group/group.model";
 import {GroupService} from "../../services/group.service";
+import {
+  RemoveChannelDialogComponent
+} from "../../groups-panel/dialogs/remove-channel-dialog/remove-channel-dialog.component";
+import {AddMembersDialogComponent} from "../dialogs/add-members-dialog/add-members-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-members-panel',
@@ -15,6 +20,7 @@ export class MembersPanelComponent implements OnInit{
   groupId!: number;
   role: string | null = '';
   members: User[] = [] as User[];
+  readonly dialog = inject(MatDialog);
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -36,6 +42,7 @@ export class MembersPanelComponent implements OnInit{
     this.groupService.getMembers(this.groupId).subscribe({
       next: (members: User[]) => {
         this.members = members;
+        console.log("Members: ", members);
       },
       error: (_) => {
         console.log('Error!');
@@ -44,6 +51,17 @@ export class MembersPanelComponent implements OnInit{
   }
 
   openAddMemberDialog() {
+    const dialogRef = this.dialog.open(AddMembersDialogComponent, {
+      data: {
+        groupId: this.groupId
+      }
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('The dialog was closed with result:', result);
+        this.loadMembers();
+      }
+    });
   }
 }
