@@ -1,22 +1,19 @@
-import {Component, inject, Inject, OnInit} from '@angular/core';
-import {Channel} from "../../../models/channel/channel.model";
-import {ChannelService} from "../../../services/channel.service";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {User} from "../../../../shared/users/models/user.model";
-import {GroupService} from "../../../services/group.service";
-import {UserService} from "../../../../shared/users/user.service";
-import {response} from "express";
+import {Component, Inject, inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {User} from "../../../../shared/users/models/user.model";
+import {UserService} from "../../../../shared/users/user.service";
+import {GroupService} from "../../../services/group.service";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Group} from "../../../models/group/group.model";
 
 @Component({
-  selector: 'app-add-members-dialog',
-  templateUrl: './add-members-dialog.component.html',
-  styleUrl: './add-members-dialog.component.css'
+  selector: 'app-remove-members-dialog',
+  templateUrl: './remove-members-dialog.component.html',
+  styleUrl: './remove-members-dialog.component.css'
 })
-export class AddMembersDialogComponent implements OnInit{
+export class RemoveMembersDialogComponent implements OnInit{
   private readonly _formBuilder = inject(FormBuilder);
-  groupId: number;
+  group: Group;
   users: User[] = [] as User[];
   usersForm: FormGroup;
   searchValue: string = '';
@@ -24,10 +21,10 @@ export class AddMembersDialogComponent implements OnInit{
   constructor(
     private userService: UserService,
     private groupService: GroupService,
-    private dialogRef: MatDialogRef<AddMembersDialogComponent>,
+    private dialogRef: MatDialogRef<RemoveMembersDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    this.groupId = data.groupId;
+    this.group = data.group;
     this.usersForm = this._formBuilder.group({});
   }
 
@@ -36,7 +33,7 @@ export class AddMembersDialogComponent implements OnInit{
   }
 
   loadUsers(){
-    this.userService.searchUsersToAdd(this.groupId, this.searchValue).subscribe({
+    this.groupService.searchGroupMembersForDeletion(this.group.id, this.searchValue).subscribe({
       next: (users: User[]) => {
         this.users = users;
         this.initializeForm();
@@ -60,38 +57,37 @@ export class AddMembersDialogComponent implements OnInit{
   async onConfirmClick(): Promise<void> {
     const userPromises = Object.keys(this.usersForm.controls)
       .filter(userId => this.usersForm.controls[userId].value)
-      .map(userId => this.addMember(Number(userId)));
+      .map(userId => this.removeMember(Number(userId)));
 
     try {
-      await Promise.all(userPromises);
-      this.dialogRef.close(true);
+      const results = await Promise.all(userPromises);
+      this.dialogRef.close(results); // Optionally pass some result
     } catch (error) {
-      console.error("Error adding members:", error);
+      console.error("Error removing members:", error);
     }
   }
 
-  addMember(userId: number): Promise<void> {
+  removeMember(userId: number): Promise<number | null> {
     return new Promise((resolve, reject) => {
-      this.groupService.addMember(this.groupId, userId).subscribe({
+      this.groupService.removeMember(this.group.id, userId).subscribe({
         next: (response) => {
-          console.log("Member added successfully:", response);
-          resolve();
+          console.log("Member removed successfully:", response);
+          resolve(userId);
         },
         error: (error) => {
-          console.error("Error adding member:", error);
+          console.error("Error removing member:", error);
           reject(error);
         }
       });
     });
   }
 
-
   anyUserSelected(): boolean {
     return Object.values(this.usersForm.controls).some(control => control.value);
   }
 
-  searchUsers(): void {
-    this.userService.searchUsersToAdd(this.groupId, this.searchValue).subscribe({
+  searchGroupMembersForDeletion(): void {
+    this.groupService.searchGroupMembersForDeletion(this.group.id, this.searchValue).subscribe({
       next: (users: User[]) => {
         this.users = users;
       },
@@ -103,6 +99,6 @@ export class AddMembersDialogComponent implements OnInit{
 
   onValueChange(newValue : string) {
     this.searchValue = newValue;
-    this.searchUsers();
+    this.searchGroupMembersForDeletion();
   }
 }

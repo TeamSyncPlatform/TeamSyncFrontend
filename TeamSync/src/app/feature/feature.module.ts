@@ -30,6 +30,7 @@ import {
 import {RemoveGroupDialogComponent} from "./groups-panel/dialogs/remove-group-dialog/remove-group-dialog.component";
 import { AddMembersDialogComponent } from './members-panel/dialogs/add-members-dialog/add-members-dialog.component';
 import {MatCheckbox} from "@angular/material/checkbox";
+import { RemoveMembersDialogComponent } from './members-panel/dialogs/remove-members-dialog/remove-members-dialog.component';
 
 
 
@@ -47,7 +48,8 @@ import {MatCheckbox} from "@angular/material/checkbox";
     MembersPanelComponent,
     AdminRoleLabelComponent,
     UserRoleLabelComponent,
-    AddMembersDialogComponent
+    AddMembersDialogComponent,
+    RemoveMembersDialogComponent
   ],
   imports: [
     CommonModule,

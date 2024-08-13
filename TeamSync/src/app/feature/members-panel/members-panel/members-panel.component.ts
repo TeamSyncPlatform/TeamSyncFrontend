@@ -9,6 +9,7 @@ import {
 } from "../../groups-panel/dialogs/remove-channel-dialog/remove-channel-dialog.component";
 import {AddMembersDialogComponent} from "../dialogs/add-members-dialog/add-members-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {RemoveMembersDialogComponent} from "../dialogs/remove-members-dialog/remove-members-dialog.component";
 
 @Component({
   selector: 'app-members-panel',
@@ -17,7 +18,7 @@ import {MatDialog} from "@angular/material/dialog";
 })
 export class MembersPanelComponent implements OnInit{
   @Input()
-  groupId!: number;
+  group!: Group;
   role: string | null = '';
   members: User[] = [] as User[];
   readonly dialog = inject(MatDialog);
@@ -39,7 +40,7 @@ export class MembersPanelComponent implements OnInit{
   }
 
   loadMembers(){
-    this.groupService.getMembers(this.groupId).subscribe({
+    this.groupService.getMembers(this.group.id).subscribe({
       next: (members: User[]) => {
         this.members = members;
         console.log("Members: ", members);
@@ -50,10 +51,25 @@ export class MembersPanelComponent implements OnInit{
     });
   }
 
-  openAddMemberDialog() {
+  openAddMembersDialog() {
     const dialogRef = this.dialog.open(AddMembersDialogComponent, {
       data: {
-        groupId: this.groupId
+        groupId: this.group.id
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('The dialog was closed with result:', result);
+        this.loadMembers();
+      }
+    });
+  }
+
+  openRemoveMembersDialog() {
+    const dialogRef = this.dialog.open(RemoveMembersDialogComponent, {
+      data: {
+        group: this.group
       }
     });
 

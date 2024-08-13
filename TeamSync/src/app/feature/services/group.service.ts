@@ -22,7 +22,7 @@ export class GroupService {
     return this.httpClient.get<Channel[]>(environment.apiHost + 'groups/' + id + '/channels')
   }
 
-  get(id: String): Observable<Group> {
+  get(id: number): Observable<Group> {
     return this.httpClient.get<Group>(environment.apiHost + 'groups/' + id);
   }
 
@@ -45,5 +45,15 @@ export class GroupService {
   addMember(groupId: number, userId: number): Observable<void> {
    return this.httpClient.put<void>(environment.apiHost + 'groups/' + groupId + '/members/' + userId, {})
   }
+
+  removeMember(groupId: number, userId: number): Observable<void> {
+    return this.httpClient.delete<void>(environment.apiHost + 'groups/' + groupId + '/members/' + userId, {})
+  }
+
+  searchGroupMembersForDeletion(groupId: any, searchValue: string): Observable<User[]>  {
+    const url = `${environment.apiHost}groups/${groupId}/members/search`;
+    return this.httpClient.put<User[]>(url, { searchValue });
+  }
+
 }
 

@@ -5,7 +5,7 @@
     <div id="content" *ngIf="activeChannel">
       <h1>{{activeChannel.name}}</h1>
     </div>
-    <app-members-panel *ngIf="activeChannel" id="members-panel" [groupId]="activeChannel.group.id"></app-members-panel>
+    <app-members-panel *ngIf="activeGroup" id="members-panel" [group]="activeGroup"></app-members-panel>
   </div>
 </div>
 
