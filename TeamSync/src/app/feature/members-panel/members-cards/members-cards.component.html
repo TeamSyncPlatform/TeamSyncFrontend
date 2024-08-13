@@ -2,7 +2,7 @@
 
 </div>
 @for (member of members; track member) {
-  <app-member-card [member]="member"></app-member-card>
+  <app-member-card [group]="group" [member]="member"></app-member-card>
 } @empty {
   <li>There are no members.</li>
 }

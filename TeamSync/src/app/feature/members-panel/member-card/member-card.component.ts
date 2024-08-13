@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {User} from "../../../shared/users/models/user.model";
+import {Group} from "../../models/group/group.model";
 
 @Component({
   selector: 'app-member-card',
@@ -9,6 +10,9 @@ import {User} from "../../../shared/users/models/user.model";
 export class MemberCardComponent {
   @Input()
   member!: User;
+
+  @Input()
+  group!: Group;
 
   constructor() {
 

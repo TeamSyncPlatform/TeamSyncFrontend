@@ -29,6 +29,7 @@ export class HomePageComponent {
     this.groupService.get(id).subscribe({
       next: (group: Group) => {
         this.activeGroup = group
+        console.log(this.activeGroup);
       },
       error: (error) => {
         console.error("Error getting group", error);
