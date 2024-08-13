@@ -9,9 +9,9 @@ export interface User {
   lastName: string;
   address: string;
   phoneNumber: string;
-  role: Role;
+  role: string;
   department: string;
   jobTitle: string;
   skills: string[];
-  ignoredNotifications: NotificationType[]; // You should define this model based on your requirements
+  ignoredNotifications: NotificationType[];
 }

@@ -1,9 +1,8 @@
 import {Component, Inject} from '@angular/core';
-import {Group} from "../../models/group/group.model";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {ChannelService} from "../../services/channel.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {Channel} from "../../models/channel/channel.model";
+import {Channel} from "../../../models/channel/channel.model";
+import {ChannelService} from "../../../services/channel.service";
+
 
 @Component({
   selector: 'app-remove-channel-dialog',

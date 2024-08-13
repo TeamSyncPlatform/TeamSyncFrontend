@@ -1,23 +1,34 @@
-import {Component, EventEmitter, OnInit, Output, ChangeDetectionStrategy, signal, inject} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ChangeDetectionStrategy,
+  signal,
+  inject,
+  Input,
+  OnDestroy
+} from '@angular/core';
 import {FlatTreeControl} from "@angular/cdk/tree";
 import {MatTreeFlatDataSource, MatTreeFlattener, MatTreeModule} from "@angular/material/tree";
 import {MatButtonModule} from "@angular/material/button";
-import {Channel} from "../models/channel/channel.model";
-import {Group} from "../models/group/group.model";
-import {GroupService} from "../services/group.service";
+import {Channel} from "../../models/channel/channel.model";
+import {Group} from "../../models/group/group.model";
+import {GroupService} from "../../services/group.service";
 
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {FormBuilder, FormControl} from "@angular/forms";
-import {UserService} from "../../shared/users/user.service";
-import {AuthenticationService} from "../../core/zitadel/authentication.service";
-import {User} from "../../shared/users/models/user.model";
+import {UserService} from "../../../shared/users/user.service";
+import {AuthenticationService} from "../../../core/zitadel/authentication.service";
+import {User} from "../../../shared/users/models/user.model";
 import {MatDialog} from "@angular/material/dialog";
 import {CreateGroupDialogComponent} from "../dialogs/create-group-dialog/create-group-dialog.component";
 import {CreateChannelDialogComponent} from "../dialogs/create-channel-dialog/create-channel-dialog.component";
-import {RemoveChannelDialogComponent} from "../dialogs/remove-channel-dialog/remove-channel-dialog.component";
 import {RemoveGroupDialogComponent} from "../dialogs/remove-group-dialog/remove-group-dialog.component";
+import {RemoveChannelDialogComponent} from "../dialogs/remove-channel-dialog/remove-channel-dialog.component";
+import {Observable, Subscription} from "rxjs";
 
 
 @Component({
@@ -25,12 +36,20 @@ import {RemoveGroupDialogComponent} from "../dialogs/remove-group-dialog/remove-
   templateUrl: './side-nav.component.html',
   styleUrl: './side-nav.component.css'
 })
-export class SideNavComponent implements OnInit {
+export class SideNavComponent implements OnInit, OnDestroy{
   groups: Group[] = [];
   dropdowns: Map<number, boolean> = new Map();
   channels:  Map<number, Channel[]> = new Map();
   selectedChannel: Channel = {"group":{}} as Channel;
   role: string | null = '';
+
+  private eventsSubscription!: Subscription;
+  @Input() events!: Observable<void>;
+
+
+  ngOnDestroy() {
+    this.eventsSubscription.unsubscribe();
+  }
 
   @Output()
   channelClicked: EventEmitter<Channel> = new EventEmitter<Channel>();
@@ -46,6 +65,7 @@ export class SideNavComponent implements OnInit {
   ngOnInit() {
     this.searchGroups();
     this.getRole();
+    this.eventsSubscription = this.events.subscribe(() => this.searchGroups());
   }
 
   getRole(){

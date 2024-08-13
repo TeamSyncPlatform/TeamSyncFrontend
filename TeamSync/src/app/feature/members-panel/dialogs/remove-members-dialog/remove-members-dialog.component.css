@@ -1,0 +1,9 @@
+.title{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.user-list-section{
+  max-height: 50%;
+  overflow: auto;
+}

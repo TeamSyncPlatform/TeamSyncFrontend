@@ -16,7 +16,7 @@ export class UserService {
     return this.httpClient.get<User[]>(environment.apiHost + 'users')
   }
 
-  get(id: String): Observable<User> {
+  get(id: number): Observable<User> {
     return this.httpClient.get<User>(environment.apiHost + 'users/' + id);
   }
 
@@ -31,5 +31,10 @@ export class UserService {
   searchGroups(userId: string | null, searchValue: string): Observable<Group[]> {
     const url = `${environment.apiHost}users/${userId}/groups/search`;
     return this.httpClient.put<Group[]>(url, { searchValue });
+  }
+
+  searchUsersToAdd(groupId: any, searchValue: string): Observable<User[]>  {
+    const url = `${environment.apiHost}users/groups/${groupId}/search`;
+    return this.httpClient.put<User[]>(url, { searchValue });
   }
 }
