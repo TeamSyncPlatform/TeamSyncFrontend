@@ -33,6 +33,12 @@ import {MatCheckbox} from "@angular/material/checkbox";
 import { RemoveMembersDialogComponent } from './members-panel/dialogs/remove-members-dialog/remove-members-dialog.component';
 import { OwnerRoleLabelComponent } from './members-panel/role-labels/owner-role-label/owner-role-label.component';
 import { LeaveGroupDialogComponent } from './members-panel/dialogs/leave-group-dialog/leave-group-dialog.component';
+import { PostCardComponent } from './posts-panel/post-card/post-card.component';
+import { PostsCardsComponent } from './posts-panel/posts-cards/posts-cards.component';
+import { PostsPanelComponent } from './posts-panel/posts-panel/posts-panel.component';
+import { WritePostComponentComponent } from './posts-panel/write-post-component/write-post-component.component';
+import {MatMenu, MatMenuTrigger} from "@angular/material/menu";
+import {MatTooltip} from "@angular/material/tooltip";
 
 
 
@@ -53,7 +59,11 @@ import { LeaveGroupDialogComponent } from './members-panel/dialogs/leave-group-d
     AddMembersDialogComponent,
     RemoveMembersDialogComponent,
     OwnerRoleLabelComponent,
-    LeaveGroupDialogComponent
+    LeaveGroupDialogComponent,
+    PostCardComponent,
+    PostsCardsComponent,
+    PostsPanelComponent,
+    WritePostComponentComponent
   ],
   imports: [
     CommonModule,
@@ -73,7 +83,10 @@ import { LeaveGroupDialogComponent } from './members-panel/dialogs/leave-group-d
     MatDialogContent,
     MatDialogActions,
     MatDialogClose,
-    MatCheckbox
+    MatCheckbox,
+    MatMenu,
+    MatMenuTrigger,
+    MatTooltip
   ]
 })
 export class FeatureModule { }

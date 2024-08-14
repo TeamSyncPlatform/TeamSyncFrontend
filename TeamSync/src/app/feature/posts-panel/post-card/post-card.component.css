@@ -1,0 +1,143 @@
+.post-card{
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  gap: 0.5em;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(204, 204, 204, 0.9);
+  max-width: 60em;
+}
+
+/*.account-icon{*/
+/*  transform: scale(2);*/
+/*}*/
+
+.profile-picture {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.top-section{
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  gap: 1em;
+}
+
+.post-content{
+  flex:1;
+}
+
+.info-section{
+  display: flex;
+  flex-direction: column;
+}
+
+.email-info{
+  color: #b8b8b8;
+}
+
+.bottom-section{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.bottom-box{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  border-radius: 10px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
+  cursor: pointer;
+  padding: 0.7em;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.bottom-box:hover {
+  color: white;
+  background-color: rgb(55, 154, 218);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+}
+
+/*.bottom-box:hover{*/
+/*  color: white;*/
+/*  background-color: rgb(55, 154, 218);*/
+/*}*/
+
+/*.reactions-box {*/
+/*  display: flex;*/
+/*  justify-content: space-around;*/
+/*  padding: 10px;*/
+/*  background-color: #f0f0f0;*/
+/*  border-radius: 10px;*/
+/*  position: absolute;*/
+/*  bottom: 60px;*/
+/*  left: 20px;*/
+/*  z-index: 1000;*/
+/*}*/
+
+
+.post-card {
+  position: relative;
+}
+
+::ng-deep .cdk-overlay-container .reactions-box {
+  padding: 0.5em;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(227, 227, 227, 0.9);
+  overflow: hidden;
+  max-width: none;
+}
+
+::ng-deep .cdk-overlay-container .reactions-box .reactions {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+::ng-deep .cdk-overlay-container .reactions-box button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+::ng-deep .cdk-overlay-container .reactions-box button mat-icon {
+  font-size: 24px;
+}
+
+::ng-deep .cdk-overlay-container .reactions-box .reaction-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+::ng-deep .cdk-overlay-container .reactions-box .reaction-item:hover {
+  transform: scale(1.2);
+}
+
+::ng-deep .cdk-overlay-container .reactions-box .reaction-item button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+::ng-deep .cdk-overlay-container .reactions-box .reaction-item button mat-icon {
+  font-size: 24px;
+  transition: color 0.3s ease;
+}
+
+::ng-deep .cdk-overlay-container .reactions-box .reaction-item:hover button mat-icon {
+  color: #379ada;
+}

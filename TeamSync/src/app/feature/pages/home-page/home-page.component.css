@@ -13,7 +13,6 @@
   flex:1;
 }
 
-#content{
-  flex:1;
-  padding: 0 1em 0 1em;
+#posts-panel{
+  flex: 1;
 }

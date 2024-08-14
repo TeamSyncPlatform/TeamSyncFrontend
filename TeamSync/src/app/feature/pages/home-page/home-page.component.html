@@ -2,9 +2,7 @@
   <app-navbar></app-navbar>
   <div class="wrapper">
     <app-side-nav [events]="leaveEventsSubject.asObservable()" (channelClicked)="onChannelClicked($event)"></app-side-nav>
-    <div id="content" *ngIf="activeChannel">
-      <h1>{{activeChannel.name}}</h1>
-    </div>
+    <app-posts-panel id="posts-panel" [group]="activeGroup" [channel]="activeChannel"></app-posts-panel>
     <app-members-panel (groupLeft)="onGroupLeave()" *ngIf="activeGroup" id="members-panel" [group]="activeGroup"></app-members-panel>
   </div>
 </div>
