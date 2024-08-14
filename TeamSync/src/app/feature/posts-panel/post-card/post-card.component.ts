@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ReactionType} from "../models/reaction-type.enum";
+import {ReactionType} from "../../models/reaction-type.enum";
 
 @Component({
   selector: 'app-post-card',
