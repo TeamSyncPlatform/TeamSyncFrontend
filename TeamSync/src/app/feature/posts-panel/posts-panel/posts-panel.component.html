@@ -1,8 +1,7 @@
-@if (channel && group){
+@if (channel !== undefined && group !== undefined){
   <div id="content">
     <h1>{{channel.name}}</h1>
-    <app-post-card></app-post-card>
-<!--    <app-write-post></app-write-post>-->
+    <app-posts-cards [posts]="posts" ></app-posts-cards>
     <button mat-flat-button class="create-post-button" (click)="openCreatePostDialog()">
       Create post
     </button>

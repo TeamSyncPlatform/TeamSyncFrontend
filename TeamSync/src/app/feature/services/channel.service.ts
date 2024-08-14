@@ -6,6 +6,7 @@ import {environment} from "../../core/env/env";
 import {Channel} from "../models/channel/channel.model";
 import {CreateGroupRequest} from "../models/group/create-group-request.model";
 import {CreateChannelRequest} from "../models/channel/create-channel-request";
+import {Post} from "../models/post/post.model";
 
 @Injectable({
   providedIn: 'root'
@@ -33,4 +34,9 @@ export class ChannelService {
   remove(id: number): Observable<Channel>  {
     return this.httpClient.delete<Channel>(environment.apiHost + 'channels/' + id);
   }
+
+  getChannelPosts(id: number): Observable<Post[]> {
+    return this.httpClient.get<Post[]>(environment.apiHost + 'channels/' + id + '/posts')
+  }
+
 }

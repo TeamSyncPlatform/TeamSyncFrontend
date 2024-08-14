@@ -15,7 +15,7 @@ import {AuthenticationService} from "../../../core/zitadel/authentication.servic
   styleUrl: './home-page.component.css'
 })
 export class HomePageComponent implements OnInit{
-  activeChannel : Channel | undefined;
+  activeChannel! : Channel | undefined;
   activeGroup: Group | undefined;
   loggedUserIdentification!: string;
 

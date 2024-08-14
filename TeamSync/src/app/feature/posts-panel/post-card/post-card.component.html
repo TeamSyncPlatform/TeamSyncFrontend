@@ -1,33 +1,41 @@
-<div class="post-card">
-  <div class="top-section">
-    <img class="profile-picture" src="/logo.png" alt="Profile Picture">
-    <div class="info-section">
-      <span>Mark Myers</span>
-      <span class="email-info">3h ago</span>
-    </div>
-  </div>
-  <p class="post-content">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent luctus arcu non accumsan sodales.
-  </p>
-  <div class="bottom-section">
-    <button class="bottom-box" [matMenuTriggerFor]="menu">
-      <mat-icon class="account-icon">add_reaction</mat-icon>
-      Add reaction
-    </button>
-    <button class="bottom-box">
-      <mat-icon class="account-icon">comment</mat-icon>
-      Comments(15)
-    </button>
-  </div>
-
-  <mat-menu class="reactions-box" #menu="matMenu">
-    <div class="reactions">
-      <div class="reaction-item" *ngFor="let reaction of reactions" (click)="react(reaction.name)">
-        <button mat-icon-button matTooltip="{{reaction.name}}">
-          <mat-icon>{{reaction.icon}}</mat-icon>
-        </button>
+@if (author && post){
+  <div class="post-card">
+    <div class="top-section">
+      <img class="profile-picture" src="/logo.png" alt="Profile Picture">
+      <div class="info-section">
+        <span>{{author.firstName}} {{author.lastName}}</span>
+        <span class="email-info">{{getPostCreation(post.creationDate)}}</span>
       </div>
     </div>
-  </mat-menu>
+    <editor [disabled]="true" class="post-content" [(ngModel)]="content" apiKey="nd3g0k4hxtsddd9b7xxl7pf335fizrnf9u5qra3kaj5aovvn"
+            [init]="{
+            plugins: 'false',
+            toolbar: 'false',
+            menubar: 'false'
+            }"
+    ></editor>
+    <div class="bottom-section">
+      <button class="bottom-box" [matMenuTriggerFor]="menu">
+        <mat-icon class="account-icon">add_reaction</mat-icon>
+        Add reaction
+      </button>
+      <button class="bottom-box">
+        <mat-icon class="account-icon">comment</mat-icon>
+        Comments({{getCommentsSize()}})
+      </button>
+    </div>
 
-</div>
+    <mat-menu class="reactions-box" #menu="matMenu">
+      <div class="reactions">
+        <div class="reaction-item" *ngFor="let reaction of reactions" (click)="react(reaction.name)">
+          <button mat-icon-button matTooltip="{{reaction.name}}">
+            <mat-icon>{{reaction.icon}}</mat-icon>
+          </button>
+        </div>
+      </div>
+    </mat-menu>
+
+  </div>
+
+}
+

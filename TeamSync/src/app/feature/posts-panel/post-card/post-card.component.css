@@ -5,7 +5,8 @@
   gap: 0.5em;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(204, 204, 204, 0.9);
-  max-width: 60em;
+  max-width: 80em;
+  width: 100%;
 }
 
 /*.account-icon{*/

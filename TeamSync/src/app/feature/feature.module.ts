@@ -38,7 +38,6 @@ import { PostsCardsComponent } from './posts-panel/posts-cards/posts-cards.compo
 import { PostsPanelComponent } from './posts-panel/posts-panel/posts-panel.component';
 import {MatMenu, MatMenuTrigger} from "@angular/material/menu";
 import {MatTooltip} from "@angular/material/tooltip";
-import { WritePostComponent } from './posts-panel/write-post/write-post.component';
 import {EditorComponent} from "@tinymce/tinymce-angular";
 import { CreatePostDialogComponent } from './posts-panel/dialogs/create-post-dialog/create-post-dialog.component';
 
@@ -65,7 +64,6 @@ import { CreatePostDialogComponent } from './posts-panel/dialogs/create-post-dia
     PostCardComponent,
     PostsCardsComponent,
     PostsPanelComponent,
-    WritePostComponent,
     CreatePostDialogComponent,
   ],
   imports: [
