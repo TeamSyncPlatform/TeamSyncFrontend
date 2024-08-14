@@ -2,6 +2,10 @@
   <div id="content">
     <h1>{{channel.name}}</h1>
     <app-post-card></app-post-card>
+<!--    <app-write-post></app-write-post>-->
+    <button mat-flat-button class="create-post-button" (click)="openCreatePostDialog()">
+      Create post
+    </button>
   </div>
 }
 

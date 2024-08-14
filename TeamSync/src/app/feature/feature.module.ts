@@ -36,9 +36,11 @@ import { LeaveGroupDialogComponent } from './members-panel/dialogs/leave-group-d
 import { PostCardComponent } from './posts-panel/post-card/post-card.component';
 import { PostsCardsComponent } from './posts-panel/posts-cards/posts-cards.component';
 import { PostsPanelComponent } from './posts-panel/posts-panel/posts-panel.component';
-import { WritePostComponentComponent } from './posts-panel/write-post-component/write-post-component.component';
 import {MatMenu, MatMenuTrigger} from "@angular/material/menu";
 import {MatTooltip} from "@angular/material/tooltip";
+import { WritePostComponent } from './posts-panel/write-post/write-post.component';
+import {EditorComponent} from "@tinymce/tinymce-angular";
+import { CreatePostDialogComponent } from './posts-panel/dialogs/create-post-dialog/create-post-dialog.component';
 
 
 
@@ -63,7 +65,8 @@ import {MatTooltip} from "@angular/material/tooltip";
     PostCardComponent,
     PostsCardsComponent,
     PostsPanelComponent,
-    WritePostComponentComponent
+    WritePostComponent,
+    CreatePostDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -86,7 +89,8 @@ import {MatTooltip} from "@angular/material/tooltip";
     MatCheckbox,
     MatMenu,
     MatMenuTrigger,
-    MatTooltip
+    MatTooltip,
+    EditorComponent
   ]
 })
 export class FeatureModule { }
