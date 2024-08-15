@@ -17,7 +17,7 @@ import {AuthenticationService} from "../../../core/zitadel/authentication.servic
 export class HomePageComponent implements OnInit{
   activeChannel! : Channel | undefined;
   activeGroup: Group | undefined;
-  loggedUserIdentification!: string;
+  loggedUser!: User;
 
   public leaveEventsSubject: Subject<void> = new Subject<void>();
 
@@ -28,7 +28,7 @@ export class HomePageComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.getLoggedUserIdentification();
+    this.getLoggedUser();
   }
 
   onChannelClicked(channel: Channel) {
@@ -56,11 +56,15 @@ export class HomePageComponent implements OnInit{
     });
   }
 
-  getLoggedUserIdentification(){
+  getLoggedUser(){
     this.authenticationService.getUserId().subscribe({
       next: (userId: string | null) => {
         if(!userId) return;
-        this.loggedUserIdentification = userId;
+        this.userService.getByExternalId(userId).subscribe({
+          next: (user: User) => {
+            this.loggedUser = user;
+          }
+        });
       }
     });
   }

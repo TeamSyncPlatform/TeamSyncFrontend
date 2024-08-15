@@ -1,7 +1,7 @@
 @if (posts){
   <div class="posts-list">
     @for (post of posts; track post){
-      <app-post-card [post]="post"></app-post-card>
+      <app-post-card [loggedUser]="loggedUser" [post]="post"></app-post-card>
     }
   </div>
 }

@@ -40,6 +40,7 @@ import {MatMenu, MatMenuTrigger} from "@angular/material/menu";
 import {MatTooltip} from "@angular/material/tooltip";
 import {EditorComponent} from "@tinymce/tinymce-angular";
 import { CreatePostDialogComponent } from './posts-panel/dialogs/create-post-dialog/create-post-dialog.component';
+import { ReactionsComponent } from './posts-panel/reactions/reactions.component';
 
 
 
@@ -65,6 +66,7 @@ import { CreatePostDialogComponent } from './posts-panel/dialogs/create-post-dia
     PostsCardsComponent,
     PostsPanelComponent,
     CreatePostDialogComponent,
+    ReactionsComponent,
   ],
   imports: [
     CommonModule,

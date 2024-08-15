@@ -16,7 +16,7 @@ import {ChannelService} from "../../services/channel.service";
 export class PostsPanelComponent implements OnInit{
   @Input() group!: Group | undefined;
   @Input() channel!: Channel | undefined;
-  @Input() loggedUserId!: string;
+  @Input() loggedUser!: User;
 
   posts!: Post[];
 
@@ -34,7 +34,7 @@ export class PostsPanelComponent implements OnInit{
     const dialogRef = this.dialog.open(CreatePostDialogComponent, {
       data: {
         channel: this.channel,
-        loggedUserId: this.loggedUserId
+        loggedUserId: this.loggedUser.externalIdentification
       },
       width: '90vw',
       maxWidth: '90vw',

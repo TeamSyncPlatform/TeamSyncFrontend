@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ReactionType} from "../../models/reaction-type.enum";
+import {ReactionType} from "../../models/reaction/reaction-type.enum";
 import {Post} from "../../models/post/post.model";
 import {User} from "../../../shared/users/models/user.model";
 import {UserService} from "../../../shared/users/user.service";
@@ -15,6 +15,7 @@ export class PostCardComponent implements OnInit{
   post!: Post;
   author: User = {} as User;
   content!: string;
+  @Input() loggedUser!: User;
 
   constructor(private userService: UserService) {
   }
@@ -24,19 +25,6 @@ export class PostCardComponent implements OnInit{
     this.content = this.post.content;
   }
 
-  reactions: { name: ReactionType, icon: string }[] = [
-    { name: ReactionType.Like, icon: 'thumb_up' },
-    { name: ReactionType.Dislike, icon: 'thumb_down' },
-    { name: ReactionType.Love, icon: 'favorite' },
-    { name: ReactionType.Laugh, icon: 'sentiment_very_satisfied' },
-    { name: ReactionType.Wow, icon: 'emoji_objects' },
-    { name: ReactionType.Angry, icon: 'sentiment_very_dissatisfied' },
-    { name: ReactionType.Sad, icon: 'sentiment_dissatisfied' }
-  ];
-
-  react(reactionType : ReactionType) {
-    console.log(`Reacted with: ${reactionType}`);
-  }
 
   private loadAuthor() {
     this.userService.get(this.post.author.id).subscribe({

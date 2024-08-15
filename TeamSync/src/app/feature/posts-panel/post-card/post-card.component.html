@@ -15,25 +15,12 @@
             }"
     ></editor>
     <div class="bottom-section">
-      <button class="bottom-box" [matMenuTriggerFor]="menu">
-        <mat-icon class="account-icon">add_reaction</mat-icon>
-        Add reaction
-      </button>
+      <app-reactions [loggedUser]="loggedUser" [post]="post"></app-reactions>
       <button class="bottom-box">
         <mat-icon class="account-icon">comment</mat-icon>
         Comments({{getCommentsSize()}})
       </button>
     </div>
-
-    <mat-menu class="reactions-box" #menu="matMenu">
-      <div class="reactions">
-        <div class="reaction-item" *ngFor="let reaction of reactions" (click)="react(reaction.name)">
-          <button mat-icon-button matTooltip="{{reaction.name}}">
-            <mat-icon>{{reaction.icon}}</mat-icon>
-          </button>
-        </div>
-      </div>
-    </mat-menu>
 
   </div>
 
