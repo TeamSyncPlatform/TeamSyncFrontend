@@ -29,7 +29,6 @@ export class PostCardComponent implements OnInit{
     this.loadAuthor();
     this.loadAttachments();
     this.content = this.post.content;
-    console.log("Loaded attachments: ", this.post.attachments);
   }
 
 
@@ -47,7 +46,7 @@ export class PostCardComponent implements OnInit{
   private loadAttachments() {
     this.postService.getPostAttachments(this.post.id).subscribe({
       next: (attachments: Attachment[]) => {
-        this.attachments = attachments
+        this.attachments = attachments;
       },
       error: (error) => {
         console.error("Error getting group", error);
@@ -89,13 +88,13 @@ export class PostCardComponent implements OnInit{
     }
   }
 
-  downloadAttachment(filePath: string): void {
-    this.attachmentService.downloadAttachment(filePath).subscribe(blob => {
+  downloadAttachment(attachment: Attachment): void {
+    this.attachmentService.downloadAttachment(attachment.path).subscribe(blob => {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
 
-      a.download = filePath.split('/').pop() || 'download';
+      a.download = attachment.originalName || 'download';
 
       document.body.appendChild(a);
       a.click();

@@ -21,7 +21,7 @@
       <div class="attachments-section" >
         <mat-chip-set aria-label="Attachments">
           @for (attachment of attachments; track attachment){
-            <mat-chip class="attachment" (click)="downloadAttachment(attachment.path)">{{attachment.originalName}}</mat-chip>
+            <mat-chip class="attachment" (click)="downloadAttachment(attachment)">{{attachment.originalName}}</mat-chip>
           }
         </mat-chip-set>
       </div>
