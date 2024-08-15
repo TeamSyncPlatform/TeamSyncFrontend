@@ -1,9 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ReactionType} from "../../models/reaction/reaction-type.enum";
 import {Post} from "../../models/post/post.model";
 import {User} from "../../../shared/users/models/user.model";
 import {UserService} from "../../../shared/users/user.service";
-import {Group} from "../../models/group/group.model";
+import {AttachmentService} from "../../services/attachment.service";
+import {Attachment} from "../../models/attachment/attachment-dto.model";
+import {PostService} from "../../services/post.service";
 
 @Component({
   selector: 'app-post-card',
@@ -15,14 +16,20 @@ export class PostCardComponent implements OnInit{
   post!: Post;
   author: User = {} as User;
   content!: string;
+  attachments!: Attachment[];
   @Input() loggedUser!: User;
 
-  constructor(private userService: UserService) {
+  constructor(
+    private userService: UserService,
+    private attachmentService: AttachmentService,
+    private postService: PostService) {
   }
 
   ngOnInit() {
     this.loadAuthor();
+    this.loadAttachments();
     this.content = this.post.content;
+    console.log("Loaded attachments: ", this.post.attachments);
   }
 
 
@@ -30,6 +37,17 @@ export class PostCardComponent implements OnInit{
     this.userService.get(this.post.author.id).subscribe({
       next: (user: User) => {
         this.author = user
+      },
+      error: (error) => {
+        console.error("Error getting group", error);
+      }
+    })
+  }
+
+  private loadAttachments() {
+    this.postService.getPostAttachments(this.post.id).subscribe({
+      next: (attachments: Attachment[]) => {
+        this.attachments = attachments
       },
       error: (error) => {
         console.error("Error getting group", error);
@@ -69,5 +87,20 @@ export class PostCardComponent implements OnInit{
     } else {
       return years === 1 ? '1 year ago' : `${years} years ago`;
     }
+  }
+
+  downloadAttachment(filePath: string): void {
+    this.attachmentService.downloadAttachment(filePath).subscribe(blob => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+
+      a.download = filePath.split('/').pop() || 'download';
+
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    });
   }
 }

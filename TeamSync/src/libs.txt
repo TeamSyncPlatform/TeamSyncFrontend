@@ -3,3 +3,4 @@ npm install angular-oauth2-oidc
 npm i --save-dev @types/uuid
 npm i localstorage-polyfill --save
 npm install --save @tinymce/tinymce-angular
+npm install file-saver --save

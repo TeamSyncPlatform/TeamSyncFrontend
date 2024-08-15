@@ -68,25 +68,12 @@
   transform: scale(1.05);
 }
 
-/*.bottom-box:hover{*/
-/*  color: white;*/
-/*  background-color: rgb(55, 154, 218);*/
-/*}*/
-
-/*.reactions-box {*/
-/*  display: flex;*/
-/*  justify-content: space-around;*/
-/*  padding: 10px;*/
-/*  background-color: #f0f0f0;*/
-/*  border-radius: 10px;*/
-/*  position: absolute;*/
-/*  bottom: 60px;*/
-/*  left: 20px;*/
-/*  z-index: 1000;*/
-/*}*/
-
 
 .post-card {
   position: relative;
+}
+
+.attachment{
+  cursor: pointer;
 }
 

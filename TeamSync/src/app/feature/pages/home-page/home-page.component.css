@@ -15,4 +15,33 @@
 
 #posts-panel{
   flex: 1;
+  margin-left: 20em;
+  margin-right: 15em;
+  overflow-y: auto;
+  margin-top: 5.2em;
+}
+
+app-side-nav {
+  width: 20em;
+  flex-shrink: 0;
+  position: fixed;
+  top: 5.2em;
+  bottom: 0;
+  overflow-y: auto;
+}
+
+app-members-panel {
+  width: 15em;
+  flex-shrink: 0;
+  position: fixed;
+  top: 5.2em;
+  bottom: 0;
+  right: 0;
+  overflow-y: auto;
+}
+
+app-navbar{
+  position: fixed;
+  width: 100%;
+  z-index: 100;
 }

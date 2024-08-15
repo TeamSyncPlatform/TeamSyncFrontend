@@ -3,6 +3,7 @@ import {ChannelReference} from "../channel/channel-reference.model";
 import {ReactionType} from "../reaction/reaction-type.enum";
 import {CommentReference} from "../comment/comment-reference.model";
 import {AttachmentReference} from "../attachment/attachment-reference.model";
+import {Attachment} from "../attachment/attachment-dto.model";
 
 export interface Post {
   id: number;

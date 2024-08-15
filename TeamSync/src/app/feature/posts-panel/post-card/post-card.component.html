@@ -9,11 +9,24 @@
     </div>
     <editor [disabled]="true" class="post-content" [(ngModel)]="content" apiKey="nd3g0k4hxtsddd9b7xxl7pf335fizrnf9u5qra3kaj5aovvn"
             [init]="{
-            plugins: 'false',
+            plugins: 'autoresize',
             toolbar: 'false',
-            menubar: 'false'
+            menubar: 'false',
+            max_height: 500,
+            disabled: true
             }"
     ></editor>
+
+    @if (attachments && attachments.length > 0){
+      <div class="attachments-section" >
+        <mat-chip-set aria-label="Attachments">
+          @for (attachment of attachments; track attachment){
+            <mat-chip class="attachment" (click)="downloadAttachment(attachment.path)">{{attachment.originalName}}</mat-chip>
+          }
+        </mat-chip-set>
+      </div>
+    }
+
     <div class="bottom-section">
       <app-reactions [loggedUser]="loggedUser" [post]="post"></app-reactions>
       <button class="bottom-box">
@@ -21,7 +34,6 @@
         Comments({{getCommentsSize()}})
       </button>
     </div>
-
   </div>
 
 }

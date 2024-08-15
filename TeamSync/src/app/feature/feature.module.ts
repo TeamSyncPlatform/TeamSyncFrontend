@@ -41,6 +41,7 @@ import {MatTooltip} from "@angular/material/tooltip";
 import {EditorComponent} from "@tinymce/tinymce-angular";
 import { CreatePostDialogComponent } from './posts-panel/dialogs/create-post-dialog/create-post-dialog.component';
 import { ReactionsComponent } from './posts-panel/reactions/reactions.component';
+import {MatChip, MatChipSet} from "@angular/material/chips";
 
 
 
@@ -90,7 +91,9 @@ import { ReactionsComponent } from './posts-panel/reactions/reactions.component'
     MatMenu,
     MatMenuTrigger,
     MatTooltip,
-    EditorComponent
+    EditorComponent,
+    MatChipSet,
+    MatChip
   ]
 })
 export class FeatureModule { }

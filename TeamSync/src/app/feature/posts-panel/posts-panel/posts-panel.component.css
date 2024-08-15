@@ -1,6 +1,6 @@
 #content{
   flex:1;
-  padding: 0 1em 2em 1em;
+  padding: 1em 1em 2em 1em;
 }
 
 .create-post-button {
@@ -17,6 +17,7 @@
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s, box-shadow 0.3s;
+  z-index: 10000;
 }
 
 .create-post-button:hover {

@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, inject, Input, OnInit, ViewChild} from '@angular/core';
 import { Group } from '../../models/group/group.model';
 import { Channel } from '../../models/channel/channel.model';
 import {LeaveGroupDialogComponent} from "../../members-panel/dialogs/leave-group-dialog/leave-group-dialog.component";
@@ -17,6 +17,7 @@ export class PostsPanelComponent implements OnInit{
   @Input() group!: Group | undefined;
   @Input() channel!: Channel | undefined;
   @Input() loggedUser!: User;
+  @ViewChild('contentDiv') contentDiv!: ElementRef;
 
   posts!: Post[];
 
@@ -43,9 +44,16 @@ export class PostsPanelComponent implements OnInit{
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         console.log('The dialog was closed with result:', result);
-        // this.groupLeft.emit();
+        this.loadPosts();
+        this.scrollToTop();
       }
     });
+  }
+
+  scrollToTop() {
+    if (this.contentDiv) {
+      this.contentDiv.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    }
   }
 
   loadPosts() {
