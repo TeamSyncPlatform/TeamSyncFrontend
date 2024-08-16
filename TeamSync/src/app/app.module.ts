@@ -16,6 +16,7 @@ import {
 } from "./core/zitadel/statehandler-processor.service";
 import {StorageService} from "./core/zitadel/storage.service";
 import {Interceptor} from "./core/zitadel/interceptor";
+import { InfiniteScrollModule } from "ngx-infinite-scroll";
 
 const authConfig: AuthConfig = {
   scope: 'openid profile email offline_access',
@@ -46,6 +47,7 @@ const stateHandlerFn = (stateHandler: StatehandlerService) => {
     SharedModule,
 
     HttpClientModule,
+    InfiniteScrollModule,
     OAuthModule.forRoot({
       resourceServer: {
         allowedUrls: ['https://zitadel.tiacgroup.com/admin/v1', 'https://zitadel.tiacgroup.com/management/v1', 'https://zitadel.tiacgroup.com/auth/v1'],

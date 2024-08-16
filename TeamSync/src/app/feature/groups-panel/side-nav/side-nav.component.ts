@@ -83,10 +83,8 @@ export class SideNavComponent implements OnInit, OnDestroy{
   }
 
   selectChannel(channel: Channel) {
-    console.log('Selected channel:', channel);
     this.channelClicked.emit(channel);
     this.selectedChannel = channel;
-    console.log(this.selectedChannel);
   }
 
   searchGroups(): void {
@@ -132,7 +130,6 @@ export class SideNavComponent implements OnInit, OnDestroy{
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('The dialog was closed with result:', result);
         this.searchGroups();
       }
     });
@@ -147,7 +144,6 @@ export class SideNavComponent implements OnInit, OnDestroy{
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('The dialog was closed with result:', result);
         this.loadChannels(group.id);
       }
     });
@@ -162,7 +158,6 @@ export class SideNavComponent implements OnInit, OnDestroy{
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('The dialog was closed with result:', result);
         this.searchGroups();
       }
     });
@@ -177,7 +172,6 @@ export class SideNavComponent implements OnInit, OnDestroy{
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('The dialog was closed with result:', result);
         this.loadChannels(channel.group.id);
       }
     });

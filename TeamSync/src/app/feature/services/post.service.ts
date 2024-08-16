@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Group} from "../models/group/group.model";
 import {environment} from "../../core/env/env";
@@ -53,6 +53,14 @@ export class PostService {
 
   getPostComments(postId : number): Observable<Comment[]> {
     return this.httpClient.get<Comment[]>(environment.apiHost + 'posts/' + postId + '/comments')
+  }
+
+  getPaginatedPosts(page: number = 1, itemsPerPage: number = 10): Observable<Post[]> {
+    const params = new HttpParams()
+      .set('pageNumber', page.toString())
+      .set('itemsPerPage', itemsPerPage.toString());
+
+    return this.httpClient.get<Post[]>(environment.apiHost + 'posts/paginated', { params });
   }
 
 }

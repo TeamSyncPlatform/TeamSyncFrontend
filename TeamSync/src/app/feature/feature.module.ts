@@ -49,6 +49,8 @@ import { AddCommentComponent } from './posts-panel/comments/add-comment/add-comm
 import { CommentReactionsComponent } from './posts-panel/reaction-buttons/comment-reactions/comment-reactions.component';
 import { EditPostDialogComponent } from './posts-panel/dialogs/edit-post-dialog/edit-post-dialog.component';
 import { RemovePostDialogComponent } from './posts-panel/dialogs/remove-post-dialog/remove-post-dialog.component';
+import {InfiniteScrollDirective} from "ngx-infinite-scroll";
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 
 
 
@@ -82,6 +84,7 @@ import { RemovePostDialogComponent } from './posts-panel/dialogs/remove-post-dia
     CommentReactionsComponent,
     EditPostDialogComponent,
     RemovePostDialogComponent,
+    ProfilePageComponent,
   ],
   imports: [
     CommonModule,
@@ -107,7 +110,8 @@ import { RemovePostDialogComponent } from './posts-panel/dialogs/remove-post-dia
     MatTooltip,
     EditorComponent,
     MatChipSet,
-    MatChip
+    MatChip,
+    InfiniteScrollDirective
   ]
 })
 export class FeatureModule { }

@@ -7,6 +7,7 @@ import {CreatePostDialogComponent} from "../dialogs/create-post-dialog/create-po
 import {Post} from "../../models/post/post.model";
 import {User} from "../../../shared/users/models/user.model";
 import {ChannelService} from "../../services/channel.service";
+import {PostService} from "../../services/post.service";
 
 @Component({
   selector: 'app-posts-panel',
@@ -23,12 +24,12 @@ export class PostsPanelComponent implements OnInit{
 
   readonly dialog = inject(MatDialog);
 
-  constructor(private channelService: ChannelService) {
+  constructor(private channelService: ChannelService, private postService: PostService) {
   }
 
   ngOnInit() {
-    this.loadPosts();
-    console.log("channel: ", this.channel);
+    this.loadData();
+    // this.loadPosts();
   }
 
   openCreatePostDialog() {
@@ -44,8 +45,8 @@ export class PostsPanelComponent implements OnInit{
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('The dialog was closed with result:', result);
-        this.loadPosts();
+        // this.loadPosts();
+        this.loadData();
         this.scrollToTop();
       }
     });
@@ -57,19 +58,56 @@ export class PostsPanelComponent implements OnInit{
     }
   }
 
-  loadPosts() {
-    this.channelService.getChannelPosts(this.channel!.id).subscribe({
-      next: (posts: Post[]) => {
-        this.posts = posts
-        console.log("loadedPosts: ", this.posts);
-      },
-      error: (error) => {
-        console.error("Error getting group", error);
-      }
-    })
-  }
+  // loadPosts() {
+  //   this.channelService.getChannelPosts(this.channel!.id).subscribe({
+  //     next: (posts: Post[]) => {
+  //       this.posts = posts
+  //       console.log("loadedPosts: ", this.posts);
+  //     },
+  //     error: (error) => {
+  //       console.error("Error getting group", error);
+  //     }
+  //   })
+  // }
 
   onPostDeletion(post: Post) {
-    this.loadPosts();
+    this.loadData();
+    // this.loadPosts();
   }
+
+  //INFINITE SCROLL
+  isLoading=false;
+  currentPage=0;
+  itemsPerPage=10;
+
+  toggleLoading = ()=>this.isLoading=!this.isLoading;
+
+  loadData = () => {
+    this.toggleLoading();
+    this.postService.getPaginatedPosts(this.currentPage, this.itemsPerPage).subscribe({
+      next: (response: any) => {
+        this.posts = response.content;
+      },
+      error: err => console.log(err),
+      complete: () => this.toggleLoading()
+    });
+  }
+
+  appendData = () => {
+    console.log("append called");
+    this.toggleLoading();
+    this.postService.getPaginatedPosts(this.currentPage, this.itemsPerPage).subscribe({
+      next: (response: any) => {
+        this.posts = [...this.posts, ...response.content];
+      },
+      error: err => console.log(err),
+      complete: () => this.toggleLoading()
+    });
+  }
+
+  onScroll= ()=>{
+    this.currentPage++;
+    this.appendData();
+  }
+
 }

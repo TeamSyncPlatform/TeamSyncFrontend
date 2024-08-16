@@ -74,7 +74,6 @@ export class MembersPanelComponent implements OnInit{
     this.groupService.getMembers(this.group.id).subscribe({
       next: (members: User[]) => {
         this.members = members;
-        console.log("Members: ", members);
       },
       error: (_) => {
         console.log('Error!');
@@ -91,7 +90,6 @@ export class MembersPanelComponent implements OnInit{
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('The dialog was closed with result:', result);
         this.loadMembers();
       }
     });
@@ -106,7 +104,6 @@ export class MembersPanelComponent implements OnInit{
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('The dialog was closed with result:', result);
         this.loadMembers();
       }
     });
@@ -122,7 +119,6 @@ export class MembersPanelComponent implements OnInit{
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('The dialog was closed with result:', result);
         this.groupLeft.emit();
       }
     });

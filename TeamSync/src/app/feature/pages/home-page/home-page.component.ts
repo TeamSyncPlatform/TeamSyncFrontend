@@ -34,7 +34,6 @@ export class HomePageComponent implements OnInit{
   onChannelClicked(channel: Channel) {
     this.activeChannel = channel
     this.loadGroup(this.activeChannel.group.id);
-    console.log("CHANNEL: ", this.activeChannel);
   }
 
   onGroupLeave(){
@@ -48,7 +47,6 @@ export class HomePageComponent implements OnInit{
     this.groupService.get(id).subscribe({
       next: (group: Group) => {
         this.activeGroup = group
-        console.log(this.activeGroup);
       },
       error: (error) => {
         console.error("Error getting group", error);

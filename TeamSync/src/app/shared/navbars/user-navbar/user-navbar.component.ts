@@ -21,7 +21,6 @@ export class UserNavbarComponent implements OnInit{
   ngOnInit() {
     this.navbarService.currentPathState.subscribe((result) => {
       this.currentPath = result;
-      console.log(this.currentPath);
     })
   }
 
@@ -41,7 +40,6 @@ export class UserNavbarComponent implements OnInit{
 
   logout() {
     this.authenticationService.signout();
-    console.log("Successfully logged out")
   }
 
   openSettingsPage() {

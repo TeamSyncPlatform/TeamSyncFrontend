@@ -16,4 +16,8 @@ export class PostsCardsComponent {
   onPostDeletion(post: Post) {
     this.postDeleted.emit(post);
   }
+
+  onScroll() {
+    console.log("AAAAAAAAAA")
+  }
 }

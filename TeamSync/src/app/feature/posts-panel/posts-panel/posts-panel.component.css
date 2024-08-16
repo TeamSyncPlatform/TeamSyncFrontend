@@ -1,6 +1,8 @@
 #content{
   flex:1;
   padding: 1em 1em 2em 1em;
+  max-height: calc(100vh - 5.25em);
+  overflow-y: auto;
 }
 
 .create-post-button {

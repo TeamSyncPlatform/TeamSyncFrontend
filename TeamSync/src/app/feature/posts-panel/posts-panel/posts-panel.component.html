@@ -1,7 +1,18 @@
 @if (channel !== undefined && group !== undefined){
-  <div id="content" #contentDiv>
+  <div id="content" #contentDiv
+       class="search-results"
+       infiniteScroll
+       [infiniteScrollDistance]="2"
+       [infiniteScrollThrottle]="500"
+       (scrolled)="onScroll()"
+       [scrollWindow]="false">
 <!--    <h1>{{channel.name}}</h1>-->
-    <app-posts-cards (postDeleted)="onPostDeletion($event)" [loggedUser]="loggedUser" [posts]="posts" ></app-posts-cards>
+    <app-posts-cards
+      (postDeleted)="onPostDeletion($event)"
+      [loggedUser]="loggedUser"
+      [posts]="posts" ></app-posts-cards>
+
+    <div *ngIf="isLoading">Loading...</div>
     <button mat-flat-button class="create-post-button" (click)="openCreatePostDialog()">
       Create post
     </button>
