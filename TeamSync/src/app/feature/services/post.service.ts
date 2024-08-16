@@ -31,6 +31,10 @@ export class PostService {
     return this.httpClient.put<Post>(environment.apiHost + 'posts', post);
   }
 
+  remove(id: number) : Observable<Post>{
+    return this.httpClient.delete<Post>(environment.apiHost + 'posts/' + id);
+  }
+
   create(createPostRequest: CreatePostRequest) : Observable<Post>{
     return this.httpClient.post<Post>(environment.apiHost + 'posts', createPostRequest);
   }

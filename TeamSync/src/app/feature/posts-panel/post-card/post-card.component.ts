@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, inject, Input, OnInit, Output} from '@angular/core';
 import {Post} from "../../models/post/post.model";
 import {User} from "../../../shared/users/models/user.model";
 import {UserService} from "../../../shared/users/user.service";
@@ -11,6 +11,7 @@ import {ReactionType} from "../../models/reaction/reaction-type.enum";
 import {CreatePostDialogComponent} from "../dialogs/create-post-dialog/create-post-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {EditPostDialogComponent} from "../dialogs/edit-post-dialog/edit-post-dialog.component";
+import {RemovePostDialogComponent} from "../dialogs/remove-post-dialog/remove-post-dialog.component";
 
 @Component({
   selector: 'app-post-card',
@@ -28,6 +29,7 @@ export class PostCardComponent implements OnInit{
   readonly dialog = inject(MatDialog);
 
   areCommentsShowing: boolean = false;
+  @Output() postDeleted = new EventEmitter<Post>();
 
   constructor(
     private userService: UserService,
@@ -148,7 +150,18 @@ export class PostCardComponent implements OnInit{
     });
   }
 
-  removePostClicked() {
+    removePostClicked() {
+      const dialogRef = this.dialog.open(RemovePostDialogComponent, {
+        data: {
+          post: this.post
+        }
+      });
 
-  }
+      dialogRef.afterClosed().subscribe(response => {
+        if (response) {
+          console.log('The dialog was closed with result:', response);
+          this.postDeleted.emit(response);
+        }
+      });
+    }
 }

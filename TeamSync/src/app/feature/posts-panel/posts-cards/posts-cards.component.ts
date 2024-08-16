@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Post} from "../../models/post/post.model";
 import {User} from "../../../shared/users/models/user.model";
 
@@ -10,4 +10,10 @@ import {User} from "../../../shared/users/models/user.model";
 export class PostsCardsComponent {
   @Input() posts!: Post[];
   @Input() loggedUser!: User;
+
+  @Output() postDeleted = new EventEmitter<Post>();
+
+  onPostDeletion(post: Post) {
+    this.postDeleted.emit(post);
+  }
 }

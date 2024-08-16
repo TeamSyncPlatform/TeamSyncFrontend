@@ -68,4 +68,8 @@ export class PostsPanelComponent implements OnInit{
       }
     })
   }
+
+  onPostDeletion(post: Post) {
+    this.loadPosts();
+  }
 }

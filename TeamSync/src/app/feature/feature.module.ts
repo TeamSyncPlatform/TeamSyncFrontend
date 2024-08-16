@@ -48,6 +48,7 @@ import { CommentsSectionComponent } from './posts-panel/comments/comments-sectio
 import { AddCommentComponent } from './posts-panel/comments/add-comment/add-comment.component';
 import { CommentReactionsComponent } from './posts-panel/reaction-buttons/comment-reactions/comment-reactions.component';
 import { EditPostDialogComponent } from './posts-panel/dialogs/edit-post-dialog/edit-post-dialog.component';
+import { RemovePostDialogComponent } from './posts-panel/dialogs/remove-post-dialog/remove-post-dialog.component';
 
 
 
@@ -80,6 +81,7 @@ import { EditPostDialogComponent } from './posts-panel/dialogs/edit-post-dialog/
     AddCommentComponent,
     CommentReactionsComponent,
     EditPostDialogComponent,
+    RemovePostDialogComponent,
   ],
   imports: [
     CommonModule,
