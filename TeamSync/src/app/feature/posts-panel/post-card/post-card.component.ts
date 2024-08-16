@@ -111,4 +111,11 @@ export class PostCardComponent implements OnInit{
     });
   }
 
+  editPostClicked() {
+
+  }
+
+  removePostClicked() {
+
+  }
 }

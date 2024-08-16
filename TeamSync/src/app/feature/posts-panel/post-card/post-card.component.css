@@ -13,6 +13,10 @@
 /*  transform: scale(2);*/
 /*}*/
 
+.stretch{
+  flex:1;
+}
+
 .profile-picture {
   width: 50px;
   height: 50px;
@@ -23,7 +27,7 @@
 .top-section{
   display: flex;
   flex-direction: row;
-  justify-content: left;
+  /*justify-content: left;*/
   align-items: center;
   gap: 1em;
 }
@@ -77,3 +81,31 @@
   cursor: pointer;
 }
 
+/*MENU*/
+.post-options-icon{
+  justify-self: end;
+}
+
+::ng-deep .cdk-overlay-container .post-options-menu {
+  margin-top: 0.5rem;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(227, 227, 227, 0.9);
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-option{
+  padding: 0.5em 1em 0.5em 1em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  gap: 0.5em;
+  cursor: pointer;
+}
+
+.menu-option:hover{
+  background-color: #efefef;
+  color: #333333;
+}
