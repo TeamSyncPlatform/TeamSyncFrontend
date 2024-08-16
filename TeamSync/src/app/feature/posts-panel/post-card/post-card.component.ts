@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, inject, Input, OnInit} from '@angular/core';
 import {Post} from "../../models/post/post.model";
 import {User} from "../../../shared/users/models/user.model";
 import {UserService} from "../../../shared/users/user.service";
@@ -8,6 +8,9 @@ import {PostService} from "../../services/post.service";
 import {Channel} from "../../models/channel/channel.model";
 import {Reaction} from "../../models/reaction/reaction.model";
 import {ReactionType} from "../../models/reaction/reaction-type.enum";
+import {CreatePostDialogComponent} from "../dialogs/create-post-dialog/create-post-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {EditPostDialogComponent} from "../dialogs/edit-post-dialog/edit-post-dialog.component";
 
 @Component({
   selector: 'app-post-card',
@@ -21,6 +24,8 @@ export class PostCardComponent implements OnInit{
   content!: string;
   attachments!: Attachment[];
   @Input() loggedUser!: User;
+
+  readonly dialog = inject(MatDialog);
 
   areCommentsShowing: boolean = false;
 
@@ -44,6 +49,19 @@ export class PostCardComponent implements OnInit{
     this.userService.get(this.post.author.id).subscribe({
       next: (user: User) => {
         this.author = user
+      },
+      error: (error) => {
+        console.error("Error getting group", error);
+      }
+    })
+  }
+
+  private reloadPost() {
+    this.postService.get(this.post.id).subscribe({
+      next: (post: Post) => {
+        this.post = post
+        this.content = this.post.content
+        this.loadAttachments();
       },
       error: (error) => {
         console.error("Error getting group", error);
@@ -112,7 +130,22 @@ export class PostCardComponent implements OnInit{
   }
 
   editPostClicked() {
+    const dialogRef = this.dialog.open(EditPostDialogComponent, {
+      data: {
+        post: this.post,
+        attachments: this.attachments
+      },
+      width: '90vw',
+      maxWidth: '90vw',
+      maxHeight: '90vh'
+    });
 
+    dialogRef.afterClosed().subscribe(response => {
+      if (response) {
+        console.log('The dialog was closed with result:', response);
+        this.reloadPost();
+      }
+    });
   }
 
   removePostClicked() {

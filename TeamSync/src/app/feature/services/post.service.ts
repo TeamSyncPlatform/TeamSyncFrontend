@@ -27,6 +27,10 @@ export class PostService {
     return this.httpClient.get<Post>(environment.apiHost + 'posts/' + id);
   }
 
+  update(post: Post) : Observable<Post>{
+    return this.httpClient.put<Post>(environment.apiHost + 'posts', post);
+  }
+
   create(createPostRequest: CreatePostRequest) : Observable<Post>{
     return this.httpClient.post<Post>(environment.apiHost + 'posts', createPostRequest);
   }
