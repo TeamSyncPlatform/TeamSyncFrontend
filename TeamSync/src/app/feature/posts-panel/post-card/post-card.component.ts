@@ -5,6 +5,9 @@ import {UserService} from "../../../shared/users/user.service";
 import {AttachmentService} from "../../services/attachment.service";
 import {Attachment} from "../../models/attachment/attachment-dto.model";
 import {PostService} from "../../services/post.service";
+import {Channel} from "../../models/channel/channel.model";
+import {Reaction} from "../../models/reaction/reaction.model";
+import {ReactionType} from "../../models/reaction/reaction-type.enum";
 
 @Component({
   selector: 'app-post-card',
@@ -19,6 +22,8 @@ export class PostCardComponent implements OnInit{
   attachments!: Attachment[];
   @Input() loggedUser!: User;
 
+  areCommentsShowing: boolean = false;
+
   constructor(
     private userService: UserService,
     private attachmentService: AttachmentService,
@@ -31,6 +36,9 @@ export class PostCardComponent implements OnInit{
     this.content = this.post.content;
   }
 
+  toggleComments(){
+    this.areCommentsShowing = !this.areCommentsShowing;
+  }
 
   private loadAuthor() {
     this.userService.get(this.post.author.id).subscribe({
@@ -102,4 +110,5 @@ export class PostCardComponent implements OnInit{
       window.URL.revokeObjectURL(url);
     });
   }
+
 }

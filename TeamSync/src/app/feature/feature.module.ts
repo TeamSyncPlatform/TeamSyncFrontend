@@ -40,8 +40,13 @@ import {MatMenu, MatMenuTrigger} from "@angular/material/menu";
 import {MatTooltip} from "@angular/material/tooltip";
 import {EditorComponent} from "@tinymce/tinymce-angular";
 import { CreatePostDialogComponent } from './posts-panel/dialogs/create-post-dialog/create-post-dialog.component';
-import { ReactionsComponent } from './posts-panel/reactions/reactions.component';
+import { ReactionsComponent } from './posts-panel/reaction-buttons/reactions/reactions.component';
 import {MatChip, MatChipSet} from "@angular/material/chips";
+import { CommentCardsComponent } from './posts-panel/comments/comment-cards/comment-cards.component';
+import { CommentCardComponent } from './posts-panel/comments/comment-card/comment-card.component';
+import { CommentsSectionComponent } from './posts-panel/comments/comments-section/comments-section.component';
+import { AddCommentComponent } from './posts-panel/comments/add-comment/add-comment.component';
+import { CommentReactionsComponent } from './posts-panel/reaction-buttons/comment-reactions/comment-reactions.component';
 
 
 
@@ -68,6 +73,11 @@ import {MatChip, MatChipSet} from "@angular/material/chips";
     PostsPanelComponent,
     CreatePostDialogComponent,
     ReactionsComponent,
+    CommentCardsComponent,
+    CommentCardComponent,
+    CommentsSectionComponent,
+    AddCommentComponent,
+    CommentReactionsComponent,
   ],
   imports: [
     CommonModule,

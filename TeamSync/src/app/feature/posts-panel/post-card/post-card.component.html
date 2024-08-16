@@ -4,7 +4,7 @@
       <img class="profile-picture" src="/logo.png" alt="Profile Picture">
       <div class="info-section">
         <span>{{author.firstName}} {{author.lastName}}</span>
-        <span class="email-info">{{getPostCreation(post.creationDate)}}</span>
+        <span class="date-info">{{getPostCreation(post.creationDate)}}</span>
       </div>
     </div>
     <editor [disabled]="true" class="post-content" [(ngModel)]="content" apiKey="nd3g0k4hxtsddd9b7xxl7pf335fizrnf9u5qra3kaj5aovvn"
@@ -29,12 +29,15 @@
 
     <div class="bottom-section">
       <app-reactions [loggedUser]="loggedUser" [post]="post"></app-reactions>
-      <button class="bottom-box">
+      <button class="bottom-box" (click)="toggleComments()">
         <mat-icon class="account-icon">comment</mat-icon>
         Comments({{getCommentsSize()}})
       </button>
     </div>
-  </div>
 
+    @if (areCommentsShowing){
+      <app-comments-section [post]="post" [loggedUser]="loggedUser"></app-comments-section>
+    }
+  </div>
 }
 
