@@ -39,6 +39,7 @@ export class PostsPanelComponent implements OnInit{
       },
       width: '90vw',
       maxWidth: '90vw',
+      maxHeight: '90vh'
     });
 
     dialogRef.afterClosed().subscribe(result => {
