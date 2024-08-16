@@ -1,0 +1,8 @@
+@if (posts){
+  <div class="posts-list" (scroll)="onScroll()">
+    @for (post of posts; track post){
+      <app-post-card (postDeleted)="onPostDeletion($event)" [loggedUser]="loggedUser" [post]="post"></app-post-card>
+    }
+  </div>
+}
+

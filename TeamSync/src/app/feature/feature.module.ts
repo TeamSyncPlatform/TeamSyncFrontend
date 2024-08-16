@@ -33,6 +33,24 @@ import {MatCheckbox} from "@angular/material/checkbox";
 import { RemoveMembersDialogComponent } from './members-panel/dialogs/remove-members-dialog/remove-members-dialog.component';
 import { OwnerRoleLabelComponent } from './members-panel/role-labels/owner-role-label/owner-role-label.component';
 import { LeaveGroupDialogComponent } from './members-panel/dialogs/leave-group-dialog/leave-group-dialog.component';
+import { PostCardComponent } from './posts-panel/post-card/post-card.component';
+import { PostsCardsComponent } from './posts-panel/posts-cards/posts-cards.component';
+import { PostsPanelComponent } from './posts-panel/posts-panel/posts-panel.component';
+import {MatMenu, MatMenuTrigger} from "@angular/material/menu";
+import {MatTooltip} from "@angular/material/tooltip";
+import {EditorComponent} from "@tinymce/tinymce-angular";
+import { CreatePostDialogComponent } from './posts-panel/dialogs/create-post-dialog/create-post-dialog.component';
+import { ReactionsComponent } from './posts-panel/reaction-buttons/reactions/reactions.component';
+import {MatChip, MatChipSet} from "@angular/material/chips";
+import { CommentCardsComponent } from './posts-panel/comments/comment-cards/comment-cards.component';
+import { CommentCardComponent } from './posts-panel/comments/comment-card/comment-card.component';
+import { CommentsSectionComponent } from './posts-panel/comments/comments-section/comments-section.component';
+import { AddCommentComponent } from './posts-panel/comments/add-comment/add-comment.component';
+import { CommentReactionsComponent } from './posts-panel/reaction-buttons/comment-reactions/comment-reactions.component';
+import { EditPostDialogComponent } from './posts-panel/dialogs/edit-post-dialog/edit-post-dialog.component';
+import { RemovePostDialogComponent } from './posts-panel/dialogs/remove-post-dialog/remove-post-dialog.component';
+import {InfiniteScrollDirective} from "ngx-infinite-scroll";
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 
 
 
@@ -53,7 +71,20 @@ import { LeaveGroupDialogComponent } from './members-panel/dialogs/leave-group-d
     AddMembersDialogComponent,
     RemoveMembersDialogComponent,
     OwnerRoleLabelComponent,
-    LeaveGroupDialogComponent
+    LeaveGroupDialogComponent,
+    PostCardComponent,
+    PostsCardsComponent,
+    PostsPanelComponent,
+    CreatePostDialogComponent,
+    ReactionsComponent,
+    CommentCardsComponent,
+    CommentCardComponent,
+    CommentsSectionComponent,
+    AddCommentComponent,
+    CommentReactionsComponent,
+    EditPostDialogComponent,
+    RemovePostDialogComponent,
+    ProfilePageComponent,
   ],
   imports: [
     CommonModule,
@@ -73,7 +104,14 @@ import { LeaveGroupDialogComponent } from './members-panel/dialogs/leave-group-d
     MatDialogContent,
     MatDialogActions,
     MatDialogClose,
-    MatCheckbox
+    MatCheckbox,
+    MatMenu,
+    MatMenuTrigger,
+    MatTooltip,
+    EditorComponent,
+    MatChipSet,
+    MatChip,
+    InfiniteScrollDirective
   ]
 })
 export class FeatureModule { }

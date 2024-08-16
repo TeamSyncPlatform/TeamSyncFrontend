@@ -43,7 +43,6 @@ export class AuthenticationService {
   getUserRole(): Observable<string | null> {
     return this.getOIDCUser().pipe(
       map((data: any) => {
-        console.log(data);
         const roles = data.info['urn:zitadel:iam:org:project:roles'];
         if (roles) {
           return Object.keys(roles)[0];
@@ -88,7 +87,6 @@ export class AuthenticationService {
   public login(){
     this.userService.handleLogin().subscribe({
       next: (user: User) => {
-        console.log("Handled login: ", user);
       },
       error: (_) => {
         console.log("Error!");

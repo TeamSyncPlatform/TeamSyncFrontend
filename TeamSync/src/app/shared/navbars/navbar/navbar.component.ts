@@ -24,7 +24,6 @@ export class NavbarComponent implements OnInit{
     this.authenticationService.getUserRole().subscribe({
       next: (role: string | null) => {
         this.role = role;
-        console.log(this.role);
       },
       error: (_) => {
         console.log("Error!");
@@ -39,7 +38,6 @@ export class NavbarComponent implements OnInit{
         this.userService.getByExternalId(userId).subscribe({
           next: (user: User) => {
             this.loggedUser = user;
-            console.log(this.loggedUser);
           },
           error: (_) => {
             console.log("Error!");

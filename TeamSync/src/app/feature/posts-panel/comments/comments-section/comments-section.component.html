@@ -1,0 +1,6 @@
+<div class="comment-section-box">
+  <app-comment-cards [comments]="comments" [post]="post" [loggedUser]="loggedUser"></app-comment-cards>
+  <app-add-comment (commentAdded)="onCommentAdded($event)" [post]="post" [loggedUser]="loggedUser" ></app-add-comment>
+</div>
+
+
