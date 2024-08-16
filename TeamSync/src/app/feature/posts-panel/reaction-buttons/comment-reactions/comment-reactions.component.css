@@ -1,0 +1,106 @@
+.reactions-wrapper{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  gap: 1em;
+}
+
+.reaction-summary{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  gap: 5px;
+}
+
+.reaction-summary .reaction-item{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+}
+
+
+.react-button{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  border-radius: 10px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
+  cursor: pointer;
+  padding: 0.7em;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.react-button:hover {
+  color: white;
+  background-color: rgb(55, 154, 218);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+}
+
+::ng-deep .cdk-overlay-container .reactions-box {
+  padding: 0.5em;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(227, 227, 227, 0.9);
+  overflow: hidden;
+  max-width: none;
+}
+
+::ng-deep .cdk-overlay-container .reactions-box .reactions {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+::ng-deep .cdk-overlay-container .reactions-box button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+::ng-deep .cdk-overlay-container .reactions-box button mat-icon {
+  font-size: 24px;
+}
+
+::ng-deep .cdk-overlay-container .reactions-box .reaction-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+::ng-deep .cdk-overlay-container .reactions-box .reaction-item:hover {
+  transform: scale(1.2);
+}
+
+::ng-deep .cdk-overlay-container .reactions-box .reaction-item button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+::ng-deep .cdk-overlay-container .reactions-box .reaction-item button mat-icon {
+  font-size: 24px;
+  transition: color 0.3s ease;
+}
+
+::ng-deep .cdk-overlay-container .reactions-box .reaction-item:hover button mat-icon {
+  color: #379ada;
+}
+
+.selected-reaction{
+  transform: scale(1.2);
+}
+
+.selected-reaction button mat-icon{
+  color: #379ada;
+}

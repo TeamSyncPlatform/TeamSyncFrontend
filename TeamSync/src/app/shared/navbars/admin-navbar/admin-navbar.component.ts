@@ -18,7 +18,6 @@ export class AdminNavbarComponent implements OnInit{
   ngOnInit() {
     this.navbarService.currentPathState.subscribe((result) => {
       this.currentPath = result;
-      console.log(this.currentPath);
     })
   }
 
@@ -38,7 +37,6 @@ export class AdminNavbarComponent implements OnInit{
 
   logout() {
     this.authenticationService.signout();
-    console.log("Successfully logged out")
   }
 
   openSettingsPage() {

@@ -1,0 +1,8 @@
+<div class="comment-cards-box">
+  @for (comment of comments; track comment){
+    <app-comment-card [comment]="comment" [post]="post" [loggedUser]="loggedUser"></app-comment-card>
+  }
+</div>
+
+
+
