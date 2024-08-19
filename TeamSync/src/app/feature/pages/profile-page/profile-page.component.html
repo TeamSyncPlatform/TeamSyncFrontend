@@ -1,0 +1,49 @@
+@if (loggedUser){
+  <div class="window-box">
+    <app-navbar></app-navbar>
+    <div class="profile-container">
+      <div class="top-section">
+        <img class="profile-background" src="/profile-background.jpg" alt=" ">
+        <div class="profile-picture">
+          <img src="/logo.png" alt=" ">
+        </div>
+        <div class="main-info-box">
+          <div class="user-info">
+            <span class="user-name">{{loggedUser.firstName}} {{loggedUser.lastName}}</span>
+            <span class="user-expertise">Software engineer</span>
+          </div>
+          <div class="stretch"></div>
+          <button mat-icon-button id="edit-profile-button">
+            <mat-icon class="edit-icon">edit</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div class="bottom-section">
+        <div class="left-section">
+          <div class="info-item">
+            <mat-icon class="info-item-icon">phone</mat-icon>
+            <span>+1-555-1234-567</span>
+          </div>
+          <div class="info-item">
+            <mat-icon class="info-item-icon">mail</mat-icon>
+            <span>jane.doe&#64;example.com</span>
+          </div>
+          <div class="info-item">
+            <mat-icon class="info-item-icon">location_pin</mat-icon>
+            <span>123 Maple Street, Springfield, IL 62704</span>
+          </div>
+          @if (loggedUser.skills && loggedUser.skills.length > 0){
+            <div class="skills-section" >
+              <mat-chip-set aria-label="Skills">
+                @for (skill of loggedUser.skills; track skill){
+                  <mat-chip class="skill">{{skill}}</mat-chip>
+                }
+              </mat-chip-set>
+            </div>
+          }
+        </div>
+        <app-user-posts-panel [user]="loggedUser"></app-user-posts-panel>
+      </div>
+    </div>
+  </div>
+}

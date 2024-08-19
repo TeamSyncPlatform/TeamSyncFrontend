@@ -1,0 +1,27 @@
+<mat-dialog-content *ngIf="post" id="create-post-box">
+  <p class="title">Create post</p>
+  <div class="rtf-editor">
+    <editor [(ngModel)]="content" apiKey="nd3g0k4hxtsddd9b7xxl7pf335fizrnf9u5qra3kaj5aovvn"
+            [init]="{
+              plugins: 'autolink charmap codesample emoticons link lists searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker permanentpen powerpaste advtable advcode advtemplate mentions tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
+              toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link table | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            }"
+    ></editor>
+  </div>
+  <button mat-flat-button class="add-attachment-button" (click)="fileInput.click()">Add Attachment</button>
+  <input type="file" #fileInput (change)="onFileChange($event)" style="display: none;" multiple>
+
+  <!-- Display selected files -->
+  <div *ngIf="attachmentFiles.length > 0" class="file-list">
+    <div *ngFor="let file of attachmentFiles; let i = index" class="file-item">
+      <span>{{ file.name }}</span>
+      <button mat-icon-button class="remove-file-button" (click)="removeFile(i)">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancelClick()">Cancel</button>
+  <button mat-flat-button id="yes-button" (click)="onEditClick()">Edit</button>
+</mat-dialog-actions>

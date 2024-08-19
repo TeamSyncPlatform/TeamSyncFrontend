@@ -58,6 +58,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { UserPostsPanelComponent } from './posts-panel/user-posts-panel/user-posts-panel.component';
 
 
 
@@ -92,6 +93,7 @@ import { MatButtonModule } from '@angular/material/button';
     EditPostDialogComponent,
     RemovePostDialogComponent,
     ProfilePageComponent,
+    UserPostsPanelComponent,
   ],
   imports: [
     CommonModule,
