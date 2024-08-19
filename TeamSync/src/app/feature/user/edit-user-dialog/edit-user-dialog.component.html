@@ -2,6 +2,12 @@
   <div class="content" *ngIf="userForm">
     <p class="title">Edit User</p>
 
+    <!-- Image Upload Section -->
+    <div class="image-section">
+      <img [src]="profileImageUrl" alt="Profile Image" class="profile-picture" />
+      <input type="file" (change)="onFileChange($event)" />
+    </div>
+
     <form [formGroup]="userForm" class="user-form">
       <!-- Email -->
       <mat-form-field appearance="fill">
@@ -68,6 +74,6 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No</button>
-  <button mat-flat-button id="yes-button" (click)="onYesClick()">Yes</button>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-flat-button id="yes-button" (click)="onEditClick()">Edit</button>
 </mat-dialog-actions>

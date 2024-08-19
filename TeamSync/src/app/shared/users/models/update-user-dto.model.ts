@@ -1,3 +1,5 @@
+import {Image} from "./image.model";
+
 export interface UpdateUserDTO {
   id: number;
   email: string;

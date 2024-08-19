@@ -1,6 +1,6 @@
 @if (comment){
   <div class="comment-card">
-    <img class="profile-picture" src="/logo.png" alt="Profile Picture">
+    <img class="profile-picture" [src]="profileImageUrl"  alt="Profile Picture">
     <div class="right-section">
       <div class="top-section">
         <span>{{author.firstName}} {{author.lastName}}</span>

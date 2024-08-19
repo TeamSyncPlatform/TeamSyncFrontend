@@ -43,4 +43,12 @@ export class UserService {
     const url = `${environment.apiHost}users/groups/${groupId}/search`;
     return this.httpClient.put<User[]>(url, { searchValue });
   }
+
+  uploadProfileImage(userId: number, file: FormData): Observable<User> {
+    return this.httpClient.post<User>(`${environment.apiHost}users/${userId}/upload-image`, file);
+  }
+
+  getProfileImage(imageId: number): Observable<Blob> {
+    return this.httpClient.get(`${environment.apiHost}users/image/${imageId}`, { responseType: 'blob' });
+  }
 }

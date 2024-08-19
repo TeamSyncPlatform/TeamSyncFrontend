@@ -1,11 +1,12 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {User} from "../../../shared/users/models/user.model";
-import {UserService} from "../../../shared/users/user.service";
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {MatChipInputEvent, MatChipEditedEvent} from '@angular/material/chips';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {UpdateUserDTO} from "../../../shared/users/models/update-user-dto.model";
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { User } from '../../../shared/users/models/user.model';
+import { UserService } from '../../../shared/users/user.service';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UpdateUserDTO } from '../../../shared/users/models/update-user-dto.model';
+import {Image} from "../../../shared/users/models/image.model";
 
 @Component({
   selector: 'app-edit-user-dialog',
@@ -17,17 +18,19 @@ export class EditUserDialogComponent implements OnInit {
   readonly addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   skills: string[] = [];
+  profileImageUrl: string | ArrayBuffer = 'assets/default-profile-image.png'; // Default image
+  profileImageFile: File | null = null;
 
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
     private dialogRef: MatDialogRef<EditUserDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: { user: User }
   ) {
     this.userForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      email: [{value: '', disabled: true}, [Validators.required, Validators.email]],
+      email: [{ value: '', disabled: true }, [Validators.required, Validators.email]],
       address: [''],
       phoneNumber: [''],
       department: [''],
@@ -40,6 +43,51 @@ export class EditUserDialogComponent implements OnInit {
     if (this.data.user) {
       this.userForm.patchValue(this.data.user);
       this.skills = [...this.data.user.skills];
+      this.loadProfileImage();
+    }
+  }
+
+  loadProfileImage(): void {
+    if (this.data.user && this.data.user.profileImage) {
+      const profileImage: Image = this.data.user.profileImage; // Assuming the first image is the profile image
+      this.userService.getProfileImage(profileImage.id).subscribe({
+        next: (imageBlob) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            this.profileImageUrl = reader.result as string;
+          };
+          reader.readAsDataURL(imageBlob);
+        },
+        error: () => {
+          console.error('Error loading profile image');
+        }
+      });
+    }
+  }
+
+  onFileChange(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.profileImageFile = file;
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.profileImageUrl = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  async uploadProfileImage(userId: number): Promise<void> {
+    if (this.profileImageFile) {
+      const formData = new FormData();
+      formData.append('file', this.profileImageFile);
+
+      try {
+        const user = await this.userService.uploadProfileImage(userId, formData).toPromise();
+        console.log("Profile image uploaded successfully:", user);
+      } catch (error) {
+        console.error("Error uploading profile image:", error);
+      }
     }
   }
 
@@ -47,7 +95,7 @@ export class EditUserDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  onYesClick(): void {
+  async onEditClick(): Promise<void> {
     if (this.userForm.valid) {
       const formValues = this.userForm.getRawValue();
 
@@ -63,14 +111,13 @@ export class EditUserDialogComponent implements OnInit {
         skills: this.skills
       };
 
-      this.userService.update(updatedUser).subscribe({
-        next: (user: User) => {
-          this.dialogRef.close(user);
-        },
-        error: (err) => {
-          console.error('Error updating user:', err);
-        }
-      });
+      try {
+        const user = await this.userService.update(updatedUser).toPromise();
+        await this.uploadProfileImage(user!.id);
+        this.dialogRef.close(true);
+      } catch (error) {
+        console.error('Error updating user:', error);
+      }
     }
   }
 

@@ -1,7 +1,7 @@
 @if (author && post){
   <div class="post-card">
     <div class="top-section">
-      <img class="profile-picture" src="/logo.png" alt="Profile Picture">
+      <img class="profile-picture" [src]="profileImageUrl"  alt="Profile Picture">
       <div class="info-section">
         <span>{{author.firstName}} {{author.lastName}}</span>
         <span class="date-info">{{getPostCreation(post.creationDate)}}</span>

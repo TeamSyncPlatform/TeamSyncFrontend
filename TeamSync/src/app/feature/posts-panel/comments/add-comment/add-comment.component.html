@@ -1,12 +1,15 @@
-<div class="add-comment-box">
-  <img class="profile-picture" src="/logo.png" alt="Profile Picture">
-  <form class="form">
-    <mat-form-field appearance="outline" class="comment-input" subscriptSizing="dynamic">
-      <mat-label>Leave a comment</mat-label>
-      <textarea matInput placeholder="Ex. It makes me feel..." [(ngModel)]="content" name="commentContent"></textarea>
-    </mat-form-field>
-  </form>
-  <button mat-icon-button class="send-button" matTooltip="send" (click)="onSendClick()">
-    <mat-icon>send</mat-icon>
-  </button>
-</div>
+@if (loggedUser){
+  <div class="add-comment-box">
+    <img class="profile-picture" [src]="profileImageUrl"  alt="Profile Picture">
+    <form class="form">
+      <mat-form-field appearance="outline" class="comment-input" subscriptSizing="dynamic">
+        <mat-label>Leave a comment</mat-label>
+        <textarea matInput placeholder="Ex. It makes me feel..." [(ngModel)]="content" name="commentContent"></textarea>
+      </mat-form-field>
+    </form>
+    <button mat-icon-button class="send-button" matTooltip="send" (click)="onSendClick()">
+      <mat-icon>send</mat-icon>
+    </button>
+  </div>
+
+}

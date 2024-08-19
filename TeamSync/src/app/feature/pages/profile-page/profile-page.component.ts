@@ -9,6 +9,7 @@ import {AuthenticationService} from "../../../core/zitadel/authentication.servic
 import {CreatePostDialogComponent} from "../../posts-panel/dialogs/create-post-dialog/create-post-dialog.component";
 import {EditUserDialogComponent} from "../../user/edit-user-dialog/edit-user-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-profile-page',
@@ -17,12 +18,14 @@ import {MatDialog} from "@angular/material/dialog";
 })
 export class ProfilePageComponent implements OnInit{
   loggedUser!: User;
+  profileImageUrl: SafeUrl | string = '/default-profile-image.png';
 
   readonly dialog = inject(MatDialog);
 
   constructor(
     private userService: UserService,
-    private authenticationService: AuthenticationService) {
+    private authenticationService: AuthenticationService,
+    private sanitizer: DomSanitizer) {
   }
 
   ngOnInit() {
@@ -36,11 +39,28 @@ export class ProfilePageComponent implements OnInit{
         this.userService.getByExternalId(userId).subscribe({
           next: (user: User) => {
             this.loggedUser = user;
-            // this.loggedUser.skills = ["Java", "SpringBoot", "Angular", "SQL"];
+            this.loadProfileImage();
           }
         });
       }
     });
+  }
+
+  loadProfileImage() {
+    if (this.loggedUser.profileImage.id) {
+      this.userService.getProfileImage(this.loggedUser.profileImage.id).subscribe({
+        next: (blob: Blob) => {
+          const objectURL = URL.createObjectURL(blob);
+          this.profileImageUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+        },
+        error: (err) => {
+          console.error('Error loading profile image:', err);
+          this.profileImageUrl = '/default-profile-image.png';
+        }
+      });
+    } else {
+      this.profileImageUrl = '/default-profile-image.png';
+    }
   }
 
   openEditUserDialog() {

@@ -23,7 +23,7 @@
         <span class="email-info">{{loggedUser.email}}</span>
       </div>
       <hr class="menu-line">
-      <span class="menu-option" (click)="openAccountPage()"><mat-icon class="menu-icon">person</mat-icon>Profile</span>
+      <span class="menu-option" [routerLink]="['/profile']"><mat-icon class="menu-icon">person</mat-icon>Profile</span>
       <span class="menu-option" (click)="openSettingsPage()"><mat-icon class="menu-icon">settings</mat-icon>Settings</span>
       <hr class="menu-line">
       <span class="menu-option" (click)="logout()"><mat-icon class="menu-icon">logout</mat-icon>Logout</span>
