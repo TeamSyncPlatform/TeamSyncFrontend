@@ -1,4 +1,4 @@
-import {Component, ElementRef, inject, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, inject, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { Group } from '../../models/group/group.model';
 import { Channel } from '../../models/channel/channel.model';
 import {LeaveGroupDialogComponent} from "../../members-panel/dialogs/leave-group-dialog/leave-group-dialog.component";
@@ -8,19 +8,27 @@ import {Post} from "../../models/post/post.model";
 import {User} from "../../../shared/users/models/user.model";
 import {ChannelService} from "../../services/channel.service";
 import {PostService} from "../../services/post.service";
+import {Observable, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-posts-panel',
   templateUrl: './posts-panel.component.html',
   styleUrl: './posts-panel.component.css'
 })
-export class PostsPanelComponent implements OnInit{
+export class PostsPanelComponent implements OnInit, OnDestroy{
   @Input() group!: Group | undefined;
   @Input() channel!: Channel | undefined;
   @Input() loggedUser!: User;
   @ViewChild('contentDiv') contentDiv!: ElementRef;
 
   posts!: Post[];
+
+  private eventsSubscription!: Subscription;
+  @Input() events!: Observable<Channel>;
+
+  ngOnDestroy() {
+    this.eventsSubscription.unsubscribe();
+  }
 
   readonly dialog = inject(MatDialog);
 
@@ -29,7 +37,10 @@ export class PostsPanelComponent implements OnInit{
 
   ngOnInit() {
     this.loadData();
-    // this.loadPosts();
+    this.eventsSubscription = this.events.subscribe((channel: Channel) => {
+      this.channel = channel;
+      this.loadData();
+    });
   }
 
   openCreatePostDialog() {
@@ -58,21 +69,8 @@ export class PostsPanelComponent implements OnInit{
     }
   }
 
-  // loadPosts() {
-  //   this.channelService.getChannelPosts(this.channel!.id).subscribe({
-  //     next: (posts: Post[]) => {
-  //       this.posts = posts
-  //       console.log("loadedPosts: ", this.posts);
-  //     },
-  //     error: (error) => {
-  //       console.error("Error getting group", error);
-  //     }
-  //   })
-  // }
-
   onPostDeletion(post: Post) {
     this.loadData();
-    // this.loadPosts();
   }
 
   //INFINITE SCROLL
@@ -84,7 +82,7 @@ export class PostsPanelComponent implements OnInit{
 
   loadData = () => {
     this.toggleLoading();
-    this.postService.getPaginatedPosts(this.currentPage, this.itemsPerPage).subscribe({
+    this.postService.getChannelPaginatedPosts(this.channel!.id, this.currentPage, this.itemsPerPage).subscribe({
       next: (response: any) => {
         this.posts = response.content;
       },
@@ -96,7 +94,7 @@ export class PostsPanelComponent implements OnInit{
   appendData = () => {
     console.log("append called");
     this.toggleLoading();
-    this.postService.getPaginatedPosts(this.currentPage, this.itemsPerPage).subscribe({
+    this.postService.getChannelPaginatedPosts(this.channel!.id, this.currentPage, this.itemsPerPage).subscribe({
       next: (response: any) => {
         this.posts = [...this.posts, ...response.content];
       },

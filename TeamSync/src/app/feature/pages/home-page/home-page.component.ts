@@ -20,6 +20,7 @@ export class HomePageComponent implements OnInit{
   loggedUser!: User;
 
   public leaveEventsSubject: Subject<void> = new Subject<void>();
+  public channelChangedEventsSubject: Subject<Channel> = new Subject<Channel>();
 
   constructor(
     private userService: UserService,
@@ -34,6 +35,7 @@ export class HomePageComponent implements OnInit{
   onChannelClicked(channel: Channel) {
     this.activeChannel = channel
     this.loadGroup(this.activeChannel.group.id);
+    this.channelChangedEventsSubject.next(this.activeChannel);
   }
 
   onGroupLeave(){

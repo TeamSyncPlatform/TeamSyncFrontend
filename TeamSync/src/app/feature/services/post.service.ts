@@ -55,12 +55,20 @@ export class PostService {
     return this.httpClient.get<Comment[]>(environment.apiHost + 'posts/' + postId + '/comments')
   }
 
-  getPaginatedPosts(page: number = 1, itemsPerPage: number = 10): Observable<Post[]> {
+  getChannelPaginatedPosts(channelId: number, page: number = 1, itemsPerPage: number = 10): Observable<Post[]> {
     const params = new HttpParams()
       .set('pageNumber', page.toString())
       .set('itemsPerPage', itemsPerPage.toString());
 
-    return this.httpClient.get<Post[]>(environment.apiHost + 'posts/paginated', { params });
+    return this.httpClient.get<Post[]>(environment.apiHost + 'posts/channel/' + channelId + '/paginated' , { params });
+  }
+
+  getUserPaginatedPosts(userId: number, page: number = 1, itemsPerPage: number = 10): Observable<Post[]> {
+    const params = new HttpParams()
+      .set('pageNumber', page.toString())
+      .set('itemsPerPage', itemsPerPage.toString());
+
+    return this.httpClient.get<Post[]>(environment.apiHost + 'posts/user/' + userId + '/paginated' , { params });
   }
 
 }

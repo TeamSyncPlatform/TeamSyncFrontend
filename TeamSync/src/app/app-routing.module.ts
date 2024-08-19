@@ -5,6 +5,7 @@ import {AnalyticsPageComponent} from "./feature/pages/analytics-page/analytics-p
 import {AuthGuard} from "./core/zitadel/guards/auth.guard";
 import {UserComponent} from "./core/zitadel/components/user/user.component";
 import {SignedOutComponent} from "./core/zitadel/components/signed-out/signed-out.component";
+import {ProfilePageComponent} from "./feature/pages/profile-page/profile-page.component";
 
 const routes: Routes = [
   {
@@ -18,8 +19,14 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    component: ProfilePageComponent,
+    path:"profile",
+    canActivate: [AuthGuard],
+  },
+  {
     component: AnalyticsPageComponent,
-    path:"analytics"
+    path:"analytics",
+    canActivate: [AuthGuard],
   },
   // {
   //   path: 'user',

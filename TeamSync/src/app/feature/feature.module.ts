@@ -51,6 +51,13 @@ import { EditPostDialogComponent } from './posts-panel/dialogs/edit-post-dialog/
 import { RemovePostDialogComponent } from './posts-panel/dialogs/remove-post-dialog/remove-post-dialog.component';
 import {InfiniteScrollDirective} from "ngx-infinite-scroll";
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import {MatCard, MatCardActions, MatCardContent, MatCardHeader} from "@angular/material/card";
+import {MatList, MatListItem} from "@angular/material/list";
+import {MatLine} from "@angular/material/core";
+import { MatCardModule } from '@angular/material/card';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -111,7 +118,18 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
     EditorComponent,
     MatChipSet,
     MatChip,
-    InfiniteScrollDirective
+    InfiniteScrollDirective,
+    MatCard,
+    MatCardHeader,
+    MatCardContent,
+    MatList,
+    MatListItem,
+    MatLine,
+    MatCardActions,
+    MatCardModule,
+    MatListModule,
+    MatIconModule,
+    MatButtonModule,
   ]
 })
 export class FeatureModule { }
