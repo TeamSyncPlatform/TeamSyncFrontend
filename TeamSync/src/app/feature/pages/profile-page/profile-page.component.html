@@ -10,10 +10,10 @@
         <div class="main-info-box">
           <div class="user-info">
             <span class="user-name">{{loggedUser.firstName}} {{loggedUser.lastName}}</span>
-            <span class="user-expertise">Software engineer</span>
+            <span class="user-expertise">{{loggedUser.jobTitle}}</span>
           </div>
           <div class="stretch"></div>
-          <button mat-icon-button id="edit-profile-button">
+          <button mat-icon-button id="edit-profile-button" (click)="openEditUserDialog()">
             <mat-icon class="edit-icon">edit</mat-icon>
           </button>
         </div>
@@ -22,15 +22,15 @@
         <div class="left-section">
           <div class="info-item">
             <mat-icon class="info-item-icon">phone</mat-icon>
-            <span>+1-555-1234-567</span>
+            <span>{{loggedUser.phoneNumber}}</span>
           </div>
           <div class="info-item">
             <mat-icon class="info-item-icon">mail</mat-icon>
-            <span>jane.doe&#64;example.com</span>
+            <span>{{loggedUser.email}}</span>
           </div>
           <div class="info-item">
             <mat-icon class="info-item-icon">location_pin</mat-icon>
-            <span>123 Maple Street, Springfield, IL 62704</span>
+            <span>{{loggedUser.address}}</span>
           </div>
           @if (loggedUser.skills && loggedUser.skills.length > 0){
             <div class="skills-section" >

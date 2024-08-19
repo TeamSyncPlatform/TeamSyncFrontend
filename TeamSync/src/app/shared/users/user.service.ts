@@ -4,6 +4,8 @@ import {Observable} from "rxjs";
 import {User} from "./models/user.model";
 import {environment} from "../../core/env/env";
 import {Group} from "../../feature/models/group/group.model";
+import {Post} from "../../feature/models/post/post.model";
+import {UpdateUserDTO} from "./models/update-user-dto.model";
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +20,10 @@ export class UserService {
 
   get(id: number): Observable<User> {
     return this.httpClient.get<User>(environment.apiHost + 'users/' + id);
+  }
+
+  update(user: UpdateUserDTO) : Observable<User>{
+    return this.httpClient.put<User>(environment.apiHost + 'users', user);
   }
 
   getByExternalId(id: string): Observable<User> {

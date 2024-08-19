@@ -84,6 +84,7 @@ app-navbar{
   height: auto;
   display: flex;
   flex-direction: row;
+  padding: 0 5em;
 }
 
 .left-section{
@@ -110,6 +111,6 @@ app-navbar{
 }
 
 app-user-posts-panel{
+  padding-top: 1em;
   flex: 1;
-  padding: 1em 3em 0 0;
 }

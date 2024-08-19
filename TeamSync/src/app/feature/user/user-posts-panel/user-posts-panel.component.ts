@@ -7,7 +7,7 @@ import {Observable, Subscription} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
 import {ChannelService} from "../../services/channel.service";
 import {PostService} from "../../services/post.service";
-import {CreatePostDialogComponent} from "../dialogs/create-post-dialog/create-post-dialog.component";
+import {CreatePostDialogComponent} from "../../posts-panel/dialogs/create-post-dialog/create-post-dialog.component";
 
 @Component({
   selector: 'app-user-posts-panel',
