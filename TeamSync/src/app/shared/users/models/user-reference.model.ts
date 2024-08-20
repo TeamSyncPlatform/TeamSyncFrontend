@@ -1,4 +1,4 @@
-import {NotificationType} from "./notification-type.model";
+import {NotificationType} from "../../notifications/models/notification-type.model";
 
 export interface UserReference {
   id: number;

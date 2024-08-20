@@ -12,8 +12,9 @@ import {Router} from "@angular/router";
 export class AdminNavbarComponent implements OnInit{
   private currentPath: String = '';
 
-  @Input()
-  loggedUser!: User;
+  @Input() loggedUser!: User;
+
+  @Input() notificationsBadge!: string;
   constructor(
     private navbarService: NavbarService,
     private authenticationService:AuthenticationService,
@@ -29,7 +30,6 @@ export class AdminNavbarComponent implements OnInit{
     return this.currentPath === path;
   }
 
-  unreadNotifications: number = 2;
 
   openNotificationsPage() {
 

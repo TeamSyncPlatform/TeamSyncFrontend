@@ -13,8 +13,8 @@ import {User} from "../../users/models/user.model";
 export class UserNavbarComponent implements OnInit{
   private currentPath: String = '';
 
-  @Input()
-  loggedUser!: User;
+  @Input() notificationsBadge!: string;
+  @Input() loggedUser!: User;
 
   constructor(
     private navbarService: NavbarService,
@@ -29,12 +29,6 @@ export class UserNavbarComponent implements OnInit{
 
   isSelected(path: string): boolean {
     return this.currentPath === path;
-  }
-
-  unreadNotifications: number = 2;
-
-  openAccountPage() {
-
   }
 
   openNotificationsPage() {

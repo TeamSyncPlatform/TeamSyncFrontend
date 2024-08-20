@@ -12,7 +12,8 @@
   <div class="push"></div>
   <div id="right-section">
     <button mat-icon-button id="notification-icon-box">
-      <mat-icon matBadge="{{unreadNotifications}}" matBadgeSize="small" class="notification-icon" (click)="openNotificationsPage()" [ngStyle]="{'color':'#ababab'}">notifications</mat-icon>
+      <mat-icon *ngIf = "notificationsBadge!='0'" matBadge="{{notificationsBadge}}" class="notification-icon" (click)="openNotificationsPage()" [ngStyle]="{'color':'#ababab'}">notifications</mat-icon>
+      <mat-icon *ngIf = "notificationsBadge=='0'" class="notification-icon" (click)="openNotificationsPage()" [ngStyle]="{'color':'#ababab'}">notifications</mat-icon>
     </button>
     <button mat-icon-button id="account-icon-box" [matMenuTriggerFor]="menu">
       <mat-icon class="account-icon">account_circle</mat-icon>
