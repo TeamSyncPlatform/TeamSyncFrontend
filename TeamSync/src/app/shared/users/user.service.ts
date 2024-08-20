@@ -30,6 +30,10 @@ export class UserService {
     return this.httpClient.get<User>(environment.apiHost + 'users/external-id/' + id)
   }
 
+  getByEmail(email: string): Observable<User> {
+    return this.httpClient.get<User>(environment.apiHost + 'users/email/' + email)
+  }
+
   handleLogin(): Observable<User>{
     return this.httpClient.put<User>(environment.apiHost + 'users/login', {});
   }

@@ -10,6 +10,7 @@ import {CreatePostDialogComponent} from "../../posts-panel/dialogs/create-post-d
 import {EditUserDialogComponent} from "../../user/edit-user-dialog/edit-user-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-profile-page',
@@ -17,7 +18,9 @@ import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
   styleUrl: './profile-page.component.css'
 })
 export class ProfilePageComponent implements OnInit{
+  user!: User;
   loggedUser!: User;
+  userEmail!: string | null;
   profileImageUrl: SafeUrl | string = '/default-profile-image.png';
 
   readonly dialog = inject(MatDialog);
@@ -25,11 +28,24 @@ export class ProfilePageComponent implements OnInit{
   constructor(
     private userService: UserService,
     private authenticationService: AuthenticationService,
-    private sanitizer: DomSanitizer) {
+    private sanitizer: DomSanitizer,
+    private route: ActivatedRoute) {
   }
 
   ngOnInit() {
+    this.userEmail = this.route.snapshot.paramMap.get('email');
+    if(this.userEmail)
+    this.getUser(this.userEmail);
     this.getLoggedUser();
+  }
+
+  getUser(email: string){
+    this.userService.getByEmail(email).subscribe({
+      next: (user: User) => {
+        this.user = user;
+        this.loadProfileImage();
+      }
+    });
   }
 
   getLoggedUser(){
@@ -39,7 +55,6 @@ export class ProfilePageComponent implements OnInit{
         this.userService.getByExternalId(userId).subscribe({
           next: (user: User) => {
             this.loggedUser = user;
-            this.loadProfileImage();
           }
         });
       }
@@ -47,8 +62,8 @@ export class ProfilePageComponent implements OnInit{
   }
 
   loadProfileImage() {
-    if (this.loggedUser.profileImage.id) {
-      this.userService.getProfileImage(this.loggedUser.profileImage.id).subscribe({
+    if (this.user.profileImage.id) {
+      this.userService.getProfileImage(this.user.profileImage.id).subscribe({
         next: (blob: Blob) => {
           const objectURL = URL.createObjectURL(blob);
           this.profileImageUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
@@ -66,7 +81,7 @@ export class ProfilePageComponent implements OnInit{
   openEditUserDialog() {
     const dialogRef = this.dialog.open(EditUserDialogComponent, {
       data: {
-        user: this.loggedUser,
+        user: this.user,
       },
       // width: '90vw',
       maxWidth: '90vw',
@@ -75,7 +90,8 @@ export class ProfilePageComponent implements OnInit{
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.getLoggedUser();
+        if(this.userEmail)
+        this.getUser(this.userEmail);
       }
     });
   }

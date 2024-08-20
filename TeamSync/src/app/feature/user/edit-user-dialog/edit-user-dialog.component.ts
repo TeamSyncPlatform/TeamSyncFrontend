@@ -18,7 +18,7 @@ export class EditUserDialogComponent implements OnInit {
   readonly addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   skills: string[] = [];
-  profileImageUrl: string | ArrayBuffer = 'assets/default-profile-image.png'; // Default image
+  profileImageUrl: string | ArrayBuffer = '/default-profile-image.png';
   profileImageFile: File | null = null;
 
   constructor(
@@ -113,7 +113,9 @@ export class EditUserDialogComponent implements OnInit {
 
       try {
         const user = await this.userService.update(updatedUser).toPromise();
-        await this.uploadProfileImage(user!.id);
+        if(this.profileImageUrl != '/default-profile-image.png'){
+          await this.uploadProfileImage(user!.id);
+        }
         this.dialogRef.close(true);
       } catch (error) {
         console.error('Error updating user:', error);

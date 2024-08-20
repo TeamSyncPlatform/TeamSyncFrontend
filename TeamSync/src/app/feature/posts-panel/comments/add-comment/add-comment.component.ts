@@ -6,6 +6,7 @@ import {CreateCommentRequest} from "../../../models/comment/create-comment-reque
 import {Comment} from "../../../models/comment/comment.model";
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
 import {UserService} from "../../../../shared/users/user.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-add-comment',
@@ -21,7 +22,8 @@ export class AddCommentComponent implements OnInit{
 
   constructor(private commentService: CommentService,
               private sanitizer: DomSanitizer,
-              private userService: UserService) {
+              private userService: UserService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -62,5 +64,9 @@ export class AddCommentComponent implements OnInit{
     } else {
       this.profileImageUrl = '/default-profile-image.png';
     }
+  }
+
+  goToProfilePage() {
+    this.router.navigate(['/profile', this.loggedUser.email]);
   }
 }

@@ -1,6 +1,6 @@
 @if (loggedUser){
   <div class="add-comment-box">
-    <img class="profile-picture" [src]="profileImageUrl"  alt="Profile Picture">
+    <img class="profile-picture" (click)="goToProfilePage()" [src]="profileImageUrl"  alt="Profile Picture">
     <form class="form">
       <mat-form-field appearance="outline" class="comment-input" subscriptSizing="dynamic">
         <mat-label>Leave a comment</mat-label>

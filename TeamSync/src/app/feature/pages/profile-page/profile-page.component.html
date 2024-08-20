@@ -1,4 +1,4 @@
-@if (loggedUser){
+@if (user && loggedUser){
   <div class="window-box">
     <app-navbar></app-navbar>
     <div class="profile-container">
@@ -9,40 +9,42 @@
         </div>
         <div class="main-info-box">
           <div class="user-info">
-            <span class="user-name">{{loggedUser.firstName}} {{loggedUser.lastName}}</span>
-            <span class="user-expertise">{{loggedUser.jobTitle}}</span>
+            <span class="user-name">{{user.firstName}} {{user.lastName}}</span>
+            <span class="user-expertise">{{user.jobTitle}}</span>
           </div>
           <div class="stretch"></div>
-          <button mat-icon-button id="edit-profile-button" (click)="openEditUserDialog()">
-            <mat-icon class="edit-icon">edit</mat-icon>
-          </button>
+          @if(user.id == loggedUser.id){
+            <button mat-icon-button id="edit-profile-button" (click)="openEditUserDialog()">
+              <mat-icon class="edit-icon">edit</mat-icon>
+            </button>
+          }
         </div>
       </div>
       <div class="bottom-section">
         <div class="left-section">
-          <div class="info-item" *ngIf="loggedUser.phoneNumber">
+          <div class="info-item" *ngIf="user.phoneNumber">
             <mat-icon class="info-item-icon">phone</mat-icon>
-            <span>{{loggedUser.phoneNumber}}</span>
+            <span>{{user.phoneNumber}}</span>
           </div>
-          <div class="info-item" *ngIf="loggedUser.email">
+          <div class="info-item" *ngIf="user.email">
             <mat-icon class="info-item-icon">mail</mat-icon>
-            <span>{{loggedUser.email}}</span>
+            <span>{{user.email}}</span>
           </div>
-          <div class="info-item" *ngIf="loggedUser.address">
+          <div class="info-item" *ngIf="user.address">
             <mat-icon class="info-item-icon">location_pin</mat-icon>
-            <span>{{loggedUser.address}}</span>
+            <span>{{user.address}}</span>
           </div>
-          @if (loggedUser.skills && loggedUser.skills.length > 0){
+          @if (user.skills && user.skills.length > 0){
             <div class="skills-section" >
               <mat-chip-set aria-label="Skills">
-                @for (skill of loggedUser.skills; track skill){
+                @for (skill of user.skills; track skill){
                   <mat-chip class="skill">{{skill}}</mat-chip>
                 }
               </mat-chip-set>
             </div>
           }
         </div>
-        <app-user-posts-panel [user]="loggedUser"></app-user-posts-panel>
+        <app-user-posts-panel [user]="user"></app-user-posts-panel>
       </div>
     </div>
   </div>

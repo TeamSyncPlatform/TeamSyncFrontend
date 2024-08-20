@@ -13,6 +13,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {EditPostDialogComponent} from "../dialogs/edit-post-dialog/edit-post-dialog.component";
 import {RemovePostDialogComponent} from "../dialogs/remove-post-dialog/remove-post-dialog.component";
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
+import {Router} from "@angular/router";
+import {Comment} from "../../models/comment/comment.model";
 
 @Component({
   selector: 'app-post-card',
@@ -37,7 +39,8 @@ export class PostCardComponent implements OnInit{
     private userService: UserService,
     private attachmentService: AttachmentService,
     private postService: PostService,
-    private sanitizer: DomSanitizer) {
+    private sanitizer: DomSanitizer,
+    private router: Router) {
   }
 
   ngOnInit() {
@@ -185,4 +188,12 @@ export class PostCardComponent implements OnInit{
         }
       });
     }
+
+  goToProfilePage() {
+    this.router.navigate(['/profile', this.author.email]);
+  }
+
+  onCommentAdded(comment: Comment) {
+    this.post.comments.push(comment);
+  }
 }

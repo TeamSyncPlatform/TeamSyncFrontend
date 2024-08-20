@@ -4,6 +4,7 @@ import {User} from "../../../../shared/users/models/user.model";
 import {Comment} from "../../../models/comment/comment.model";
 import {UserService} from "../../../../shared/users/user.service";
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-comment-card',
@@ -18,7 +19,7 @@ export class CommentCardComponent implements OnInit{
 
   profileImageUrl: SafeUrl | string = '/default-profile-image.png';
 
-  constructor(private userService: UserService, private sanitizer: DomSanitizer) {
+  constructor(private userService: UserService, private sanitizer: DomSanitizer, private router: Router) {
   }
 
   ngOnInit() {
@@ -82,5 +83,9 @@ export class CommentCardComponent implements OnInit{
     } else {
       return years === 1 ? '1 year ago' : `${years} years ago`;
     }
+  }
+
+  goToProfilePage() {
+    this.router.navigate(['/profile', this.author.email]);
   }
 }

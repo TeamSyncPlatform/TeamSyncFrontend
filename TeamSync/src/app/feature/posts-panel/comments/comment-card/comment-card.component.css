@@ -31,6 +31,11 @@
   border-radius: 50%;
   object-fit: cover;
   align-self: start;
+  cursor: pointer;
+}
+
+.clickable{
+  cursor: pointer;
 }
 
 .bottom-section{

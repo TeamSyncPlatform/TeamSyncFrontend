@@ -16,7 +16,10 @@ export class UserNavbarComponent implements OnInit{
   @Input()
   loggedUser!: User;
 
-  constructor(private navbarService: NavbarService, private authenticationService: AuthenticationService) {}
+  constructor(
+    private navbarService: NavbarService,
+    private authenticationService: AuthenticationService,
+    private router: Router) {}
 
   ngOnInit() {
     this.navbarService.currentPathState.subscribe((result) => {
@@ -44,5 +47,9 @@ export class UserNavbarComponent implements OnInit{
 
   openSettingsPage() {
 
+  }
+
+  goToProfilePage() {
+    this.router.navigate(['/profile', this.loggedUser.email]);
   }
 }
