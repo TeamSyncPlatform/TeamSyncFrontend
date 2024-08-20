@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Post} from "../../../models/post/post.model";
 import {User} from "../../../../shared/users/models/user.model";
 import {PostService} from "../../../services/post.service";
@@ -13,6 +13,8 @@ export class CommentsSectionComponent {
   @Input() post!: Post;
   @Input() loggedUser!: User;
   comments: Comment[] = [] as Comment[];
+
+  @Output() commentAdded = new EventEmitter<Comment>();
 
   constructor(private postService: PostService) {
   }
@@ -34,5 +36,6 @@ export class CommentsSectionComponent {
 
   onCommentAdded(comment: Comment) {
     this.loadComments();
+    this.commentAdded.emit(comment);
   }
 }

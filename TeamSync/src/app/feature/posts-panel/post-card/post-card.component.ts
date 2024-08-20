@@ -12,6 +12,9 @@ import {CreatePostDialogComponent} from "../dialogs/create-post-dialog/create-po
 import {MatDialog} from "@angular/material/dialog";
 import {EditPostDialogComponent} from "../dialogs/edit-post-dialog/edit-post-dialog.component";
 import {RemovePostDialogComponent} from "../dialogs/remove-post-dialog/remove-post-dialog.component";
+import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
+import {Router} from "@angular/router";
+import {Comment} from "../../models/comment/comment.model";
 
 @Component({
   selector: 'app-post-card',
@@ -25,6 +28,7 @@ export class PostCardComponent implements OnInit{
   content!: string;
   attachments!: Attachment[];
   @Input() loggedUser!: User;
+  profileImageUrl: SafeUrl | string = '/default-profile-image.png';
 
   readonly dialog = inject(MatDialog);
 
@@ -34,7 +38,9 @@ export class PostCardComponent implements OnInit{
   constructor(
     private userService: UserService,
     private attachmentService: AttachmentService,
-    private postService: PostService) {
+    private postService: PostService,
+    private sanitizer: DomSanitizer,
+    private router: Router) {
   }
 
   ngOnInit() {
@@ -51,11 +57,29 @@ export class PostCardComponent implements OnInit{
     this.userService.get(this.post.author.id).subscribe({
       next: (user: User) => {
         this.author = user
+        this.loadProfileImage();
       },
       error: (error) => {
         console.error("Error getting group", error);
       }
     })
+  }
+
+  loadProfileImage() {
+    if (this.author.profileImage.id) {
+      this.userService.getProfileImage(this.author.profileImage.id).subscribe({
+        next: (blob: Blob) => {
+          const objectURL = URL.createObjectURL(blob);
+          this.profileImageUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+        },
+        error: (err) => {
+          console.error('Error loading profile image:', err);
+          this.profileImageUrl = '/default-profile-image.png';
+        }
+      });
+    } else {
+      this.profileImageUrl = '/default-profile-image.png';
+    }
   }
 
   private reloadPost() {
@@ -164,4 +188,12 @@ export class PostCardComponent implements OnInit{
         }
       });
     }
+
+  goToProfilePage() {
+    this.router.navigate(['/profile', this.author.email]);
+  }
+
+  onCommentAdded(comment: Comment) {
+    this.post.comments.push(comment);
+  }
 }

@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {NavbarService} from "../navbar.service";
 import {AuthenticationService} from "../../../core/zitadel/authentication.service";
 import {User} from "../../users/models/user.model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-admin-navbar',
@@ -13,7 +14,10 @@ export class AdminNavbarComponent implements OnInit{
 
   @Input()
   loggedUser!: User;
-  constructor(private navbarService: NavbarService, private authenticationService:AuthenticationService) {}
+  constructor(
+    private navbarService: NavbarService,
+    private authenticationService:AuthenticationService,
+    private router: Router) {}
 
   ngOnInit() {
     this.navbarService.currentPathState.subscribe((result) => {
@@ -27,10 +31,6 @@ export class AdminNavbarComponent implements OnInit{
 
   unreadNotifications: number = 2;
 
-  openAccountPage() {
-
-  }
-
   openNotificationsPage() {
 
   }
@@ -41,5 +41,9 @@ export class AdminNavbarComponent implements OnInit{
 
   openSettingsPage() {
 
+  }
+
+  goToProfilePage() {
+    this.router.navigate(['/profile', this.loggedUser.email]);
   }
 }

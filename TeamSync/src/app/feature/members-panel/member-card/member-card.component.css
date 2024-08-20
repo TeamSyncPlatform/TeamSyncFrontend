@@ -14,6 +14,7 @@
   justify-content: left;
   text-align: left;
   font-size: 14px;
+  cursor: pointer;
 }
 
 .info .email-info{

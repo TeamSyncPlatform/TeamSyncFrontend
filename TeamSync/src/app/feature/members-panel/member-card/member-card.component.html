@@ -1,6 +1,6 @@
 @if (group && member){
   <div class="member-card">
-    <div class="info">
+    <div class="info" (click)="goToProfilePage()">
       <span>{{member.firstName}} {{member.lastName}}</span>
       <span class="email-info">{{member.email}}</span>
     </div>

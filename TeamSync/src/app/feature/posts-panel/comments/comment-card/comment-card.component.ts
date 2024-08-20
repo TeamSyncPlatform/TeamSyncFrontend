@@ -3,6 +3,8 @@ import {Post} from "../../../models/post/post.model";
 import {User} from "../../../../shared/users/models/user.model";
 import {Comment} from "../../../models/comment/comment.model";
 import {UserService} from "../../../../shared/users/user.service";
+import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-comment-card',
@@ -15,7 +17,9 @@ export class CommentCardComponent implements OnInit{
   @Input() loggedUser!: User;
   author: User = {} as User;
 
-  constructor(private userService: UserService) {
+  profileImageUrl: SafeUrl | string = '/default-profile-image.png';
+
+  constructor(private userService: UserService, private sanitizer: DomSanitizer, private router: Router) {
   }
 
   ngOnInit() {
@@ -26,11 +30,29 @@ export class CommentCardComponent implements OnInit{
     this.userService.get(this.comment.author.id).subscribe({
       next: (user: User) => {
         this.author = user
+        this.loadProfileImage();
       },
       error: (error) => {
         console.error("Error getting group", error);
       }
     })
+  }
+
+  loadProfileImage() {
+    if (this.author.profileImage.id) {
+      this.userService.getProfileImage(this.author.profileImage.id).subscribe({
+        next: (blob: Blob) => {
+          const objectURL = URL.createObjectURL(blob);
+          this.profileImageUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+        },
+        error: (err) => {
+          console.error('Error loading profile image:', err);
+          this.profileImageUrl = '/default-profile-image.png';
+        }
+      });
+    } else {
+      this.profileImageUrl = '/default-profile-image.png';
+    }
   }
 
   getCommentCreation(dateString: string): string {
@@ -61,5 +83,9 @@ export class CommentCardComponent implements OnInit{
     } else {
       return years === 1 ? '1 year ago' : `${years} years ago`;
     }
+  }
+
+  goToProfilePage() {
+    this.router.navigate(['/profile', this.author.email]);
   }
 }

@@ -20,7 +20,7 @@ const routes: Routes = [
   },
   {
     component: ProfilePageComponent,
-    path:"profile",
+    path:"profile/:email",
     canActivate: [AuthGuard],
   },
   {
