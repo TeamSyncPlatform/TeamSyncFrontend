@@ -1,4 +1,4 @@
-import {Injectable, OnInit} from '@angular/core';
+import {inject, Injectable, OnInit} from '@angular/core';
 import {environment} from "../../core/env/env";
 import {BehaviorSubject} from "rxjs";
 import {AuthenticationService} from "../../core/zitadel/authentication.service";
@@ -8,6 +8,8 @@ import {UserService} from "../users/user.service";
 
 import * as Stomp from 'stompjs';
 import SockJS from 'sockjs-client';
+import {Notification} from "./models/notification.model";
+import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from "@angular/material/snack-bar";
 
 @Injectable({
   providedIn: 'root'
@@ -52,7 +54,7 @@ export class WebsocketService{
   openGlobalSocket() {
     if (this.isLoaded) {
       this.stompClient.subscribe("/notification-publisher", (notification: Notification) => {
-        this.handleResult();
+        this.handleResult(notification);
       });
     }
   }
@@ -60,16 +62,22 @@ export class WebsocketService{
   openSocket() {
     if (this.isLoaded) {
       this.isCustomSocketOpened = true;
-      this.stompClient.subscribe("/notification-publisher/" + this.loggedUser!.id, (notification: Notification) => {
-        // this.sharedService.openSnack("New notification!");
-        console.log("New notification!")
-        this.handleResult();
+      this.stompClient.subscribe("/notification-publisher/" + this.loggedUser!.id, (frame: any) => {
+
+        const notificationString = frame.body;
+        const notification: Notification = JSON.parse(notificationString);
+
+        // Log the parsed notification
+        console.log("New notification: ", notification);
+
+        this.handleResult(notification);
       });
     }
   }
 
-  handleResult() {
+  handleResult(notification : Notification) {
     this.updateUnreadCount();
+    this.showMessage(notification.message);
   }
 
   async getLoggedUser(): Promise<void> {
@@ -87,4 +95,17 @@ export class WebsocketService{
       }
     })
   }
+
+  //SNACK BAR
+  private _snackBar = inject(MatSnackBar);
+  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+
+  showMessage(message : string) {
+    this._snackBar.open(message, 'Ok', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+    });
+  }
+
 }

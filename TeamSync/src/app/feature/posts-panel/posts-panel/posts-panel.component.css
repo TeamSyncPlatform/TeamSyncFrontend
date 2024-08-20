@@ -19,10 +19,39 @@
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s, box-shadow 0.3s;
-  z-index: 10000;
+  z-index: 100;
 }
 
 .create-post-button:hover {
+  background-color: #0056b3;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+.refresh-button {
+  position: fixed;
+  top: 7.2em;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 25px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out, background-color 0.3s, box-shadow 0.3s;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 100;
+}
+
+.refresh-button.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) scale(1.05);
+}
+
+.refresh-button:hover {
   background-color: #0056b3;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }

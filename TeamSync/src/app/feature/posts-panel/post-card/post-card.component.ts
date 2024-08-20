@@ -51,6 +51,7 @@ export class PostCardComponent implements OnInit{
 
   toggleComments(){
     this.areCommentsShowing = !this.areCommentsShowing;
+    this.reloadPost();
   }
 
   private loadAuthor() {
