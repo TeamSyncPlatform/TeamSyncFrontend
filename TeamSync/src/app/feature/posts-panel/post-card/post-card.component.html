@@ -1,9 +1,9 @@
 @if (author && post){
   <div class="post-card">
     <div class="top-section">
-      <img class="profile-picture" src="/logo.png" alt="Profile Picture">
+      <img class="profile-picture" [src]="profileImageUrl"  alt="Profile Picture" (click)="goToProfilePage()">
       <div class="info-section">
-        <span>{{author.firstName}} {{author.lastName}}</span>
+        <span class="clickable" (click)="goToProfilePage()">{{author.firstName}} {{author.lastName}}</span>
         <span class="date-info">{{getPostCreation(post.creationDate)}}</span>
       </div>
       <div class="stretch"></div>
@@ -46,7 +46,7 @@
     </div>
 
     @if (areCommentsShowing){
-      <app-comments-section [post]="post" [loggedUser]="loggedUser"></app-comments-section>
+      <app-comments-section (commentAdded)="onCommentAdded($event)" [post]="post" [loggedUser]="loggedUser"></app-comments-section>
     }
   </div>
 }

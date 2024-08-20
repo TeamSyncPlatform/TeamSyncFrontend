@@ -1,0 +1,17 @@
+@if (user){
+  <div id="content" #contentDiv
+       class="search-results"
+       infiniteScroll
+       [infiniteScrollDistance]="2"
+       [infiniteScrollThrottle]="500"
+       (scrolled)="onScroll()"
+       [scrollWindow]="false">
+    <app-posts-cards
+      (postDeleted)="onPostDeletion($event)"
+      [loggedUser]="user"
+      [posts]="posts" ></app-posts-cards>
+
+  </div>
+}
+
+

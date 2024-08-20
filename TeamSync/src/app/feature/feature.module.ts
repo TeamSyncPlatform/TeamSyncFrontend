@@ -41,7 +41,7 @@ import {MatTooltip} from "@angular/material/tooltip";
 import {EditorComponent} from "@tinymce/tinymce-angular";
 import { CreatePostDialogComponent } from './posts-panel/dialogs/create-post-dialog/create-post-dialog.component';
 import { ReactionsComponent } from './posts-panel/reaction-buttons/reactions/reactions.component';
-import {MatChip, MatChipSet} from "@angular/material/chips";
+import {MatChip, MatChipGrid, MatChipInput, MatChipRow, MatChipSet} from "@angular/material/chips";
 import { CommentCardsComponent } from './posts-panel/comments/comment-cards/comment-cards.component';
 import { CommentCardComponent } from './posts-panel/comments/comment-card/comment-card.component';
 import { CommentsSectionComponent } from './posts-panel/comments/comments-section/comments-section.component';
@@ -58,6 +58,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { UserPostsPanelComponent } from './user/user-posts-panel/user-posts-panel.component';
+import { EditUserDialogComponent } from './user/edit-user-dialog/edit-user-dialog.component';
 
 
 
@@ -92,6 +94,8 @@ import { MatButtonModule } from '@angular/material/button';
     EditPostDialogComponent,
     RemovePostDialogComponent,
     ProfilePageComponent,
+    UserPostsPanelComponent,
+    EditUserDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -130,6 +134,9 @@ import { MatButtonModule } from '@angular/material/button';
     MatListModule,
     MatIconModule,
     MatButtonModule,
+    MatChipInput,
+    MatChipGrid,
+    MatChipRow,
   ]
 })
 export class FeatureModule { }
