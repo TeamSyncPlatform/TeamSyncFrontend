@@ -5,7 +5,7 @@ export interface Notification{
   id: number;
   message: string;
   isRead: boolean;
-  timeCreated: string;
+  creationDate: string;
   notificationType: NotificationType;
   user: UserReference;
 }

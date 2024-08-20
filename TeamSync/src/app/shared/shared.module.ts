@@ -8,6 +8,7 @@ import {MatIcon} from "@angular/material/icon";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {RouterLink} from "@angular/router";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
+import { NotificationCardComponent } from './notifications/notification-card/notification-card.component';
 
 
 
@@ -15,7 +16,8 @@ import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
   declarations: [
     NavbarComponent,
     AdminNavbarComponent,
-    UserNavbarComponent
+    UserNavbarComponent,
+    NotificationCardComponent
   ],
   exports: [
     NavbarComponent

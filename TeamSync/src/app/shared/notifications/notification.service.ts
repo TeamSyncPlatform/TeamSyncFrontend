@@ -24,4 +24,7 @@ export class NotificationService {
     return this.httpClient.put<Notification>(`${environment.apiHost}notifications/${notificationId}/read`, {});
   }
 
+  readAllByUser(userId: number): Observable<Notification[]> {
+    return this.httpClient.put<Notification[]>(`${environment.apiHost}notifications/user/${userId}/read`, {});
+  }
 }

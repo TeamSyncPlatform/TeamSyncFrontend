@@ -1,8 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NavbarService} from "../navbar.service";
 import {AuthenticationService} from "../../../core/zitadel/authentication.service";
 import {User} from "../../users/models/user.model";
 import {Router} from "@angular/router";
+import {Notification} from "../../notifications/models/notification.model";
 
 @Component({
   selector: 'app-admin-navbar',
@@ -13,8 +14,11 @@ export class AdminNavbarComponent implements OnInit{
   private currentPath: String = '';
 
   @Input() loggedUser!: User;
-
   @Input() notificationsBadge!: string;
+  @Input() notifications!: Notification[];
+  @Output() notificationsClicked = new EventEmitter<void>();
+  @Output() readAllClicked = new EventEmitter<void>();
+
   constructor(
     private navbarService: NavbarService,
     private authenticationService:AuthenticationService,
@@ -31,10 +35,6 @@ export class AdminNavbarComponent implements OnInit{
   }
 
 
-  openNotificationsPage() {
-
-  }
-
   logout() {
     this.authenticationService.signout();
   }
@@ -45,5 +45,13 @@ export class AdminNavbarComponent implements OnInit{
 
   goToProfilePage() {
     this.router.navigate(['/profile', this.loggedUser.email]);
+  }
+
+  onNotificationsClicked() {
+    this.notificationsClicked.emit();
+  }
+
+  onReadAllClicked() {
+    this.readAllClicked.emit();
   }
 }

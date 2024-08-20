@@ -3,6 +3,8 @@ import {AuthenticationService} from "../../../core/zitadel/authentication.servic
 import {User} from "../../users/models/user.model";
 import {UserService} from "../../users/user.service";
 import {WebsocketService} from "../../notifications/websocket.service";
+import {Notification} from "../../notifications/models/notification.model";
+import {NotificationService} from "../../notifications/notification.service";
 
 @Component({
   selector: 'app-navbar',
@@ -11,15 +13,20 @@ import {WebsocketService} from "../../notifications/websocket.service";
 })
 export class NavbarComponent implements OnInit{
   role: string | null = 'user';
-  loggedUser: User = {} as User;
+  loggedUser!: User | undefined;
   notificationsBadge: string = "";
+  notifications!: Notification[];
 
-  constructor(private authenticationService: AuthenticationService, private userService: UserService, private websocketService: WebsocketService) {
+  constructor(
+    private authenticationService: AuthenticationService,
+    private userService: UserService,
+    private websocketService: WebsocketService,
+    private notificationService: NotificationService) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    await this.getLoggedUser();
     this.getRole();
-    this.getUser();
     this.subscribeNotifications();
   }
 
@@ -27,6 +34,7 @@ export class NavbarComponent implements OnInit{
     this.websocketService.unreadCountState.subscribe({
       next: (data: number) => {
         this.notificationsBadge = data.toString()
+        this.loadNotifications();
       }
     });
   }
@@ -42,24 +50,35 @@ export class NavbarComponent implements OnInit{
     });
   }
 
-  getUser(){
-    this.authenticationService.getUserId().subscribe({
-      next: (userId: string | null) => {
-        if(!userId) return;
-        this.userService.getByExternalId(userId).subscribe({
-          next: (user: User) => {
-            this.loggedUser = user;
-          },
-          error: (_) => {
-            console.log("Error!");
-          }
-        });
-      },
-      error: (_) => {
-        console.log("Error!");
-      }
-    });
+  async getLoggedUser(): Promise<void> {
+    const userId = await this.authenticationService.getUserId().toPromise();
+    if (userId) {
+      this.loggedUser = await this.userService.getByExternalId(userId).toPromise();
+    }
   }
 
+  loadNotifications(){
+    this.notificationService.getAllByUser(this.loggedUser!.id).subscribe({
+      next: (data: Notification[]) => {
+        this.notifications = data;
+      }
+    })
+  }
 
+  readAllNotifications(){
+    this.notificationService.readAllByUser(this.loggedUser!.id).subscribe({
+      next: (data: Notification[]) => {
+        this.notifications = data;
+        this.notificationsBadge = '';
+      }
+    })
+  }
+
+  onNotificationsClicked($event: void) {
+    this.loadNotifications();
+  }
+
+  onReadAllClicked($event: void) {
+    this.readAllNotifications();
+  }
 }
