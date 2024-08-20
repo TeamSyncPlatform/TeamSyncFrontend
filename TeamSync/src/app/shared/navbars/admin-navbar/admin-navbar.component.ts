@@ -18,6 +18,7 @@ export class AdminNavbarComponent implements OnInit{
   @Input() notifications!: Notification[];
   @Output() notificationsClicked = new EventEmitter<void>();
   @Output() readAllClicked = new EventEmitter<void>();
+  @Output() readClicked = new EventEmitter<void>();
 
   constructor(
     private navbarService: NavbarService,
@@ -53,5 +54,9 @@ export class AdminNavbarComponent implements OnInit{
 
   onReadAllClicked() {
     this.readAllClicked.emit();
+  }
+
+  onReadClicked($event: any) {
+    this.readClicked.emit();
   }
 }

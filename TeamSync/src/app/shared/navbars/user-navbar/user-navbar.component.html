@@ -24,7 +24,7 @@
 
       @if (notifications && notifications.length > 0){
         @for (notification of notifications; track notification){
-          <app-notification-card [notification]="notification" ></app-notification-card>
+          <app-notification-card (readClicked)="onReadClicked($event)" [notification]="notification" ></app-notification-card>
         }
       }
     </mat-menu>

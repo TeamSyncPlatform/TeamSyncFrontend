@@ -81,4 +81,10 @@ export class NavbarComponent implements OnInit{
   onReadAllClicked($event: void) {
     this.readAllNotifications();
   }
+
+  onReadClicked($event: any) {
+    const currentBadgeCount = parseInt(this.notificationsBadge, 10) || 0;
+    const newBadgeCount = Math.max(currentBadgeCount - 1, 0);
+    this.notificationsBadge = newBadgeCount > 0 ? newBadgeCount.toString() : '';
+  }
 }

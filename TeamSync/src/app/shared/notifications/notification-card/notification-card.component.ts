@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Notification} from "../models/notification.model";
 import {NotificationService} from "../notification.service";
 
@@ -9,6 +9,7 @@ import {NotificationService} from "../notification.service";
 })
 export class NotificationCardComponent {
   @Input() notification!: Notification;
+  @Output() readClicked = new EventEmitter<void>();
 
   constructor(private notificationService: NotificationService) {
   }
@@ -47,6 +48,7 @@ export class NotificationCardComponent {
     this.notificationService.readNotification(this.notification.id).subscribe({
       next: value => {
         this.notification.isRead = true
+        this.readClicked.emit();
       }
     })
   }
