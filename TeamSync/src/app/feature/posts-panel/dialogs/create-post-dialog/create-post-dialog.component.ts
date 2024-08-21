@@ -36,7 +36,6 @@ export class CreatePostDialogComponent {
 
   uploadAttachments(postId: number) {
     if (this.attachments.length === 0) {
-      console.error('No files selected');
       return;
     }
 
