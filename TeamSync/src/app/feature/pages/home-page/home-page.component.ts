@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {UserService} from "../../../shared/users/user.service";
 import {User} from "../../../shared/users/models/user.model";
 import {Channel} from "../../models/channel/channel.model";
@@ -6,8 +6,9 @@ import {group} from "@angular/animations";
 import {channel} from "node:diagnostics_channel";
 import {Group} from "../../models/group/group.model";
 import {GroupService} from "../../services/group.service";
-import {Subject} from "rxjs";
+import {Subject, Subscription} from "rxjs";
 import {AuthenticationService} from "../../../core/zitadel/authentication.service";
+import {WebsocketService} from "../../../shared/notifications/websocket.service";
 
 @Component({
   selector: 'app-home-page',
@@ -18,6 +19,7 @@ export class HomePageComponent implements OnInit{
   activeChannel! : Channel | undefined;
   activeGroup: Group | undefined;
   loggedUser!: User;
+  private subscription: Subscription | null = null;
 
   public leaveEventsSubject: Subject<void> = new Subject<void>();
   public channelChangedEventsSubject: Subject<Channel> = new Subject<Channel>();
@@ -31,6 +33,8 @@ export class HomePageComponent implements OnInit{
   ngOnInit() {
     this.getLoggedUser();
   }
+
+
 
   onChannelClicked(channel: Channel) {
     this.activeChannel = channel
@@ -68,4 +72,6 @@ export class HomePageComponent implements OnInit{
       }
     });
   }
+
+
 }

@@ -1,5 +1,5 @@
 import {Role} from "./role.model";
-import {NotificationType} from "./notification-type.model";
+import {NotificationType} from "../../notifications/models/notification-type.model";
 import {Image} from "./image.model";
 
 export interface User {

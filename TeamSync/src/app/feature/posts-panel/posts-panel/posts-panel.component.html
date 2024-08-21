@@ -6,7 +6,12 @@
        [infiniteScrollThrottle]="500"
        (scrolled)="onScroll()"
        [scrollWindow]="false">
-<!--    <h1>{{channel.name}}</h1>-->
+
+    <button mat-flat-button id="refreshButton" class="refresh-button" (click)="refreshButtonClicked()">
+      <mat-icon>refresh</mat-icon>
+      Refresh
+    </button>
+
     <app-posts-cards
       (postDeleted)="onPostDeletion($event)"
       [loggedUser]="loggedUser"
@@ -16,6 +21,8 @@
     <button mat-flat-button class="create-post-button" (click)="openCreatePostDialog()">
       Create post
     </button>
+
+
   </div>
 }
 

@@ -5,3 +5,5 @@ npm i localstorage-polyfill --save
 npm install --save @tinymce/tinymce-angular
 npm install file-saver --save
 npm install ngx-infinite-scroll
+npm install @stomp/stompjs sockjs-client
+npm install --save sockjs-client stompjs
