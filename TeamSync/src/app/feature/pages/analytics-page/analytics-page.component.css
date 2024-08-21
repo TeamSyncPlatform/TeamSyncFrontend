@@ -13,10 +13,10 @@ app-navbar{
 
 .analytics-container{
   margin-top: 5.2em;
-  padding: 1em;
+  padding: 1.5em;
   display: flex;
   flex-direction: row;
-  gap: 1em;
+  gap: 2em;
   width: 100%;
 }
 
@@ -24,14 +24,30 @@ app-navbar{
   width: 50%;
 }
 
+.left-section{
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+
 .popular-posts-top{
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 1em;
 }
 
 .most-active-users{
+  display: flex;
+  flex-direction: column;
+}
+
+.stretch{
+  flex: 1;
+}
+
+.group-posts-stats{
   display: flex;
   flex-direction: column;
 }
@@ -42,10 +58,22 @@ app-navbar{
   align-items: center;
   justify-content: start;
   gap: 0.5em;
+  margin-bottom: 1em;
+}
+
+.group-posts-top{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  gap: 0.5em;
+  margin-bottom: 1em;
 }
 
 .chart-container {
-  width: 100%;
-  height: 400px;
+  width: 60%;
+  align-self: center;
+  display: flex;
+  align-items: center;
 }
 
