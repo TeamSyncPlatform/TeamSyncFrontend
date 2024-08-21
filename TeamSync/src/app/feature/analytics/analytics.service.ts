@@ -5,6 +5,7 @@ import {Post} from "../models/post/post.model";
 import {environment} from "../../core/env/env";
 import {User} from "../../shared/users/models/user.model";
 import {ActiveUserDTO} from "./active-user-dto.model";
+import {GroupPostsDTO} from "./group-posts-dto.model";
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +20,9 @@ export class AnalyticsService {
 
   getMostActiveUsers(groupId: number, period: string): Observable<ActiveUserDTO[]> {
     return this.http.get<ActiveUserDTO[]>(`${environment.apiHost}analytics/most-active-users/${groupId}/${period}`);
+  }
+
+  getGroupPostsStats(period: string): Observable<GroupPostsDTO[]> {
+    return this.http.get<GroupPostsDTO[]>(`${environment.apiHost}analytics/group-posts-stats/${period}`);
   }
 }
