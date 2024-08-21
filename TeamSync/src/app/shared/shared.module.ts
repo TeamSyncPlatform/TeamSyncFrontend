@@ -9,6 +9,9 @@ import {MatButton, MatIconButton} from "@angular/material/button";
 import {RouterLink} from "@angular/router";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import { NotificationCardComponent } from './notifications/notification-card/notification-card.component';
+import { IgnoreNotificationsComponent } from './notifications/ignore-notifications/ignore-notifications.component';
+import {MatSlideToggle} from "@angular/material/slide-toggle";
+import {FormsModule} from "@angular/forms";
 
 
 
@@ -17,10 +20,12 @@ import { NotificationCardComponent } from './notifications/notification-card/not
     NavbarComponent,
     AdminNavbarComponent,
     UserNavbarComponent,
-    NotificationCardComponent
+    NotificationCardComponent,
+    IgnoreNotificationsComponent
   ],
   exports: [
-    NavbarComponent
+    NavbarComponent,
+    IgnoreNotificationsComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +36,9 @@ import { NotificationCardComponent } from './notifications/notification-card/not
     MatButton,
     MatMenu,
     MatMenuItem,
-    MatMenuTrigger
+    MatMenuTrigger,
+    MatSlideToggle,
+    FormsModule
   ]
 })
 export class SharedModule { }

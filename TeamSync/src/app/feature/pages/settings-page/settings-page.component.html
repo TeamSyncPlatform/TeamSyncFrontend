@@ -1,0 +1,8 @@
+@if (loggedUser){
+  <div class="window-box">
+    <app-navbar></app-navbar>
+    <div class="settings-container">
+      <app-ignore-notifications [loggedUser]="loggedUser" ></app-ignore-notifications>
+    </div>
+  </div>
+}

@@ -46,7 +46,7 @@ export class UserNavbarComponent implements OnInit{
   }
 
   openSettingsPage() {
-
+    this.router.navigate(['/settings', this.loggedUser.email]);
   }
 
   goToProfilePage() {

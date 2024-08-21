@@ -1,0 +1,8 @@
+.ignore-notifications-box {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(227, 227, 227, 0.9);
+  padding: 0 2em 2em 2em;
+}
