@@ -7,3 +7,5 @@ npm install file-saver --save
 npm install ngx-infinite-scroll
 npm install @stomp/stompjs sockjs-client
 npm install --save sockjs-client stompjs
+npm install chart.js
+npm install ng2-charts

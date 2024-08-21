@@ -1,0 +1,51 @@
+.window-box{
+  background-color: #fafafa;
+  width: 100%;
+  min-height: 100%;
+  overflow: hidden;
+}
+
+app-navbar{
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+}
+
+.analytics-container{
+  margin-top: 5.2em;
+  padding: 1em;
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  width: 100%;
+}
+
+.left-section, .right-section{
+  width: 50%;
+}
+
+.popular-posts-top{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.most-active-users{
+  display: flex;
+  flex-direction: column;
+}
+
+.most-active-users-top{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  gap: 0.5em;
+}
+
+.chart-container {
+  width: 100%;
+  height: 400px;
+}
+

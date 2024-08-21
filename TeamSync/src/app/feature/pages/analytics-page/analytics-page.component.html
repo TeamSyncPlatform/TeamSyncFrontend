@@ -1,2 +1,59 @@
-<app-navbar></app-navbar>
-<p>analytics-page works!</p>
+@if (loggedUser){
+  <div class="window-box">
+    <app-navbar></app-navbar>
+    <div class="analytics-container">
+      <div class="left-section">
+        <div class="most-active-users">
+          <div class="most-active-users-top">
+            <h3>Most Active Users</h3>
+            <mat-form-field appearance="outline">
+              <mat-label>Select Period</mat-label>
+              <mat-select [(value)]="selectedMostActiveUsersPeriod" (selectionChange)="onMostActiveUsersPeriodChanged()">
+                <mat-option value="today">Today</mat-option>
+                <mat-option value="this week">This Week</mat-option>
+                <mat-option value="this month">This Month</mat-option>
+                <mat-option value="this year">This Year</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Select Group</mat-label>
+              <mat-select [(value)]="selectedGroupId" (selectionChange)="onGroupChanged()">
+                <mat-option *ngFor="let group of groups" [value]="group.id">
+                  {{ group.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="chart-container">
+            <canvas baseChart
+                    [data]="barChartData"
+                    [options]="barChartOptions"
+                    [type]="barChartType">
+            </canvas>
+          </div>
+        </div>
+      </div>
+      <div class="right-section">
+        <div class="popular-posts-top">
+          <h3>Most popular posts</h3>
+          <mat-form-field appearance="outline">
+            <mat-label>Select period</mat-label>
+            <mat-select [(value)]="selectedPopularPostsPeriod" (selectionChange)="onPopularPostsPeriodChanged()">
+              <mat-option value="today">Today</mat-option>
+              <mat-option value="this week">This Week</mat-option>
+              <mat-option value="this month">This Month</mat-option>
+              <mat-option value="this year">This Year</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <app-posts-cards
+          (postDeleted)="onPostDeletion($event)"
+          [loggedUser]="loggedUser"
+          [posts]="mostPopularPosts"
+        ></app-posts-cards>
+      </div>
+    </div>
+  </div>
+}
+

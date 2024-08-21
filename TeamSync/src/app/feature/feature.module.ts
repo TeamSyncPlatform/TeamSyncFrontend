@@ -53,7 +53,7 @@ import {InfiniteScrollDirective} from "ngx-infinite-scroll";
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import {MatCard, MatCardActions, MatCardContent, MatCardHeader} from "@angular/material/card";
 import {MatList, MatListItem} from "@angular/material/list";
-import {MatLine} from "@angular/material/core";
+import {MatLine, MatOption} from "@angular/material/core";
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
@@ -61,6 +61,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { UserPostsPanelComponent } from './user/user-posts-panel/user-posts-panel.component';
 import { EditUserDialogComponent } from './user/edit-user-dialog/edit-user-dialog.component';
 import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
+import {MatSelect} from "@angular/material/select";
+import {BaseChartDirective} from "ng2-charts";
 
 
 
@@ -139,6 +141,9 @@ import { SettingsPageComponent } from './pages/settings-page/settings-page.compo
     MatChipInput,
     MatChipGrid,
     MatChipRow,
+    MatSelect,
+    MatOption,
+    BaseChartDirective,
   ]
 })
 export class FeatureModule { }
