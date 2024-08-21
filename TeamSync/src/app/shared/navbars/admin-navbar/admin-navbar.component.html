@@ -11,9 +11,9 @@
   <!--  <span class="title">TeamSync</span>-->
   <div class="push"></div>
   <div id="right-section">
-    <button mat-icon-button id="notification-icon-box">
-      <mat-icon *ngIf = "notificationsBadge!='0'" matBadge="{{notificationsBadge}}" class="notification-icon"  [ngStyle]="{'color':'#ababab'}" [matMenuTriggerFor]="notificationsMenu" (click)="onNotificationsClicked()">notifications</mat-icon>
-      <mat-icon *ngIf = "notificationsBadge=='0'" class="notification-icon"  [ngStyle]="{'color':'#ababab'}" [matMenuTriggerFor]="notificationsMenu" (click)="onNotificationsClicked()">notifications</mat-icon>
+    <button mat-icon-button id="notification-icon-box" (click)="onNotificationsClicked()">
+      <mat-icon *ngIf = "notificationsBadge!='0'" matBadge="{{notificationsBadge}}" class="notification-icon"  [ngStyle]="{'color':'#ababab'}" [matMenuTriggerFor]="notificationsMenu">notifications</mat-icon>
+      <mat-icon *ngIf = "notificationsBadge=='0'" class="notification-icon"  [ngStyle]="{'color':'#ababab'}" [matMenuTriggerFor]="notificationsMenu">notifications</mat-icon>
     </button>
 
     <mat-menu class="notifications-menu" #notificationsMenu="matMenu">

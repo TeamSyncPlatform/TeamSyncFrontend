@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { User } from '../../users/models/user.model';
 import {NotificationType} from "../models/notification-type.model";
 import {UserService} from "../../users/user.service";
+import {WebsocketService} from "../websocket.service";
 
 @Component({
   selector: 'app-ignore-notifications',
@@ -15,7 +16,7 @@ export class IgnoreNotificationsComponent implements OnInit {
 
   sliderStates: { [key: string]: boolean } = {};
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private websocketService: WebsocketService) {
   }
 
   ngOnInit(): void {
@@ -33,7 +34,7 @@ export class IgnoreNotificationsComponent implements OnInit {
   toggleNotification(userId: number, notificationType: string): void {
     this.userService.toggleNotification(userId, notificationType).subscribe({
       next: (updatedUser: User) => {
-
+        this.websocketService.updateUnreadCount();
       }
     });
   }

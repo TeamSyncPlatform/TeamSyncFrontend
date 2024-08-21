@@ -87,7 +87,7 @@ export class WebsocketService{
     }
   }
 
-  updateUnreadCount(){
+  public updateUnreadCount(){
     this.notificationService.getUnreadCountByUser(this.loggedUser!.id).subscribe({
       next: (data: number) => {
         this.unreadCount$.next(data);
