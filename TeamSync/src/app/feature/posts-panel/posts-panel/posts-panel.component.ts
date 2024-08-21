@@ -26,8 +26,12 @@ export class PostsPanelComponent implements OnInit, OnDestroy{
   private eventsSubscription!: Subscription;
   @Input() events!: Observable<Channel>;
 
+  private buttonTimeout: any;
+  private buttonVisibilityTimeout = 30000;
+
   ngOnDestroy() {
     this.eventsSubscription.unsubscribe();
+    clearTimeout(this.buttonTimeout);
   }
 
   readonly dialog = inject(MatDialog);
@@ -41,6 +45,8 @@ export class PostsPanelComponent implements OnInit, OnDestroy{
       this.channel = channel;
       this.loadData();
     });
+
+    this.setupButtonTimer();
   }
 
   openCreatePostDialog() {
@@ -108,4 +114,30 @@ export class PostsPanelComponent implements OnInit, OnDestroy{
     this.appendData();
   }
 
+  refreshButtonClicked() {
+    this.loadData();
+    this.resetButtonTimer();
+  }
+
+  private setupButtonTimer() {
+    this.buttonTimeout = setTimeout(() => {
+      const refreshButton = document.getElementById('refreshButton');
+      if (refreshButton) {
+        refreshButton.classList.add('show');
+      }
+    }, this.buttonVisibilityTimeout);
+  }
+
+  private resetButtonTimer() {
+    const refreshButton = document.getElementById('refreshButton');
+    if (refreshButton) {
+      refreshButton.classList.remove('show');
+    }
+    clearTimeout(this.buttonTimeout);
+    this.buttonTimeout = setTimeout(() => {
+      if (refreshButton) {
+        refreshButton.classList.add('show');
+      }
+    }, this.buttonVisibilityTimeout);
+  }
 }

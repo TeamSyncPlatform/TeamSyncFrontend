@@ -39,7 +39,7 @@
 
 .react-button:hover {
   color: white;
-  background-color: rgb(55, 154, 218);
+  background-color: #0056b3;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
   transform: scale(1.05);
 }
@@ -94,7 +94,7 @@
 }
 
 ::ng-deep .cdk-overlay-container .reactions-box .reaction-item:hover button mat-icon {
-  color: #379ada;
+  color: #0056b3;
 }
 
 .selected-reaction{
@@ -102,5 +102,5 @@
 }
 
 .selected-reaction button mat-icon{
-  color: #379ada;
+  color: #0056b3;
 }

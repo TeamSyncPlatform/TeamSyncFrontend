@@ -55,4 +55,9 @@ export class UserService {
   getProfileImage(imageId: number): Observable<Blob> {
     return this.httpClient.get(`${environment.apiHost}users/image/${imageId}`, { responseType: 'blob' });
   }
+
+  toggleNotification(userId: number, notificationType: string): Observable<User> {
+    const url = `${environment.apiHost}users/${userId}/toggle-notification`;
+    return this.httpClient.put<User>(url, {}, { params: { notificationType } });
+  }
 }

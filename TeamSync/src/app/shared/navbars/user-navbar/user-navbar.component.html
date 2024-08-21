@@ -12,8 +12,26 @@
   <div class="push"></div>
   <div id="right-section">
     <button mat-icon-button id="notification-icon-box">
-      <mat-icon matBadge="{{unreadNotifications}}" matBadgeSize="small" class="notification-icon" (click)="openNotificationsPage()" [ngStyle]="{'color':'#ababab'}">notifications</mat-icon>
+      <mat-icon *ngIf = "notificationsBadge!='0'" matBadge="{{notificationsBadge}}" class="notification-icon"  [ngStyle]="{'color':'#ababab'}" [matMenuTriggerFor]="notificationsMenu" (click)="onNotificationsClicked()">notifications</mat-icon>
+      <mat-icon *ngIf = "notificationsBadge=='0'" class="notification-icon"  [ngStyle]="{'color':'#ababab'}" [matMenuTriggerFor]="notificationsMenu" (click)="onNotificationsClicked()">notifications</mat-icon>
     </button>
+
+    <mat-menu class="notifications-menu" #notificationsMenu="matMenu">
+      <div class="top-notifications-menu">
+        <h3>Notifications</h3>
+        <span class="read-all-button" (click)="onReadAllClicked()">Read all</span>
+      </div>
+
+      @if (notifications && notifications.length > 0){
+        @for (notification of notifications; track notification){
+          <app-notification-card (readClicked)="onReadClicked($event)" [notification]="notification" ></app-notification-card>
+        }
+      } @else {
+        <span class="no-notifications-message">No notifications yet!</span>
+      }
+    </mat-menu>
+
+
     <button mat-icon-button id="account-icon-box" [matMenuTriggerFor]="menu">
       <mat-icon class="account-icon">account_circle</mat-icon>
     </button>

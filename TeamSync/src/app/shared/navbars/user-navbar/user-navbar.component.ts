@@ -1,9 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {NavbarService} from "../navbar.service";
 import {AuthenticationService} from "../../../core/zitadel/authentication.service";
 import {UserService} from "../../users/user.service";
 import {User} from "../../users/models/user.model";
+import {Notification} from "../../notifications/models/notification.model";
 
 @Component({
   selector: 'app-user-navbar',
@@ -13,8 +14,13 @@ import {User} from "../../users/models/user.model";
 export class UserNavbarComponent implements OnInit{
   private currentPath: String = '';
 
-  @Input()
-  loggedUser!: User;
+  @Input() notificationsBadge!: string;
+  @Input() loggedUser!: User;
+  @Input() notifications!: Notification[];
+
+  @Output() notificationsClicked = new EventEmitter<void>();
+  @Output() readAllClicked = new EventEmitter<void>();
+  @Output() readClicked = new EventEmitter<void>();
 
   constructor(
     private navbarService: NavbarService,
@@ -31,14 +37,8 @@ export class UserNavbarComponent implements OnInit{
     return this.currentPath === path;
   }
 
-  unreadNotifications: number = 2;
-
-  openAccountPage() {
-
-  }
-
-  openNotificationsPage() {
-
+  onNotificationsClicked() {
+    this.notificationsClicked.emit();
   }
 
   logout() {
@@ -46,10 +46,18 @@ export class UserNavbarComponent implements OnInit{
   }
 
   openSettingsPage() {
-
+    this.router.navigate(['/settings', this.loggedUser.email]);
   }
 
   goToProfilePage() {
     this.router.navigate(['/profile', this.loggedUser.email]);
+  }
+
+  onReadAllClicked() {
+    this.readAllClicked.emit();
+  }
+
+  onReadClicked($event: any) {
+    this.readClicked.emit();
   }
 }

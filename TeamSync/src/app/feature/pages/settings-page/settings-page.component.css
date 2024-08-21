@@ -1,0 +1,20 @@
+.window-box{
+  background-color: #fafafa;
+  width: 100%;
+  min-height: 100%;
+  overflow: hidden;
+}
+
+app-navbar{
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+}
+
+.settings-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}

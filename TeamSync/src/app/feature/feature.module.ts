@@ -60,6 +60,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { UserPostsPanelComponent } from './user/user-posts-panel/user-posts-panel.component';
 import { EditUserDialogComponent } from './user/edit-user-dialog/edit-user-dialog.component';
+import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
 
 
 
@@ -96,6 +97,7 @@ import { EditUserDialogComponent } from './user/edit-user-dialog/edit-user-dialo
     ProfilePageComponent,
     UserPostsPanelComponent,
     EditUserDialogComponent,
+    SettingsPageComponent,
   ],
   imports: [
     CommonModule,

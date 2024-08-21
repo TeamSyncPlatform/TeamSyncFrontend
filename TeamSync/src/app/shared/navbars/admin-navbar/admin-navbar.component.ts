@@ -1,8 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NavbarService} from "../navbar.service";
 import {AuthenticationService} from "../../../core/zitadel/authentication.service";
 import {User} from "../../users/models/user.model";
 import {Router} from "@angular/router";
+import {Notification} from "../../notifications/models/notification.model";
 
 @Component({
   selector: 'app-admin-navbar',
@@ -12,8 +13,13 @@ import {Router} from "@angular/router";
 export class AdminNavbarComponent implements OnInit{
   private currentPath: String = '';
 
-  @Input()
-  loggedUser!: User;
+  @Input() loggedUser!: User;
+  @Input() notificationsBadge!: string;
+  @Input() notifications!: Notification[];
+  @Output() notificationsClicked = new EventEmitter<void>();
+  @Output() readAllClicked = new EventEmitter<void>();
+  @Output() readClicked = new EventEmitter<void>();
+
   constructor(
     private navbarService: NavbarService,
     private authenticationService:AuthenticationService,
@@ -29,21 +35,28 @@ export class AdminNavbarComponent implements OnInit{
     return this.currentPath === path;
   }
 
-  unreadNotifications: number = 2;
-
-  openNotificationsPage() {
-
-  }
 
   logout() {
     this.authenticationService.signout();
   }
 
   openSettingsPage() {
-
+    this.router.navigate(['/settings', this.loggedUser.email]);
   }
 
   goToProfilePage() {
     this.router.navigate(['/profile', this.loggedUser.email]);
+  }
+
+  onNotificationsClicked() {
+    this.notificationsClicked.emit();
+  }
+
+  onReadAllClicked() {
+    this.readAllClicked.emit();
+  }
+
+  onReadClicked($event: any) {
+    this.readClicked.emit();
   }
 }
