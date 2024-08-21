@@ -26,6 +26,8 @@
         @for (notification of notifications; track notification){
           <app-notification-card (readClicked)="onReadClicked($event)" [notification]="notification" ></app-notification-card>
         }
+      } @else {
+        <span class="no-notifications-message">No notifications yet!</span>
       }
     </mat-menu>
 
