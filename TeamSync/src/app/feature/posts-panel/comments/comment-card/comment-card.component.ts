@@ -3,7 +3,7 @@ import {Post} from "../../../models/post/post.model";
 import {User} from "../../../../shared/users/models/user.model";
 import {Comment} from "../../../models/comment/comment.model";
 import {UserService} from "../../../../shared/users/user.service";
-import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
+import {DomSanitizer, SafeHtml, SafeUrl} from "@angular/platform-browser";
 import {Router} from "@angular/router";
 
 @Component({
@@ -18,12 +18,14 @@ export class CommentCardComponent implements OnInit{
   author: User = {} as User;
 
   profileImageUrl: SafeUrl | string = '/default-profile-image.png';
+  commentContent: SafeHtml | string = '';
 
   constructor(private userService: UserService, private sanitizer: DomSanitizer, private router: Router) {
   }
 
   ngOnInit() {
     this.loadAuthor();
+    this.commentContent = this.sanitizer.bypassSecurityTrustHtml(this.comment.content);
   }
 
   private loadAuthor() {

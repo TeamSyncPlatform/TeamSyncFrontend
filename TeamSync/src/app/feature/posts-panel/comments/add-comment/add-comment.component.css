@@ -31,3 +31,39 @@
   background-color: #0056b3;
   color: white;
 }
+
+#mention-dropdown {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  z-index: 1000;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.mention-item{
+  padding: 0.5em;
+  cursor: pointer;
+}
+
+.mention-item:hover{
+  background-color: #0056b3;
+  color: white;
+}
+
+#comment-textarea{
+  -moz-appearance: textfield-multiline;
+  -webkit-appearance: textarea;
+  border: 1px solid gray;
+  font: medium -moz-fixed;
+  font: -webkit-small-control;
+  height: 5em;
+  border-radius: 5px;
+  overflow: auto;
+  padding: 1em;
+  resize: vertical;
+  width: 100%;
+}
+

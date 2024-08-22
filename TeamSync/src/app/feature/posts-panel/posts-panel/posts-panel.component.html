@@ -15,7 +15,8 @@
     <app-posts-cards
       (postDeleted)="onPostDeletion($event)"
       [loggedUser]="loggedUser"
-      [posts]="posts" ></app-posts-cards>
+      [posts]="posts"
+    [group]="group"></app-posts-cards>
 
     <div *ngIf="isLoading">Loading...</div>
     <button mat-flat-button class="create-post-button" (click)="openCreatePostDialog()">

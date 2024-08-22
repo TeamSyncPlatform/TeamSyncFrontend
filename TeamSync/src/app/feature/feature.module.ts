@@ -63,7 +63,7 @@ import { EditUserDialogComponent } from './user/edit-user-dialog/edit-user-dialo
 import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
 import {MatSelect} from "@angular/material/select";
 import {BaseChartDirective} from "ng2-charts";
-
+import { MentionModule } from 'angular-mentions';
 
 
 @NgModule({
@@ -144,6 +144,7 @@ import {BaseChartDirective} from "ng2-charts";
     MatSelect,
     MatOption,
     BaseChartDirective,
+    MentionModule
   ]
 })
 export class FeatureModule { }

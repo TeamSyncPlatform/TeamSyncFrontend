@@ -15,6 +15,7 @@ import {RemovePostDialogComponent} from "../dialogs/remove-post-dialog/remove-po
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
 import {Router} from "@angular/router";
 import {Comment} from "../../models/comment/comment.model";
+import {Group} from "../../models/group/group.model";
 
 @Component({
   selector: 'app-post-card',
@@ -24,6 +25,7 @@ import {Comment} from "../../models/comment/comment.model";
 export class PostCardComponent implements OnInit{
   @Input()
   post!: Post;
+  @Input() group!: Group;
   author: User = {} as User;
   content!: string;
   attachments!: Attachment[];

@@ -20,6 +20,7 @@ export class CreatePostDialogComponent {
   content!: string;
   attachments: File[] = [];
 
+
   constructor(
     private postService: PostService,
     private attachmentService: AttachmentService,
