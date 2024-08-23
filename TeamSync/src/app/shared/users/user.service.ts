@@ -43,6 +43,11 @@ export class UserService {
     return this.httpClient.put<Group[]>(url, { searchValue });
   }
 
+  searchUsersInGroup(groupId: any, searchValue: string): Observable<User[]>  {
+    const url = `${environment.apiHost}users/groups/${groupId}/search-users`;
+    return this.httpClient.put<User[]>(url, { searchValue });
+  }
+
   searchUsersToAdd(groupId: any, searchValue: string): Observable<User[]>  {
     const url = `${environment.apiHost}users/groups/${groupId}/search`;
     return this.httpClient.put<User[]>(url, { searchValue });

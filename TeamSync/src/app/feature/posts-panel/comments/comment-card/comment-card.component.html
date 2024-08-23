@@ -6,7 +6,7 @@
         <span (click)="goToProfilePage()" class="clickable">{{author.firstName}} {{author.lastName}}</span>
         <span class="date-info">{{getCommentCreation(comment.creationDate)}}</span>
       </div>
-      <p>{{comment.content}}</p>
+      <div class="comment-content" [innerHTML]="commentContent"></div>
       <div class="bottom-section">
         <app-comment-reactions [loggedUser]="loggedUser" [comment]="comment" ></app-comment-reactions>
       </div>

@@ -77,11 +77,6 @@
   transform: scale(1.05);
 }
 
-
-.post-card {
-  position: relative;
-}
-
 .attachment{
   cursor: pointer;
 }

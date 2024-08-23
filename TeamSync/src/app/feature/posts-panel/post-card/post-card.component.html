@@ -21,6 +21,7 @@
             [init]="{
             plugins: 'autoresize',
             toolbar: 'false',
+            statusbar: false,
             menubar: 'false',
             max_height: 500,
             disabled: true
@@ -46,7 +47,7 @@
     </div>
 
     @if (areCommentsShowing){
-      <app-comments-section (commentAdded)="onCommentAdded($event)" [post]="post" [loggedUser]="loggedUser"></app-comments-section>
+      <app-comments-section (commentAdded)="onCommentAdded($event)"  [group]="group" [post]="post" [loggedUser]="loggedUser"></app-comments-section>
     }
   </div>
 }

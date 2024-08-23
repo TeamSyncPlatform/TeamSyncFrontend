@@ -3,6 +3,7 @@ import {Post} from "../../../models/post/post.model";
 import {User} from "../../../../shared/users/models/user.model";
 import {PostService} from "../../../services/post.service";
 import {Comment} from "../../../models/comment/comment.model";
+import { Group } from '../../../models/group/group.model';
 
 @Component({
   selector: 'app-comments-section',
@@ -15,6 +16,7 @@ export class CommentsSectionComponent {
   comments: Comment[] = [] as Comment[];
 
   @Output() commentAdded = new EventEmitter<Comment>();
+  @Input() group!: Group;
 
   constructor(private postService: PostService) {
   }
