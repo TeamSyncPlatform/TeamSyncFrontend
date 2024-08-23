@@ -44,3 +44,7 @@
   justify-content: end;
   width: 100%
 }
+
+.comment-content{
+  padding: 0.5em 0;
+}
