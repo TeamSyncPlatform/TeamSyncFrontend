@@ -55,7 +55,7 @@
 }
 
 .dropdown-menu {
-  margin: 0;
+  margin: 2px 0 5px 0;
   background-color: rgba(47, 49, 54, 0);
   border-radius: 4px;
   width: 100%;
@@ -63,11 +63,18 @@
   padding: 0 0 0 1em;
 }
 
+.channel-shaded{
+  color: #404040;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
 
 .channel{
   color: #404040;
-  padding: 0.5em;
   display: flex;
+  padding: 0.5em;
   flex-direction: row;
   align-items: center;
   font-size: 16px;
@@ -76,7 +83,7 @@
   width: 100%;
 }
 
-.channel:hover{
+.channel-shaded:hover{
   background-color: #efefef;
   color: #333333;
   border-radius: 10px;
@@ -111,4 +118,24 @@
 
 .remove-button, .add-button{
   transform: scale(0.8);
+}
+
+.new-posts-badge {
+  background-color: #c13a3a;
+  color: white;
+  padding: 0.5em;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  min-height: 1.5em;
+  min-width: 1.5em;
+  font-size: 14px;
+  margin-right: 0.5em;
+  /*min-width: 2em;*/
+}
+
+.group-badge{
+  margin-left: 0.5em;
 }

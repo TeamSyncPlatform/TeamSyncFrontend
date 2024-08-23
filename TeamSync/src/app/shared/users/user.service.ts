@@ -38,7 +38,7 @@ export class UserService {
     return this.httpClient.put<User>(environment.apiHost + 'users/login', {});
   }
 
-  searchGroups(userId: string | null, searchValue: string): Observable<Group[]> {
+  searchGroups(userId: string | null, searchValue: string = ""): Observable<Group[]> {
     const url = `${environment.apiHost}users/${userId}/groups/search`;
     return this.httpClient.put<Group[]>(url, { searchValue });
   }
@@ -64,5 +64,9 @@ export class UserService {
   toggleNotification(userId: number, notificationType: string): Observable<User> {
     const url = `${environment.apiHost}users/${userId}/toggle-notification`;
     return this.httpClient.put<User>(url, {}, { params: { notificationType } });
+  }
+
+  getAllUserGroups(id: number): Observable<Group[]> {
+    return this.httpClient.get<Group[]>(environment.apiHost + 'users/' + id + '/groups')
   }
 }

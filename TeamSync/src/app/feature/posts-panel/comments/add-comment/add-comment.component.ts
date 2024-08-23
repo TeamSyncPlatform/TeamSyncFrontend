@@ -39,10 +39,8 @@ export class AddCommentComponent implements OnInit{
   }
 
   itemSelected(event: any) {
-    console.log("Item selected event activated");
     setTimeout(() => {
       this.htmlTextArea = document.getElementById('comment-textarea') as HTMLElement;
-      console.log("innerHTML: ", this.htmlTextArea.innerHTML);
       const regex = new RegExp(`##${event.label}##(\\d+)##`, 'g');
       this.htmlTextArea.innerHTML = this.htmlTextArea.innerHTML.replace(
         regex,
@@ -98,7 +96,7 @@ export class AddCommentComponent implements OnInit{
   }
 
   loadProfileImage() {
-    if (this.loggedUser.profileImage.id) {
+    if (this.loggedUser.profileImage) {
       this.userService.getProfileImage(this.loggedUser.profileImage.id).subscribe({
         next: (blob: Blob) => {
           const objectURL = URL.createObjectURL(blob);
@@ -125,6 +123,7 @@ export class AddCommentComponent implements OnInit{
         "label" : `${user.firstName}${user.lastName}`,
         'user' : user
       }));
+      console.log(this.items);
       // this.mentionConfig.items = users.map(user => `${user.firstName} ${user.lastName}`);
     });
   }

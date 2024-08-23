@@ -41,7 +41,7 @@ export class CommentCardComponent implements OnInit{
   }
 
   loadProfileImage() {
-    if (this.author.profileImage.id) {
+    if (this.author.profileImage) {
       this.userService.getProfileImage(this.author.profileImage.id).subscribe({
         next: (blob: Blob) => {
           const objectURL = URL.createObjectURL(blob);
