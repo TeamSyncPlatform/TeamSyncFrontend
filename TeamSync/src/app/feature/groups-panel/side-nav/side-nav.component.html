@@ -21,6 +21,9 @@
             {{ dropdowns.get(group.id) ? 'arrow_drop_down' : 'arrow_right' }}
           </mat-icon>
           {{ group.name }}
+          @if (getGroupUnreadPostsCount(group.id) > 0){
+            <span class="new-posts-badge group-badge">{{getGroupUnreadPostsCount(group.id)}}</span>
+          }
         </button>
         <button *ngIf="role === 'admin'" mat-icon-button class="add-button" (click)="openCreateChannelDialog(group)">
           <mat-icon>add</mat-icon>

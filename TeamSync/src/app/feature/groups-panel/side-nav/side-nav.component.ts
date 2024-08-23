@@ -103,7 +103,10 @@ export class SideNavComponent implements OnInit, OnDestroy{
         this.userService.searchGroups(userId, this.searchValue).subscribe({
           next: (groups: Group[]) => {
             this.groups = groups;
-            this.groups.forEach(group => this.dropdowns.set(group.id, false));
+            this.groups.forEach(group => {
+              this.dropdowns.set(group.id, false);
+              this.loadChannels(group.id);
+            });
           },
           error: (_) => {
             console.log('Error!');
@@ -193,12 +196,20 @@ export class SideNavComponent implements OnInit, OnDestroy{
     });
   }
 
-  getGroupUnreadPostsCount(groupId: number): number{
+  getGroupUnreadPostsCount(groupId: number): number {
     let count = 0;
     let channels = this.channels.get(groupId);
 
+    if (channels) {
+      for (let channel of channels) {
+        const postInfo = this.newPostsCount.get(channel.id);
+        if (postInfo && channel.id !== this.selectedChannel.id) {
+          count += postInfo.count;
+        }
+      }
+    }
 
-    return count
+    return count;
   }
 
 }
