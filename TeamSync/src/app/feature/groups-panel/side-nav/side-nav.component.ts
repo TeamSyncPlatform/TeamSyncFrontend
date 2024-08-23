@@ -29,6 +29,7 @@ import {CreateChannelDialogComponent} from "../dialogs/create-channel-dialog/cre
 import {RemoveGroupDialogComponent} from "../dialogs/remove-group-dialog/remove-group-dialog.component";
 import {RemoveChannelDialogComponent} from "../dialogs/remove-channel-dialog/remove-channel-dialog.component";
 import {Observable, Subscription} from "rxjs";
+import {WebsocketService} from "../../../shared/notifications/websocket.service";
 
 
 @Component({
@@ -42,14 +43,11 @@ export class SideNavComponent implements OnInit, OnDestroy{
   channels:  Map<number, Channel[]> = new Map();
   selectedChannel: Channel = {"group":{}} as Channel;
   role: string | null = '';
+  newPostsCount: Map<number, number> = new Map<number,number>;
 
   private eventsSubscription!: Subscription;
+  private newPostsCountSubscription!: Subscription;
   @Input() events!: Observable<void>;
-
-
-  ngOnDestroy() {
-    this.eventsSubscription.unsubscribe();
-  }
 
   @Output()
   channelClicked: EventEmitter<Channel> = new EventEmitter<Channel>();
@@ -60,12 +58,22 @@ export class SideNavComponent implements OnInit, OnDestroy{
     private fb: FormBuilder,
     private userService:UserService,
     private authenticationService:AuthenticationService,
-    private groupService: GroupService) {}
+    private groupService: GroupService,
+    private websocketService: WebsocketService) {}
 
   ngOnInit() {
     this.searchGroups();
     this.getRole();
+    this.subscribeToNewPostsCount();
     this.eventsSubscription = this.events.subscribe(() => this.searchGroups());
+  }
+
+
+  ngOnDestroy() {
+    this.eventsSubscription.unsubscribe();
+    if (this.newPostsCountSubscription) {
+      this.newPostsCountSubscription.unsubscribe();
+    }
   }
 
   getRole(){
@@ -85,6 +93,7 @@ export class SideNavComponent implements OnInit, OnDestroy{
   selectChannel(channel: Channel) {
     this.channelClicked.emit(channel);
     this.selectedChannel = channel;
+    this.websocketService.updateLastReadTimestamp(channel.id);
   }
 
   searchGroups(): void {
@@ -176,4 +185,12 @@ export class SideNavComponent implements OnInit, OnDestroy{
       }
     });
   }
+
+  private subscribeToNewPostsCount() {
+    this.newPostsCountSubscription = this.websocketService.newPostsCount$.subscribe(newPostsCount => {
+      console.log('New posts count:', newPostsCount);
+      this.newPostsCount = newPostsCount;
+    });
+  }
+
 }

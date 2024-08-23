@@ -22,18 +22,23 @@
           </mat-icon>
           {{ group.name }}
         </button>
-        <button *ngIf="role === 'admin'" mat-icon-button class="remove-button" (click)="openRemoveGroupDialog(group)">
-          <mat-icon>delete</mat-icon>
-        </button>
         <button *ngIf="role === 'admin'" mat-icon-button class="add-button" (click)="openCreateChannelDialog(group)">
           <mat-icon>add</mat-icon>
+        </button>
+        <button *ngIf="role === 'admin'" mat-icon-button class="remove-button" (click)="openRemoveGroupDialog(group)">
+          <mat-icon>delete</mat-icon>
         </button>
       </div>
 
       <ul *ngIf="dropdowns.get(group.id)" class="dropdown-menu">
         <li *ngFor="let channel of channels.get(group.id)" >
           <div class="channel-box">
-            <span class="channel" (click)="selectChannel(channel)" [ngClass]="{'selected-channel': selectedChannel.id === channel.id}"><mat-icon class="tag-icon">tag</mat-icon>{{ channel.name }}</span>
+            <div class="channel-shaded">
+              <span class="channel" (click)="selectChannel(channel)" [ngClass]="{'selected-channel': selectedChannel.id === channel.id}"><mat-icon class="tag-icon">tag</mat-icon>{{ channel.name }}</span>
+              @if (newPostsCount.has(channel.id) && channel !== selectedChannel && newPostsCount.get(channel.id) != 0){
+                <span class="new-posts-badge">{{newPostsCount.get(channel.id)}}</span>
+              }
+            </div>
             <button *ngIf="role === 'admin'" mat-icon-button class="remove-button" (click)="openRemoveChannelDialog(channel)">
               <mat-icon>delete</mat-icon>
             </button>

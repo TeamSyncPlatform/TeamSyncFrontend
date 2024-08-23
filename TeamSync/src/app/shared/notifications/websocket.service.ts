@@ -1,6 +1,6 @@
 import {inject, Injectable, OnInit} from '@angular/core';
 import {environment} from "../../core/env/env";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, forkJoin, tap} from "rxjs";
 import {AuthenticationService} from "../../core/zitadel/authentication.service";
 import {NotificationService} from "./notification.service";
 import {User} from "../users/models/user.model";
@@ -10,6 +10,9 @@ import * as Stomp from 'stompjs';
 import SockJS from 'sockjs-client';
 import {Notification} from "./models/notification.model";
 import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from "@angular/material/snack-bar";
+import {NewPostNotification} from "./models/new-post-notification.model";
+import {UnreadPostService} from "../../feature/services/unread-post.service";
+import {ChannelReference} from "../../feature/models/channel/channel-reference.model";
 
 @Injectable({
   providedIn: 'root'
@@ -25,9 +28,14 @@ export class WebsocketService{
   unreadCount$ = new BehaviorSubject(0);
   unreadCountState = this.unreadCount$.asObservable();
 
+  newPostsCount$ = new BehaviorSubject<Map<number, number>>(new Map());
+
   loggedUser!: User | undefined;
 
-  constructor(private authenticationService: AuthenticationService, private notificationService: NotificationService, private userService: UserService) {
+  constructor(private authenticationService: AuthenticationService,
+              private notificationService: NotificationService,
+              private userService: UserService,
+              private unreadPostService: UnreadPostService) {
     this.initialize();
   }
 
@@ -35,6 +43,7 @@ export class WebsocketService{
     await this.getLoggedUser();
     this.initializeWebSocketConnection();
     this.updateUnreadCount();
+    this.updateNewPostsCountForAllChannels();
   }
 
   initializeWebSocketConnection() {
@@ -44,8 +53,8 @@ export class WebsocketService{
 
     this.stompClient.connect({}, function () {
       that.isLoaded = true;
-      // that.openGlobalSocket();
       that.openSocket();
+      that.openPostSocket();
     }, function (error: Error) {
       console.error('Error during WebSocket connection:', error);
     });
@@ -67,10 +76,21 @@ export class WebsocketService{
         const notificationString = frame.body;
         const notification: Notification = JSON.parse(notificationString);
 
-        // Log the parsed notification
-        console.log("New notification: ", notification);
-
         this.handleResult(notification);
+      });
+    }
+  }
+
+  openPostSocket() {
+    if (this.isLoaded) {
+      this.stompClient.subscribe("/post-publisher/" + this.loggedUser!.id, (frame: any) => {
+
+        const newPostsNotificationString = frame.body;
+        const newPostNotification: NewPostNotification = JSON.parse(newPostsNotificationString);
+
+        // Handle the new post notification (e.g., show a snackbar or update the UI)
+        this.handleNewPostNotification(newPostNotification);
+        // this.showPostMessage(postNotification.message);
       });
     }
   }
@@ -108,4 +128,50 @@ export class WebsocketService{
     });
   }
 
+  private handleNewPostNotification(newPostNotification: NewPostNotification) {
+    const channelId = newPostNotification.channel.id;
+    const currentCountMap = this.newPostsCount$.value;
+
+    const currentCount = currentCountMap.get(channelId) || 0;
+    currentCountMap.set(channelId, currentCount + 1);
+
+    this.newPostsCount$.next(currentCountMap);
+  }
+
+  public updateNewPostsCountForAllChannels(): void {
+    if (this.loggedUser) {
+      this.userService.getAllUserGroups(this.loggedUser.id).subscribe({
+        next: (groups: any[]) => {
+          const channels = groups.flatMap(group => group.channels);
+
+          const updateCounts$ = channels.map((channel: ChannelReference) =>
+            this.unreadPostService.getUnreadPostsCount(this.loggedUser!.id, channel.id).pipe(
+              tap(count => {
+                const currentCountMap = this.newPostsCount$.value;
+                currentCountMap.set(channel.id, count);
+                this.newPostsCount$.next(new Map(currentCountMap));
+                console.log(`Updated post count for channel ${channel.id}: ${count}`);
+              })
+            )
+          );
+
+          forkJoin(updateCounts$).subscribe({
+            next: () => console.log("All new post counts updated"),
+            error: (err) => console.error("Error updating new post counts:", err)
+          });
+        },
+        error: (err) => console.error("Error fetching user groups:", err)
+      });
+    }
+  }
+
+  public updateLastReadTimestamp(channelId: number){
+    this.unreadPostService.updateLastReadTimestamp(this.loggedUser!.id, channelId).subscribe({
+      next: () => {
+        const currentCountMap = this.newPostsCount$.value;
+        currentCountMap.set(channelId, 0);
+        this.newPostsCount$.next(currentCountMap);
+      }
+    });
+  }
 }
