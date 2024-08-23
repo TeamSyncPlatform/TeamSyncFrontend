@@ -29,7 +29,7 @@ import {CreateChannelDialogComponent} from "../dialogs/create-channel-dialog/cre
 import {RemoveGroupDialogComponent} from "../dialogs/remove-group-dialog/remove-group-dialog.component";
 import {RemoveChannelDialogComponent} from "../dialogs/remove-channel-dialog/remove-channel-dialog.component";
 import {Observable, Subscription} from "rxjs";
-import {WebsocketService} from "../../../shared/notifications/websocket.service";
+import {PostInfo, WebsocketService} from "../../../shared/notifications/websocket.service";
 
 
 @Component({
@@ -43,7 +43,7 @@ export class SideNavComponent implements OnInit, OnDestroy{
   channels:  Map<number, Channel[]> = new Map();
   selectedChannel: Channel = {"group":{}} as Channel;
   role: string | null = '';
-  newPostsCount: Map<number, number> = new Map<number,number>;
+  newPostsCount: Map<number, PostInfo> = new Map<number, PostInfo>();
 
   private eventsSubscription!: Subscription;
   private newPostsCountSubscription!: Subscription;
@@ -191,6 +191,14 @@ export class SideNavComponent implements OnInit, OnDestroy{
       console.log('New posts count:', newPostsCount);
       this.newPostsCount = newPostsCount;
     });
+  }
+
+  getGroupUnreadPostsCount(groupId: number): number{
+    let count = 0;
+    let channels = this.channels.get(groupId);
+
+
+    return count
   }
 
 }

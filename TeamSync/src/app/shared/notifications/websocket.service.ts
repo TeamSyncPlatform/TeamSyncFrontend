@@ -14,6 +14,11 @@ import {NewPostNotification} from "./models/new-post-notification.model";
 import {UnreadPostService} from "../../feature/services/unread-post.service";
 import {ChannelReference} from "../../feature/models/channel/channel-reference.model";
 
+export interface PostInfo {
+  count: number;
+  userId: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -28,7 +33,8 @@ export class WebsocketService{
   unreadCount$ = new BehaviorSubject(0);
   unreadCountState = this.unreadCount$.asObservable();
 
-  newPostsCount$ = new BehaviorSubject<Map<number, number>>(new Map());
+
+  newPostsCount$ = new BehaviorSubject<Map<number, PostInfo>>(new Map());
 
   loggedUser!: User | undefined;
 
@@ -90,7 +96,6 @@ export class WebsocketService{
 
         // Handle the new post notification (e.g., show a snackbar or update the UI)
         this.handleNewPostNotification(newPostNotification);
-        // this.showPostMessage(postNotification.message);
       });
     }
   }
@@ -132,10 +137,12 @@ export class WebsocketService{
     const channelId = newPostNotification.channel.id;
     const currentCountMap = this.newPostsCount$.value;
 
-    const currentCount = currentCountMap.get(channelId) || 0;
-    currentCountMap.set(channelId, currentCount + 1);
+    const postInfo = currentCountMap.get(channelId) || { count: 0, userId: this.loggedUser!.id };
+    postInfo.count += 1;
+    postInfo.userId = this.loggedUser!.id;
 
-    this.newPostsCount$.next(currentCountMap);
+    currentCountMap.set(channelId, postInfo);
+    this.newPostsCount$.next(new Map(currentCountMap));
   }
 
   public updateNewPostsCountForAllChannels(): void {
@@ -148,7 +155,10 @@ export class WebsocketService{
             this.unreadPostService.getUnreadPostsCount(this.loggedUser!.id, channel.id).pipe(
               tap(count => {
                 const currentCountMap = this.newPostsCount$.value;
-                currentCountMap.set(channel.id, count);
+                const postInfo = currentCountMap.get(channel.id) || { count: 0, userId: this.loggedUser!.id };
+                postInfo.count = count;
+
+                currentCountMap.set(channel.id, postInfo);
                 this.newPostsCount$.next(new Map(currentCountMap));
                 console.log(`Updated post count for channel ${channel.id}: ${count}`);
               })
@@ -165,12 +175,15 @@ export class WebsocketService{
     }
   }
 
-  public updateLastReadTimestamp(channelId: number){
+  public updateLastReadTimestamp(channelId: number) {
     this.unreadPostService.updateLastReadTimestamp(this.loggedUser!.id, channelId).subscribe({
       next: () => {
         const currentCountMap = this.newPostsCount$.value;
-        currentCountMap.set(channelId, 0);
-        this.newPostsCount$.next(currentCountMap);
+        const postInfo = currentCountMap.get(channelId) || { count: 0, userId: this.loggedUser!.id };
+        postInfo.count = 0;
+
+        currentCountMap.set(channelId, postInfo);
+        this.newPostsCount$.next(new Map(currentCountMap));
       }
     });
   }

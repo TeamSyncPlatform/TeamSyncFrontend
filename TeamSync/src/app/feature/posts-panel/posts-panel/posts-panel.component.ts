@@ -9,6 +9,7 @@ import {User} from "../../../shared/users/models/user.model";
 import {ChannelService} from "../../services/channel.service";
 import {PostService} from "../../services/post.service";
 import {Observable, Subscription} from "rxjs";
+import {PostInfo, WebsocketService} from "../../../shared/notifications/websocket.service";
 
 @Component({
   selector: 'app-posts-panel',
@@ -21,23 +22,27 @@ export class PostsPanelComponent implements OnInit, OnDestroy{
   @Input() loggedUser!: User;
   @ViewChild('contentDiv') contentDiv!: ElementRef;
 
+  newPostsCount: Map<number, PostInfo> = new Map<number, PostInfo>();
   posts!: Post[];
 
+  private newPostsCountSubscription!: Subscription;
   private eventsSubscription!: Subscription;
   @Input() events!: Observable<Channel>;
 
-  private buttonTimeout: any;
-  private buttonVisibilityTimeout = 30000;
-
   ngOnDestroy() {
     this.eventsSubscription.unsubscribe();
-    clearTimeout(this.buttonTimeout);
+    if (this.newPostsCountSubscription) {
+      this.newPostsCountSubscription.unsubscribe();
+    }
   }
 
   readonly dialog = inject(MatDialog);
 
-  constructor(private channelService: ChannelService, private postService: PostService) {
-  }
+  constructor(
+    private channelService: ChannelService,
+    private postService: PostService,
+    private websocketService: WebsocketService
+  ) {}
 
   ngOnInit() {
     this.loadData();
@@ -45,8 +50,7 @@ export class PostsPanelComponent implements OnInit, OnDestroy{
       this.channel = channel;
       this.loadData();
     });
-
-    this.setupButtonTimer();
+    this.subscribeToNewPostsCount();
   }
 
   openCreatePostDialog() {
@@ -62,9 +66,9 @@ export class PostsPanelComponent implements OnInit, OnDestroy{
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // this.loadPosts();
         this.loadData();
         this.scrollToTop();
+        this.hideRefreshButton();
       }
     });
   }
@@ -79,12 +83,12 @@ export class PostsPanelComponent implements OnInit, OnDestroy{
     this.loadData();
   }
 
-  //INFINITE SCROLL
-  isLoading=false;
-  currentPage=0;
-  itemsPerPage=10;
+  // INFINITE SCROLL
+  isLoading = false;
+  currentPage = 0;
+  itemsPerPage = 10;
 
-  toggleLoading = ()=>this.isLoading=!this.isLoading;
+  toggleLoading = () => this.isLoading = !this.isLoading;
 
   loadData = () => {
     this.toggleLoading();
@@ -109,35 +113,42 @@ export class PostsPanelComponent implements OnInit, OnDestroy{
     });
   }
 
-  onScroll= ()=>{
+  onScroll = () => {
     this.currentPage++;
     this.appendData();
   }
 
   refreshButtonClicked() {
     this.loadData();
-    this.resetButtonTimer();
+    this.websocketService.updateLastReadTimestamp(this.channel!.id);
   }
 
-  private setupButtonTimer() {
-    this.buttonTimeout = setTimeout(() => {
-      const refreshButton = document.getElementById('refreshButton');
-      if (refreshButton) {
-        refreshButton.classList.add('show');
+  private subscribeToNewPostsCount() {
+    this.newPostsCountSubscription = this.websocketService.newPostsCount$.subscribe(newPostsCount => {
+      this.newPostsCount = newPostsCount;
+      if (this.channel?.id != undefined) {
+        let count = newPostsCount.get(this.channel.id)?.count;
+        let userId = newPostsCount.get(this.channel.id)?.userId;
+        if (count && count > 0 && newPostsCount && userId && userId !== this.loggedUser.id) {
+          this.showRefreshButton();
+        } else {
+          this.hideRefreshButton();
+        }
       }
-    }, this.buttonVisibilityTimeout);
+    });
   }
 
-  private resetButtonTimer() {
+  showRefreshButton(){
+    const refreshButton = document.getElementById('refreshButton');
+    if (refreshButton) {
+      refreshButton.classList.add('show');
+    }
+  }
+
+  hideRefreshButton(){
     const refreshButton = document.getElementById('refreshButton');
     if (refreshButton) {
       refreshButton.classList.remove('show');
     }
-    clearTimeout(this.buttonTimeout);
-    this.buttonTimeout = setTimeout(() => {
-      if (refreshButton) {
-        refreshButton.classList.add('show');
-      }
-    }, this.buttonVisibilityTimeout);
   }
 }
