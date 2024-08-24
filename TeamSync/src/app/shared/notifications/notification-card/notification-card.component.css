@@ -2,7 +2,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 0.5em;
+  padding: 0 0.5em 0.5em 0.5em;
   background-color: white;
   border-top: 1px solid lightgray;
 }
@@ -10,6 +10,7 @@
 .top-section{
   display: flex;
   flex-direction: row;
+  align-items: end;
 }
 
 .stretch{
@@ -26,10 +27,11 @@
 
 .read-button {
   border-radius: 25px;
-  padding: 5px 10px;
+  padding: 0 0;
   background-color: #007bff;
   color: #fff;
   border: none;
+  max-height: 2.5em;
   font-size: 12px;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);

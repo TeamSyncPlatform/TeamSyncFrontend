@@ -77,7 +77,7 @@ export class AddCommentComponent implements OnInit{
 
 
   onSendClick() {
-    console.log(this.htmlTextArea);
+    this.htmlTextArea = document.getElementById('comment-textarea') as HTMLElement;
     const createCommentRequest : CreateCommentRequest = {
       author: this.loggedUser,
       content: this.htmlTextArea.innerHTML,
