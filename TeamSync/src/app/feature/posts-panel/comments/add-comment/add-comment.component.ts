@@ -70,13 +70,14 @@ export class AddCommentComponent implements OnInit{
   }
 
   ngOnInit() {
+    this.htmlTextArea = document.getElementById('comment-textarea') as HTMLElement;
     this.loadProfileImage();
     this.searchUsers();
   }
 
 
   onSendClick() {
-    // console.log(this.htmlTextArea.innerHTML)
+    console.log(this.htmlTextArea);
     const createCommentRequest : CreateCommentRequest = {
       author: this.loggedUser,
       content: this.htmlTextArea.innerHTML,
