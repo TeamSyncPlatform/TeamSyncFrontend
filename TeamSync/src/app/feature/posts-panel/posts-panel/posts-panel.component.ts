@@ -68,7 +68,7 @@ export class PostsPanelComponent implements OnInit, OnDestroy{
       if (result) {
         this.loadData();
         this.scrollToTop();
-        this.hideRefreshButton();
+        this.websocketService.updateLastReadTimestamp(this.channel!.id);
       }
     });
   }
