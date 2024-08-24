@@ -137,9 +137,9 @@ export class WebsocketService{
     const channelId = newPostNotification.channel.id;
     const currentCountMap = this.newPostsCount$.value;
 
-    const postInfo = currentCountMap.get(channelId) || { count: 0, userId: this.loggedUser!.id };
+    const postInfo = currentCountMap.get(channelId) || { count: 0, userId: newPostNotification.author.id };
     postInfo.count += 1;
-    postInfo.userId = this.loggedUser!.id;
+    postInfo.userId = newPostNotification.author.id;
 
     currentCountMap.set(channelId, postInfo);
     this.newPostsCount$.next(new Map(currentCountMap));
@@ -155,7 +155,7 @@ export class WebsocketService{
             this.unreadPostService.getUnreadPostsCount(this.loggedUser!.id, channel.id).pipe(
               tap(count => {
                 const currentCountMap = this.newPostsCount$.value;
-                const postInfo = currentCountMap.get(channel.id) || { count: 0, userId: this.loggedUser!.id };
+                const postInfo = currentCountMap.get(channel.id) || { count: 0, userId: 0};
                 postInfo.count = count;
 
                 currentCountMap.set(channel.id, postInfo);
