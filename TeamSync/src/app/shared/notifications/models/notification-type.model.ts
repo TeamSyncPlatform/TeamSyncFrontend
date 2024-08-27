@@ -2,5 +2,6 @@ export enum NotificationType {
   Mention = 'Mention',
   Comment = 'Comment',
   Reaction = 'Reaction',
-  Announcement = 'Announcement'
+  Announcement = 'Announcement',
+  GroupsStatus = 'GroupsStatus'
 }

@@ -6,6 +6,6 @@ export interface Notification{
   message: string;
   isRead: boolean;
   creationDate: string;
-  notificationType: NotificationType;
+  type: NotificationType;
   user: UserReference;
 }

@@ -1,4 +1,4 @@
-import {inject, Injectable, OnInit} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {environment} from "../../core/env/env";
 import {BehaviorSubject, forkJoin, tap} from "rxjs";
 import {AuthenticationService} from "../../core/zitadel/authentication.service";
@@ -13,6 +13,7 @@ import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition}
 import {NewPostNotification} from "./models/new-post-notification.model";
 import {UnreadPostService} from "../../feature/services/unread-post.service";
 import {ChannelReference} from "../../feature/models/channel/channel-reference.model";
+import {NotificationType} from "./models/notification-type.model";
 
 export interface PostInfo {
   count: number;
@@ -35,6 +36,8 @@ export class WebsocketService{
 
 
   newPostsCount$ = new BehaviorSubject<Map<number, PostInfo>>(new Map());
+
+  groupsStatus$ = new BehaviorSubject(0);
 
   loggedUser!: User | undefined;
 
@@ -102,6 +105,7 @@ export class WebsocketService{
 
   handleResult(notification : Notification) {
     this.updateUnreadCount();
+    this.handleGroupStatusNotification(notification);
     this.showMessage(notification.message);
   }
 
@@ -109,6 +113,12 @@ export class WebsocketService{
     const userId = await this.authenticationService.getUserId().toPromise();
     if (userId) {
       this.loggedUser = await this.userService.getByExternalId(userId).toPromise();
+    }
+  }
+
+  handleGroupStatusNotification(notification: Notification){
+    if(notification.type == NotificationType.GroupsStatus){
+      this.groupsStatus$.next(this.groupsStatus$.value+1);
     }
   }
 

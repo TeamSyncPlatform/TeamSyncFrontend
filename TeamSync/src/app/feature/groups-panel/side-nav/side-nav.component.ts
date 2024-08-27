@@ -47,6 +47,7 @@ export class SideNavComponent implements OnInit, OnDestroy{
 
   private eventsSubscription!: Subscription;
   private newPostsCountSubscription!: Subscription;
+  private groupStatusSubscription!: Subscription;
   @Input() events!: Observable<void>;
 
   @Output()
@@ -65,6 +66,7 @@ export class SideNavComponent implements OnInit, OnDestroy{
     this.searchGroups();
     this.getRole();
     this.subscribeToNewPostsCount();
+    this.subscribeToGroupsStatus();
     this.eventsSubscription = this.events.subscribe(() => this.searchGroups());
   }
 
@@ -73,6 +75,9 @@ export class SideNavComponent implements OnInit, OnDestroy{
     this.eventsSubscription.unsubscribe();
     if (this.newPostsCountSubscription) {
       this.newPostsCountSubscription.unsubscribe();
+    }
+    if (this.groupStatusSubscription) {
+      this.groupStatusSubscription.unsubscribe();
     }
   }
 
@@ -192,6 +197,12 @@ export class SideNavComponent implements OnInit, OnDestroy{
   private subscribeToNewPostsCount() {
     this.newPostsCountSubscription = this.websocketService.newPostsCount$.subscribe(newPostsCount => {
       this.newPostsCount = newPostsCount;
+    });
+  }
+
+  private subscribeToGroupsStatus() {
+    this.groupStatusSubscription = this.websocketService.groupsStatus$.subscribe(newStatus => {
+      this.searchGroups();
     });
   }
 
