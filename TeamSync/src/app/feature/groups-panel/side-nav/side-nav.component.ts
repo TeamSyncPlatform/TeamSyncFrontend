@@ -191,7 +191,6 @@ export class SideNavComponent implements OnInit, OnDestroy{
 
   private subscribeToNewPostsCount() {
     this.newPostsCountSubscription = this.websocketService.newPostsCount$.subscribe(newPostsCount => {
-      console.log('New posts count:', newPostsCount);
       this.newPostsCount = newPostsCount;
     });
   }

@@ -87,7 +87,7 @@ export class AddCommentComponent implements OnInit{
     this.commentService.create(createCommentRequest).subscribe({
       next: (response: Comment) => {
         this.commentAdded.emit(response);
-        this.content = '';
+        this.htmlTextArea.innerHTML = '';
         console.log("Channel created successfully:", response);
       },
       error: (error) => {

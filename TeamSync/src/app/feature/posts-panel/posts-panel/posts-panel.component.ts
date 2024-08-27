@@ -48,6 +48,7 @@ export class PostsPanelComponent implements OnInit, OnDestroy{
     this.loadData();
     this.eventsSubscription = this.events.subscribe((channel: Channel) => {
       this.channel = channel;
+      this.currentPage = 0;
       this.loadData();
     });
     this.subscribeToNewPostsCount();
@@ -66,6 +67,7 @@ export class PostsPanelComponent implements OnInit, OnDestroy{
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        this.currentPage = 0;
         this.loadData();
         this.scrollToTop();
         this.websocketService.updateLastReadTimestamp(this.channel!.id);
@@ -80,13 +82,14 @@ export class PostsPanelComponent implements OnInit, OnDestroy{
   }
 
   onPostDeletion(post: Post) {
+    this.currentPage = 0;
     this.loadData();
   }
 
   // INFINITE SCROLL
   isLoading = false;
   currentPage = 0;
-  itemsPerPage = 10;
+  itemsPerPage = 5;
 
   toggleLoading = () => this.isLoading = !this.isLoading;
 
@@ -95,6 +98,7 @@ export class PostsPanelComponent implements OnInit, OnDestroy{
     this.postService.getChannelPaginatedPosts(this.channel!.id, this.currentPage, this.itemsPerPage).subscribe({
       next: (response: any) => {
         this.posts = response.content;
+        console.log(this.posts)
       },
       error: err => console.log(err),
       complete: () => this.toggleLoading()
@@ -119,6 +123,7 @@ export class PostsPanelComponent implements OnInit, OnDestroy{
   }
 
   refreshButtonClicked() {
+    this.currentPage = 0;
     this.loadData();
     this.websocketService.updateLastReadTimestamp(this.channel!.id);
   }
