@@ -23,6 +23,7 @@ export class HomePageComponent implements OnInit{
 
   public leaveEventsSubject: Subject<void> = new Subject<void>();
   public channelChangedEventsSubject: Subject<Channel> = new Subject<Channel>();
+  public groupChangedEventsSubject: Subject<Group> = new Subject<Group>();
 
   constructor(
     private userService: UserService,
@@ -53,6 +54,7 @@ export class HomePageComponent implements OnInit{
     this.groupService.get(id).subscribe({
       next: (group: Group) => {
         this.activeGroup = group
+        this.groupChangedEventsSubject.next(this.activeGroup);
       },
       error: (error) => {
         console.error("Error getting group", error);

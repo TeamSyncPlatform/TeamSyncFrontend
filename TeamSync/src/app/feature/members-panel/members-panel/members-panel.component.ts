@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {AuthenticationService} from "../../../core/zitadel/authentication.service";
 import {User} from "../../../shared/users/models/user.model";
 import {Channel} from "../../models/channel/channel.model";
@@ -13,13 +13,14 @@ import {RemoveMembersDialogComponent} from "../dialogs/remove-members-dialog/rem
 import {UserService} from "../../../shared/users/user.service";
 import {RemoveGroupDialogComponent} from "../../groups-panel/dialogs/remove-group-dialog/remove-group-dialog.component";
 import {LeaveGroupDialogComponent} from "../dialogs/leave-group-dialog/leave-group-dialog.component";
+import {Observable, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-members-panel',
   templateUrl: './members-panel.component.html',
   styleUrl: './members-panel.component.css'
 })
-export class MembersPanelComponent implements OnInit{
+export class MembersPanelComponent implements OnInit, OnDestroy{
   @Input()
   group!: Group;
   owner!: User;
@@ -37,11 +38,24 @@ export class MembersPanelComponent implements OnInit{
   @Output()
   groupLeft: EventEmitter<void> = new EventEmitter<void>();
 
+  private eventsSubscription!: Subscription;
+  @Input() events!: Observable<Group>;
+
+  ngOnDestroy() {
+    this.eventsSubscription.unsubscribe();
+  }
+
   ngOnInit() {
     this.getRole();
     this.loadMembers();
     this.getOwner();
     this.getLoggedUserIdentification();
+
+    this.eventsSubscription = this.events.subscribe((group: Group) => {
+      this.group = group;
+      this.getOwner();
+      this.loadMembers();
+    });
   }
 
   getRole(){
