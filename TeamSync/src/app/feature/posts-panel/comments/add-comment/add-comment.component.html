@@ -1,20 +1,7 @@
 @if (loggedUser){
   <div class="add-comment-box">
     <img class="profile-picture" (click)="goToProfilePage()" [src]="profileImageUrl"  alt="Profile Picture">
-<!--    <form class="form">-->
-<!--      <mat-form-field appearance="outline" id="comment-input" class="comment-input" subscriptSizing="dynamic">-->
-<!--        <mat-label>Leave a comment</mat-label>-->
-<!--        <textarea-->
-<!--          [mention]="items"-->
-<!--          [mentionConfig]="mentionConfig"-->
-<!--          matInput-->
-<!--          placeholder="Ex. It makes me feel..."-->
-<!--          id="comment-textarea"-->
-<!--          [(ngModel)]="content"-->
-<!--          name="commentContent"-->
-<!--          (itemSelected)="itemSelected($event)"></textarea>-->
-<!--      </mat-form-field>-->
-<!--    </form>-->
+
     <div
       [mention]="items"
       [mentionConfig]="mentionConfig"
