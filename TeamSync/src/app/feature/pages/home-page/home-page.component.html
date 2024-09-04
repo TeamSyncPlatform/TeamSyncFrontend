@@ -1,0 +1,10 @@
+<div class="window-box">
+  <app-navbar></app-navbar>
+  <div class="wrapper">
+    <app-side-nav [events]="leaveEventsSubject.asObservable()" (channelClicked)="onChannelClicked($event)"></app-side-nav>
+    <app-posts-panel [events]="channelChangedEventsSubject.asObservable()" *ngIf="activeChannel" id="posts-panel" [group]="activeGroup" [channel]="activeChannel" [loggedUser]="loggedUser"></app-posts-panel>
+    <app-members-panel [events]="groupChangedEventsSubject.asObservable()" (groupLeft)="onGroupLeave()" *ngIf="activeGroup" id="members-panel" [group]="activeGroup"></app-members-panel>
+  </div>
+</div>
+
+

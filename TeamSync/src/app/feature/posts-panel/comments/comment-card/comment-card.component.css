@@ -1,0 +1,51 @@
+.comment-card{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5em;
+  padding: 0.5em;
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid lightgray;
+}
+
+.right-section{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.top-section{
+  display: flex;
+  flex-direction: column;
+}
+
+
+.date-info{
+  color: #b8b8b8;
+  font-size: 14px;
+}
+
+.profile-picture {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  align-self: start;
+  cursor: pointer;
+}
+
+.clickable{
+  cursor: pointer;
+}
+
+.bottom-section{
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  width: 100%
+}
+
+.comment-content{
+  padding: 0.5em 0;
+}

@@ -1,0 +1,17 @@
+@if (loggedUser){
+  <div class="ignore-notifications-box" *ngIf="loggedUser">
+    <h3>Allowed notifications</h3>
+    <div *ngFor="let type of notificationTypes">
+      <div class="notification-type-item">
+        {{ type }}
+        <mat-slide-toggle
+          labelPosition="before"
+          [(ngModel)]="sliderStates[type]"
+          (change)="onSliderChange(type)">
+
+        </mat-slide-toggle>
+      </div>
+
+    </div>
+  </div>
+}

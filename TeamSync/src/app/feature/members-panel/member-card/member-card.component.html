@@ -1,0 +1,19 @@
+@if (group && member){
+  <div class="member-card">
+    <div class="info" (click)="goToProfilePage()">
+      <span>{{member.firstName}} {{member.lastName}}</span>
+      <span class="email-info">{{member.email}}</span>
+    </div>
+    <div class="labels-container">
+      @if (member.role === "admin"){
+        @if (group.owner.id === member.id){
+          <app-owner-role-label></app-owner-role-label>
+        }
+        <app-admin-role-label></app-admin-role-label>
+      } @else if (member.role === "user"){
+        <app-user-role-label></app-user-role-label>
+      }
+    </div>
+  </div>
+}
+<hr class="line">

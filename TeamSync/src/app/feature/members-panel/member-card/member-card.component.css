@@ -1,0 +1,38 @@
+.member-card{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.info{
+  display: flex;
+  flex-direction: column;
+  /*align-items: left;*/
+  gap: 0.5em;
+  justify-content: left;
+  text-align: left;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.info .email-info{
+  color: #b8b8b8;
+  font-size: 12px;
+}
+
+.line{
+  height: 1px;
+  border-radius: 10px;
+  border: none;
+  background-color: #eaeaea;
+}
+
+.labels-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+}

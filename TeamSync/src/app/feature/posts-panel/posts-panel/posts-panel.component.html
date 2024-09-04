@@ -1,0 +1,30 @@
+@if (channel !== undefined && group !== undefined){
+  <div id="content" #contentDiv
+       class="search-results"
+       infiniteScroll
+       [infiniteScrollDistance]="2"
+       [infiniteScrollThrottle]="500"
+       (scrolled)="onScroll()"
+       [scrollWindow]="false">
+
+    <button mat-flat-button id="refreshButton" class="refresh-button" (click)="refreshButtonClicked()">
+      <mat-icon>refresh</mat-icon>
+      Refresh
+    </button>
+
+    <app-posts-cards
+      (postDeleted)="onPostDeletion($event)"
+      [loggedUser]="loggedUser"
+      [posts]="posts"
+    [group]="group"></app-posts-cards>
+
+    <div *ngIf="isLoading">Loading...</div>
+    <button mat-flat-button class="create-post-button" (click)="openCreatePostDialog()">
+      Create post
+    </button>
+
+
+  </div>
+}
+
+

@@ -1,0 +1,18 @@
+@if (loggedUser){
+  <div class="add-comment-box">
+    <img class="profile-picture" (click)="goToProfilePage()" [src]="profileImageUrl"  alt="Profile Picture">
+
+    <div
+      [mention]="items"
+      [mentionConfig]="mentionConfig"
+      id="comment-textarea"
+      contenteditable="true"
+      (itemSelected)="itemSelected($event)">
+
+    </div>
+    <button mat-icon-button class="send-button" matTooltip="send" (click)="onSendClick()">
+      <mat-icon>send</mat-icon>
+    </button>
+  </div>
+
+}

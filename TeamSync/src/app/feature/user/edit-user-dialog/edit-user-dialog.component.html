@@ -1,0 +1,79 @@
+<mat-dialog-content>
+  <div class="content" *ngIf="userForm">
+    <p class="title">Edit User</p>
+
+    <!-- Image Upload Section -->
+    <div class="image-section">
+      <img [src]="profileImageUrl" alt="Profile Image" class="profile-picture" />
+      <input type="file" (change)="onFileChange($event)" />
+    </div>
+
+    <form [formGroup]="userForm" class="user-form">
+      <!-- Email -->
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" required>
+      </mat-form-field>
+
+
+      <!-- First Name -->
+      <mat-form-field appearance="fill">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName" required>
+      </mat-form-field>
+
+      <!-- Last Name -->
+      <mat-form-field appearance="fill">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName" required>
+      </mat-form-field>
+
+      <!-- Address -->
+      <mat-form-field appearance="fill">
+        <mat-label>Address</mat-label>
+        <input matInput formControlName="address">
+      </mat-form-field>
+
+      <!-- Phone Number -->
+      <mat-form-field appearance="fill">
+        <mat-label>Phone Number</mat-label>
+        <input matInput formControlName="phoneNumber">
+      </mat-form-field>
+
+      <!-- Department -->
+      <mat-form-field appearance="fill">
+        <mat-label>Department</mat-label>
+        <input matInput formControlName="department">
+      </mat-form-field>
+
+      <!-- Job Title -->
+      <mat-form-field appearance="fill">
+        <mat-label>Job Title</mat-label>
+        <input matInput formControlName="jobTitle">
+      </mat-form-field>
+
+      <!-- Skills -->
+      <mat-form-field class="example-chip-list">
+        <mat-label>Skills</mat-label>
+        <mat-chip-grid #chipGrid aria-label="Skills">
+          <mat-chip-row *ngFor="let skill of skills" (removed)="removeSkill(skill)">
+            {{skill}}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip-row>
+          <input
+            placeholder="New skill..."
+            [matChipInputFor]="chipGrid"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="addSkill($event)"
+          />
+        </mat-chip-grid>
+      </mat-form-field>
+    </form>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-flat-button id="yes-button" (click)="onEditClick()">Edit</button>
+</mat-dialog-actions>

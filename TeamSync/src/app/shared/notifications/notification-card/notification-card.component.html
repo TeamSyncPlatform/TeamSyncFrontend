@@ -1,0 +1,12 @@
+@if (notification){
+  <div class="notification-card">
+    <p class="message">{{notification.message}}</p>
+    <div class="top-section">
+    <span class="date-info">{{getNotificationCreation(notification.creationDate)}}</span>
+    <span class="stretch"></span>
+    <button mat-flat-button class="read-button" (click)="readNotification()" *ngIf="!notification.isRead">
+    Read
+    </button>
+    </div>
+  </div>
+}

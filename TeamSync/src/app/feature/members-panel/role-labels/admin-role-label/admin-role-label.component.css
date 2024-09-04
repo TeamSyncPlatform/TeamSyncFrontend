@@ -1,0 +1,19 @@
+.role-admin-label{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background-color: #da7737;
+  color: white;
+  padding: 0 8px 0 0;
+  font-size: 12px;
+}
+
+.menu-icon{
+  transform: scale(0.7);
+}
+
+.menu-icon span{
+  margin-left: -5px;
+}

@@ -1,0 +1,54 @@
+@if (author && post){
+  <div class="post-card">
+    <div class="top-section">
+      <img class="profile-picture" [src]="profileImageUrl"  alt="Profile Picture" (click)="goToProfilePage()">
+      <div class="info-section">
+        <span class="clickable" (click)="goToProfilePage()">{{author.firstName}} {{author.lastName}}</span>
+        <span class="date-info">{{getPostCreation(post.creationDate)}}</span>
+      </div>
+      <div class="stretch"></div>
+      @if (loggedUser.id === author.id){
+        <button mat-icon-button class="post-options-icon" [matMenuTriggerFor]="menu">
+          <mat-icon class="account-icon">more_vert</mat-icon>
+        </button>
+        <mat-menu class="post-options-menu" #menu="matMenu">
+          <span class="menu-option" (click)="editPostClicked()">Edit</span>
+          <span class="menu-option" (click)="removePostClicked()">Remove</span>
+        </mat-menu>
+      }
+    </div>
+    <editor [disabled]="true" class="post-content" [(ngModel)]="content" apiKey="nd3g0k4hxtsddd9b7xxl7pf335fizrnf9u5qra3kaj5aovvn"
+            [init]="{
+            plugins: 'autoresize',
+            toolbar: 'false',
+            statusbar: false,
+            menubar: 'false',
+            max_height: 500,
+            disabled: true
+            }"
+    ></editor>
+
+    @if (attachments && attachments.length > 0){
+      <div class="attachments-section" >
+        <mat-chip-set aria-label="Attachments">
+          @for (attachment of attachments; track attachment){
+            <mat-chip class="attachment" (click)="downloadAttachment(attachment)">{{attachment.originalName}}</mat-chip>
+          }
+        </mat-chip-set>
+      </div>
+    }
+
+    <div class="bottom-section">
+      <app-reactions [loggedUser]="loggedUser" [post]="post"></app-reactions>
+      <button class="bottom-box" (click)="toggleComments()">
+        <mat-icon class="account-icon">comment</mat-icon>
+        Comments({{getCommentsSize()}})
+      </button>
+    </div>
+
+    @if (areCommentsShowing){
+      <app-comments-section (commentAdded)="onCommentAdded($event)"  [group]="group" [post]="post" [loggedUser]="loggedUser"></app-comments-section>
+    }
+  </div>
+}
+

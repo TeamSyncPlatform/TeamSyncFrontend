@@ -1,0 +1,51 @@
+@if (user && loggedUser){
+  <div class="window-box">
+    <app-navbar></app-navbar>
+    <div class="profile-container">
+      <div class="top-section">
+        <img class="profile-background" src="/profile-background.jpg" alt=" ">
+        <div class="profile-picture">
+          <img [src]="profileImageUrl" alt=" ">
+        </div>
+        <div class="main-info-box">
+          <div class="user-info">
+            <span class="user-name">{{user.firstName}} {{user.lastName}}</span>
+            <span class="user-expertise">{{user.jobTitle}}</span>
+          </div>
+          <div class="stretch"></div>
+          @if(user.id == loggedUser.id){
+            <button mat-icon-button id="edit-profile-button" (click)="openEditUserDialog()">
+              <mat-icon class="edit-icon">edit</mat-icon>
+            </button>
+          }
+        </div>
+      </div>
+      <div class="bottom-section">
+        <div class="left-section">
+          <div class="info-item" *ngIf="user.phoneNumber">
+            <mat-icon class="info-item-icon">phone</mat-icon>
+            <span>{{user.phoneNumber}}</span>
+          </div>
+          <div class="info-item" *ngIf="user.email">
+            <mat-icon class="info-item-icon">mail</mat-icon>
+            <span>{{user.email}}</span>
+          </div>
+          <div class="info-item" *ngIf="user.address">
+            <mat-icon class="info-item-icon">location_pin</mat-icon>
+            <span>{{user.address}}</span>
+          </div>
+          @if (user.skills && user.skills.length > 0){
+            <div class="skills-section" >
+              <mat-chip-set aria-label="Skills">
+                @for (skill of user.skills; track skill){
+                  <mat-chip class="skill">{{skill}}</mat-chip>
+                }
+              </mat-chip-set>
+            </div>
+          }
+        </div>
+        <app-user-posts-panel [user]="user"></app-user-posts-panel>
+      </div>
+    </div>
+  </div>
+}

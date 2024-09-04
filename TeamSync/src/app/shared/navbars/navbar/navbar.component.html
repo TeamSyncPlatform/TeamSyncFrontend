@@ -1,0 +1,4 @@
+@if(loggedUser){
+  <app-user-navbar *ngIf="role === 'user'" (notificationsClicked)="onNotificationsClicked($event)" (readAllClicked)="onReadAllClicked($event)" (readClicked)="onReadClicked($event)" [loggedUser]="loggedUser" [notificationsBadge]="notificationsBadge" [notifications]="notifications" ></app-user-navbar>
+  <app-admin-navbar *ngIf="role === 'admin'" (notificationsClicked)="onNotificationsClicked($event)" (readAllClicked)="onReadAllClicked($event)" (readClicked)="onReadClicked($event)" [loggedUser]="loggedUser" [notificationsBadge]="notificationsBadge" [notifications]="notifications"></app-admin-navbar>
+}

@@ -1,0 +1,50 @@
+<div id="navbar">
+  <img class="logo" src="/logo.png" alt=" ">
+  <div id="nav">
+    <div class="nav-option" [class.selected]="isSelected('home')" [routerLink]="['/home']">
+      Home
+    </div>
+    <div class="nav-option" [class.selected]="isSelected('analytics')" [routerLink]="['/analytics']">
+      Analytics
+    </div>
+  </div>
+  <!--  <span class="title">TeamSync</span>-->
+  <div class="push"></div>
+  <div id="right-section">
+    <button mat-icon-button id="notification-icon-box" (click)="onNotificationsClicked()">
+      <mat-icon *ngIf = "notificationsBadge!='0'" matBadge="{{notificationsBadge}}" class="notification-icon"  [ngStyle]="{'color':'#ababab'}" [matMenuTriggerFor]="notificationsMenu" >notifications</mat-icon>
+      <mat-icon *ngIf = "notificationsBadge=='0'" class="notification-icon"  [ngStyle]="{'color':'#ababab'}" [matMenuTriggerFor]="notificationsMenu" >notifications</mat-icon>
+    </button>
+
+    <mat-menu class="notifications-menu" #notificationsMenu="matMenu">
+      <div class="top-notifications-menu">
+        <h3>Notifications</h3>
+        <span class="read-all-button" (click)="onReadAllClicked()">Read all</span>
+      </div>
+
+      @if (notifications && notifications.length > 0){
+        @for (notification of notifications; track notification){
+          <app-notification-card (readClicked)="onReadClicked($event)" [notification]="notification" ></app-notification-card>
+        }
+      } @else {
+        <span class="no-notifications-message">No notifications yet!</span>
+      }
+    </mat-menu>
+
+
+    <button mat-icon-button id="account-icon-box" [matMenuTriggerFor]="menu">
+      <mat-icon class="account-icon">account_circle</mat-icon>
+    </button>
+    <mat-menu class="account-menu" #menu="matMenu">
+      <div class="menu-info">
+        <span>{{loggedUser.firstName}} {{loggedUser.lastName}}</span>
+        <span class="email-info">{{loggedUser.email}}</span>
+      </div>
+      <hr class="menu-line">
+      <span class="menu-option" (click)="goToProfilePage()"><mat-icon class="menu-icon">person</mat-icon>Profile</span>
+      <span class="menu-option" (click)="openSettingsPage()"><mat-icon class="menu-icon">settings</mat-icon>Settings</span>
+      <hr class="menu-line">
+      <span class="menu-option" (click)="logout()"><mat-icon class="menu-icon">logout</mat-icon>Logout</span>
+    </mat-menu>
+  </div>
+</div>

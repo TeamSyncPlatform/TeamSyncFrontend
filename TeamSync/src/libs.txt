@@ -1,0 +1,13 @@
+ng add @angular/material
+npm install angular-oauth2-oidc
+npm i --save-dev @types/uuid
+npm i localstorage-polyfill --save
+npm install --save @tinymce/tinymce-angular
+npm install file-saver --save
+npm install ngx-infinite-scroll
+npm install @stomp/stompjs sockjs-client
+npm install --save sockjs-client stompjs
+npm install chart.js
+npm install ng2-charts
+npm i angular-mentions
+npm install ngx-mentions

@@ -1,0 +1,150 @@
+.logo {
+  height: 4em;
+}
+
+#navbar{
+  display: flex;
+  flex-direction: row;
+  padding: 0 2em 0 1em;
+  align-items: center;
+  color: #333;
+  background-color: white;
+}
+
+.title {
+  font-size: 25px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin: 20px 0;
+}
+
+#nav{
+  margin-left: 1em;
+  display: flex;
+  flex-direction: row;
+}
+
+.nav-option{
+  cursor: pointer;
+  padding: 2em;
+  align-content: center;
+  justify-content: center;
+}
+
+.nav-option:hover {
+  box-shadow: 0 -2px 0 0 #379ada inset;
+  color: #191919;
+}
+
+.selected{
+  box-shadow: 0 -2px 0 0 #379ada inset;
+  color: #191919;
+}
+
+.push{
+  flex:1;
+}
+
+#right-section{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5em;
+}
+
+#account-icon-box{
+  border-radius: 50%;
+  background-color: #ffffff;
+}
+
+.account-icon{
+  transform: scale(2);
+}
+
+#notification-icon-box{
+  border-radius: 0.5em;
+  background-color: #ffffff;
+}
+
+::ng-deep .cdk-overlay-container .account-menu {
+  margin-top: 1rem;
+  width: 15em;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(227, 227, 227, 0.9);
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-info{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5em;
+  justify-content: center;
+}
+
+.menu-info .email-info{
+  color: #b8b8b8;
+}
+
+.menu-option{
+  padding: 0.5em 1em 0.5em 1em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  gap: 0.5em;
+  cursor: pointer;
+}
+
+.menu-option:hover{
+  background-color: #efefef;
+  color: #333333;
+}
+
+
+.menu-line{
+  height: 1px;
+  border-radius: 10px;
+  border: none;
+  background-color: #eaeaea;
+}
+
+/*Notifications*/
+::ng-deep .cdk-overlay-container .notifications-menu {
+  margin-top: 1rem;
+  width: 25em;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(227, 227, 227, 0.9);
+  display: flex;
+  flex-direction: column;
+  max-height: 30em;
+  padding: 0 0.5em 0.5em 0.5em;
+}
+
+.top-notifications-menu{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.5em;
+}
+
+.read-all-button{
+  cursor: pointer;
+  text-decoration: underline;
+  color: #555555;
+}
+
+.read-all-button:hover{
+  color: #838383;
+}
+
+.no-notifications-message{
+  padding-left: 0.5em;
+}

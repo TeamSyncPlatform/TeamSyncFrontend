@@ -1,0 +1,15 @@
+@if (comment){
+  <div class="comment-card">
+    <img class="profile-picture" [src]="profileImageUrl"  alt="Profile Picture" (click)="goToProfilePage()">
+    <div class="right-section">
+      <div class="top-section">
+        <span (click)="goToProfilePage()" class="clickable">{{author.firstName}} {{author.lastName}}</span>
+        <span class="date-info">{{getCommentCreation(comment.creationDate)}}</span>
+      </div>
+      <div class="comment-content" [innerHTML]="commentContent"></div>
+      <div class="bottom-section">
+        <app-comment-reactions [loggedUser]="loggedUser" [comment]="comment" ></app-comment-reactions>
+      </div>
+    </div>
+  </div>
+}

@@ -1,0 +1,16 @@
+<mat-dialog-content>
+  <p class="title">Create Channel</p>
+  <form [formGroup]="channelForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Channel name</mat-label>
+      <input matInput formControlName="channelName" />
+      <mat-error *ngIf="channelForm.get('channelName')?.hasError('nameTaken')">
+        {{ nameError }}
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancelClick()">Cancel</button>
+  <button mat-flat-button (click)="onCreateClick()" [disabled]="channelForm.invalid">Create</button>
+</mat-dialog-actions>

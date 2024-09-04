@@ -1,0 +1,29 @@
+#members-panel{
+  height: 100%;
+  background-color: rgba(250, 250, 250, 0);
+  padding: 1em;
+  width: 100%;
+  border-left: 2px solid #e3e3e3;
+  display: flex;
+  flex-direction: column;
+}
+
+.top-section{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.remove-button, .add-button{
+  transform: scale(0.8);
+}
+
+.leave-button{
+  /*background-color: #da7737;*/
+  background-color: #0056b3;
+}
+
+.members-list{
+  flex: 1;
+}

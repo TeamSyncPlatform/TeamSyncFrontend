@@ -1,0 +1,34 @@
+<div class="reactions-wrapper">
+  <div class="reaction-summary">
+    <div *ngFor="let reaction of getFilteredReactionsData()" class="reaction-item">
+      <mat-icon>{{reaction.icon}}</mat-icon>
+      <span>{{reaction.count}}</span>
+    </div>
+  </div>
+
+  <button class="react-button" [matMenuTriggerFor]="menu">
+    <mat-icon *ngIf="currentUserReaction" class="account-icon">{{getReactionIcon(currentUserReaction)}}</mat-icon>
+    <span *ngIf="currentUserReaction; else addReaction">{{currentUserReaction}}</span>
+    <ng-template #addReaction>
+      <mat-icon class="account-icon">add_reaction</mat-icon>
+      Add reaction
+    </ng-template>
+  </button>
+</div>
+
+<mat-menu class="reactions-box" #menu="matMenu">
+  <div class="reactions">
+    <div
+      class="reaction-item"
+      *ngFor="let reaction of reactionsData"
+      (click)="react(reaction.name)"
+      [ngClass]="{'selected-reaction': currentUserReaction === reaction.name}">
+      <button mat-icon-button matTooltip="{{reaction.name}}">
+        <mat-icon>{{reaction.icon}}</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-menu>
+
+
+

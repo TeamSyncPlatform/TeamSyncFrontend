@@ -1,0 +1,49 @@
+.window-box{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.wrapper{
+  background-color: #fafafa;
+  /*padding: 1em 0 1em 0;*/
+  display: flex;
+  flex-direction: row;
+  flex:1;
+}
+
+#posts-panel{
+  flex: 1;
+  margin-left: 20%;
+  margin-right: 20%;
+  overflow-y: auto;
+  margin-top: 5.2em;
+}
+
+app-side-nav {
+  max-width: 20em;
+  width: 20%;
+  flex-shrink: 0;
+  position: fixed;
+  top: 5.2em;
+  bottom: 0;
+  overflow-y: auto;
+}
+
+app-members-panel {
+  max-width: 20em;
+  width: 20%;
+  flex-shrink: 0;
+  position: fixed;
+  top: 5.2em;
+  bottom: 0;
+  right: 0;
+  overflow-y: auto;
+}
+
+app-navbar{
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+}
